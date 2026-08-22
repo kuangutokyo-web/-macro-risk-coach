@@ -1,7 +1,7 @@
 export type Language = "en" | "ja";
 import type { VocabularyReference } from "./vocabulary/types";
 
-export type Mode = "home" | "busy" | "normal" | "deep" | "review" | "vocabulary";
+export type Mode = "home" | "busy" | "normal" | "deep" | "news" | "review" | "vocabulary";
 
 export type QuizQuestion = {
   id: string;

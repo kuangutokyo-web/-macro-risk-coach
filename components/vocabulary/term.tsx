@@ -31,7 +31,7 @@ function splitTerms(text: string, references: VocabularyReference[]): Segment[] 
 }
 
 export function VocabularyText({ text, references, context, savedIds, onSave }: VocabularyTextProps) {
-  const [activeId, setActiveId] = useState<string | null>(null);
+  const [activeKey, setActiveKey] = useState<string | null>(null);
   const segments = useMemo(() => splitTerms(text, references), [text, references]);
-  return <>{segments.map((segment, index) => segment.termId ? <Fragment key={`${segment.termId}-${index}`}><button type="button" className={`vocab-term ${savedIds.has(segment.termId) ? "saved" : ""}`} onClick={(event) => { event.stopPropagation(); setActiveId(segment.termId || null); }}>{segment.text}</button>{activeId === segment.termId && <TermPanel termId={segment.termId} saved={savedIds.has(segment.termId)} onSave={() => onSave(segment.termId!, context)} onClose={() => setActiveId(null)} />}</Fragment> : <Fragment key={index}>{segment.text}</Fragment>)}</>;
+  return <>{segments.map((segment, index) => { const occurrenceKey = `${segment.termId}-${index}`; return segment.termId ? <Fragment key={occurrenceKey}><button type="button" className={`vocab-term ${savedIds.has(segment.termId) ? "saved" : ""}`} onClick={(event) => { event.stopPropagation(); setActiveKey(occurrenceKey); }}>{segment.text}</button>{activeKey === occurrenceKey && <TermPanel termId={segment.termId} saved={savedIds.has(segment.termId)} onSave={() => onSave(segment.termId!, context)} onClose={() => setActiveKey(null)} />}</Fragment> : <Fragment key={index}>{segment.text}</Fragment>; })}</>;
 }

@@ -6,6 +6,7 @@ A focused practice app for building macro market-risk judgment at three time dep
 - **Normal (20–30 min):** a short bilingual case covering only Relevant Exposure, Main P&L Drivers, and Further Check.
 - **Deep (45–60 min):** a bilingual five-step analysis with optional OpenAI evaluation.
 - **Vocabulary Bank:** save clickable terms from every learning mode, search multilingual definitions, and review them with prioritized spaced repetition.
+- **News Drill:** manually paste a story, complete a four-part risk exercise, copy a complete external-review prompt, and save pasted feedback and history locally.
 
 ## Local development
 

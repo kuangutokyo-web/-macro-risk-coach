@@ -3,11 +3,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { Arrow, Check, Clock, Mark, Spark } from "./icons";
 import { deepCase, type Language, type Mode, normalCase, quizQuestions } from "@/lib/content";
-import { vocabularyById, vocabularyCatalog } from "@/lib/vocabulary/catalog";
+import { vocabularyById } from "@/lib/vocabulary/catalog";
 import type { SourceContext, VocabularyReference } from "@/lib/vocabulary/types";
 import { useVocabulary } from "@/lib/vocabulary/use-vocabulary";
 import { VocabularyBank } from "./vocabulary/vocabulary-bank";
 import { VocabularyText } from "./vocabulary/term";
+import { CatalogVocabularyText } from "./vocabulary/catalog-text";
+import { NewsDrill } from "./news/news-drill";
 
 type WrongAnswer = { questionId: string; selected: number; savedAt: string };
 type Evaluation = { overallScore: number; summary: string; strengths: string[]; improvements: string[]; stepFeedback: { step: string; score: number; feedback: string }[] };
@@ -16,6 +18,7 @@ const modes = [
   { id: "busy" as const, eyebrow: "BUSY MODE", time: "5–10 min", title: "Sharpen your market sense.", body: "Five fast questions. Instant explanations. Wrong answers return for review.", tone: "lime", action: "Start quick drill" },
   { id: "normal" as const, eyebrow: "NORMAL MODE", time: "20–30 min", title: "Read the risk that matters.", body: "A focused macro case. Isolate exposure, P&L drivers, and the next check.", tone: "blue", action: "Open today’s case" },
   { id: "deep" as const, eyebrow: "DEEP MODE", time: "45–60 min", title: "Build the full risk view.", body: "Work a five-step case from market move to action, then ask AI to challenge it.", tone: "coral", action: "Begin deep analysis" },
+  { id: "news" as const, eyebrow: "NEWS DRILL", time: "20–40 min", title: "Turn headlines into risk views.", body: "Paste one story, work the transmission chain, then take a complete prompt to your preferred AI.", tone: "news", action: "Analyze a story" },
 ];
 
 function readWrongAnswers(): WrongAnswer[] {
@@ -52,6 +55,7 @@ export function RiskCoach() {
         <nav aria-label="Primary navigation">
           <button className={mode === "home" ? "active" : ""} onClick={() => navigate("home")}>Today</button>
           <button className={mode === "review" ? "active" : ""} onClick={() => navigate("review")}>Weekly review <span className="count">{hydrated ? wrongAnswers.length : 0}</span></button>
+          <button className={mode === "news" ? "active" : ""} onClick={() => navigate("news")}>News</button>
           <button className={mode === "vocabulary" ? "active" : ""} onClick={() => navigate("vocabulary")}>Vocabulary <span className="count vocab-count">{vocabulary.hydrated ? vocabulary.entries.length : 0}</span></button>
         </nav>
       </header>
@@ -60,6 +64,7 @@ export function RiskCoach() {
       {mode === "busy" && <BusyMode onBack={() => navigate("home")} onSaveWrong={saveWrong} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
       {mode === "normal" && <CaseMode kind="normal" language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
       {mode === "deep" && <CaseMode kind="deep" language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
+      {mode === "news" && <NewsDrill savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} onBack={() => navigate("home")} />}
       {mode === "review" && <Review wrongAnswers={wrongAnswers} onClear={clearWrong} onPractice={() => navigate("busy")} />}
       {mode === "vocabulary" && <VocabularyBank entries={vocabulary.entries} onRemove={vocabulary.remove} onReview={vocabulary.recordReview} onBack={() => navigate("home")} />}
     </main>
@@ -138,18 +143,6 @@ function EvaluationPanel({ evaluation, language, savedIds, onSaveTerm }: { evalu
 
 function ModelAnswer({ language, savedIds, onSaveTerm }: { language:Language; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
   return <div className="model-answer"><p className="category">MODEL ANSWER</p><h3>{language === "en" ? "A concise risk view" : "簡潔なリスク見解"}</h3>{normalCase.modelAnswer[language].map((line,index) => <p key={line}><span>0{index+1}</span><CatalogVocabularyText text={line} context={{mode:"normal",contentId:`normal-model-answer-${index+1}`,label:`Normal model answer ${index+1}: ${normalCase.title.en}`,surface:"model-answer",excerpt:line}} savedIds={savedIds} onSave={onSaveTerm} /></p>)}</div>;
-}
-
-function CatalogVocabularyText({ text, context, savedIds, onSave }: { text:string; context:SourceContext; savedIds:Set<string>; onSave:(termId:string,context:SourceContext)=>void }) {
-  return <VocabularyText text={text} references={catalogReferences(text)} context={context} savedIds={savedIds} onSave={onSave} />;
-}
-
-function catalogReferences(text:string):VocabularyReference[] {
-  const normalized = text.toLocaleLowerCase();
-  return vocabularyCatalog.flatMap((term) => {
-    const match = [term.term,...(term.aliases || [])].filter((candidate) => candidate.length >= 4).toSorted((a,b) => b.length-a.length).find((candidate) => normalized.includes(candidate.toLocaleLowerCase()));
-    return match ? [{termId:term.id,text:match}] : [];
-  });
 }
 
 function Review({ wrongAnswers, onClear, onPractice }: { wrongAnswers: WrongAnswer[]; onClear: () => void; onPractice: () => void }) {
