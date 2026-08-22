@@ -1,6 +1,7 @@
 import type { VocabularyTerm } from "./types";
+import { busyVocabularyCatalog } from "./busy-terms";
 
-export const vocabularyCatalog: VocabularyTerm[] = [
+const coreVocabularyCatalog: VocabularyTerm[] = [
   { id:"real-yield", term:"Real yield", aliases:["real yields"], category:"Rates", definitionEn:"A bond yield adjusted for expected inflation.", definitionZh:"扣除预期通胀后的债券收益率。", definitionJa:"予想インフレ率を差し引いた債券利回り。", practicalExplanation:"It is the market’s inflation-adjusted cost of money and a key discount rate for assets.", exampleEn:"Higher real yields pressured long-duration equities.", exampleJa:"実質利回りの上昇が長期デュレーション株を圧迫した。" },
   { id:"inflation-expectations", term:"Inflation expectations", category:"Macro", definitionEn:"The rate of future inflation expected by markets or households.", definitionZh:"市场或家庭对未来通胀率的预期。", definitionJa:"市場や家計が予想する将来のインフレ率。", practicalExplanation:"Markets separate nominal yields into expected inflation and a real return.", exampleEn:"Inflation expectations rose after the oil shock.", exampleJa:"原油ショック後、インフレ期待が上昇した。" },
   { id:"long-duration", term:"Long-duration asset", aliases:["long-duration growth stocks"], category:"Risk Management", definitionEn:"An asset whose value depends heavily on cash flows far in the future.", definitionZh:"价值高度依赖遥远未来现金流的资产。", definitionJa:"遠い将来のキャッシュフローに価値が大きく依存する資産。", practicalExplanation:"When discount rates rise, distant cash flows lose more present value.", exampleEn:"Software stocks often behave like long-duration assets.", exampleJa:"ソフトウェア株は長期デュレーション資産のように動くことが多い。" },
@@ -31,5 +32,7 @@ export const vocabularyCatalog: VocabularyTerm[] = [
   { id:"basis-risk", term:"Basis risk", aliases:["duration-hedged","cross-currency basis"], category:"Risk Management", definitionEn:"The risk that a hedge and the exposure it protects do not move together.", definitionZh:"对冲工具与其所保护的敞口未能同步变动的风险。", definitionJa:"ヘッジ手段と対象エクスポージャーが同じように動かないリスク。", practicalExplanation:"A hedge can offset the broad market move while leaving a mismatch that still creates P&L.", exampleEn:"Treasury futures left basis risk against corporate bonds.", exampleJa:"国債先物ヘッジには社債とのベーシスリスクが残った。" },
   { id:"liquidity-risk", term:"Liquidity risk", aliases:["market depth","bid–ask spreads","liquidity","Poor liquidity"], category:"Risk Management", definitionEn:"The risk that a position cannot be traded quickly near its observed price.", definitionZh:"头寸无法在接近观察价格的水平迅速交易的风险。", definitionJa:"観測価格に近い水準でポジションを迅速に取引できないリスク。", practicalExplanation:"Thin markets increase transaction costs, market impact, and the chance that an exit worsens prices.", exampleEn:"Falling market depth increased liquidity risk.", exampleJa:"市場の厚み低下で流動性リスクが高まった。" },
 ];
+
+export const vocabularyCatalog: VocabularyTerm[] = [...coreVocabularyCatalog, ...busyVocabularyCatalog];
 
 export const vocabularyById = new Map(vocabularyCatalog.map((term) => [term.id, term]));

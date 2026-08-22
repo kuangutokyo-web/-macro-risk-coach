@@ -1,0 +1,6029 @@
+{
+  "version": 1,
+  "title": "Macro Risk Coach Busy Question Bank",
+  "questionCount": 170,
+  "distribution": {
+    "FX / Carry / Intervention": 30,
+    "Rates / Curve / Central Bank": 30,
+    "Volatility / Options / Greeks": 30,
+    "P&L / Exposure / Hedging": 30,
+    "Cross-Asset / Macro": 25,
+    "Risk Management / Judgement": 25
+  },
+  "questions": [
+    {
+      "id": "busy-001",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "foundational",
+      "question": "USDJPY falls 1.5% intraday. Your book is long USDJPY delta with little optionality. What is the most immediate P&L impact?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Loss from spot delta"
+        },
+        {
+          "id": "B",
+          "text": "Gain from spot delta"
+        },
+        {
+          "id": "C",
+          "text": "Gain from vega"
+        },
+        {
+          "id": "D",
+          "text": "No material effect"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: long USDJPY loses when USDJPY falls.",
+        "B": "Wrong: a long USDJPY delta benefits from a rise, not a fall.",
+        "C": "Wrong: vega matters only if volatility exposure is relevant.",
+        "D": "Wrong: a 1.5% spot move is material for a directional delta position."
+      },
+      "vocabulary": [
+        "USDJPY",
+        "delta",
+        "spot"
+      ]
+    },
+    {
+      "id": "busy-002",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "foundational",
+      "question": "A fund borrows JPY at low rates, sells JPY and buys higher-yielding foreign assets. What is the core FX exposure?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Long JPY"
+        },
+        {
+          "id": "B",
+          "text": "Short JPY"
+        },
+        {
+          "id": "C",
+          "text": "Long volatility only"
+        },
+        {
+          "id": "D",
+          "text": "No FX exposure"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanations": {
+        "A": "Wrong: the trade sells JPY, so it is not long JPY.",
+        "B": "Correct: selling borrowed JPY creates a short-JPY exposure.",
+        "C": "Wrong: volatility may matter, but it is not the core FX position.",
+        "D": "Wrong: the funding leg creates FX exposure."
+      },
+      "vocabulary": [
+        "carry trade",
+        "short JPY"
+      ]
+    },
+    {
+      "id": "busy-003",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "A rapid JPY rally triggers stress in global risk assets. Which mechanism is most plausible?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Higher US inflation breakevens"
+        },
+        {
+          "id": "B",
+          "text": "Unwinding of yen-funded carry trades"
+        },
+        {
+          "id": "C",
+          "text": "Lower Japanese import prices"
+        },
+        {
+          "id": "D",
+          "text": "Steeper US yield curve"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanations": {
+        "A": "Wrong: JPY strength does not mechanically lift US inflation expectations.",
+        "B": "Correct: short-JPY carry trades can suffer FX losses and deleverage.",
+        "C": "Wrong: cheaper imports are a medium-term macro effect, not the immediate stress channel.",
+        "D": "Wrong: USD curve shape is not mechanically tied to JPY appreciation."
+      },
+      "vocabulary": [
+        "carry unwind",
+        "deleveraging",
+        "JPY rally"
+      ]
+    },
+    {
+      "id": "busy-004",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "BoJ communication turns unexpectedly hawkish while US rates are unchanged. What is the cleanest first-order FX implication?",
+      "options": [
+        {
+          "id": "A",
+          "text": "USDJPY upside"
+        },
+        {
+          "id": "B",
+          "text": "USDJPY downside"
+        },
+        {
+          "id": "C",
+          "text": "Higher EURUSD solely from BoJ"
+        },
+        {
+          "id": "D",
+          "text": "No impact on FX"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanations": {
+        "A": "Wrong: hawkish BoJ repricing tends to support JPY, not weaken it.",
+        "B": "Correct: higher expected JPY rates narrow the US-Japan rate gap and can pressure USDJPY lower.",
+        "C": "Wrong: EURUSD is not the direct expression of BoJ repricing.",
+        "D": "Wrong: rate-differential changes are a major FX driver."
+      },
+      "vocabulary": [
+        "rate differential",
+        "hawkish",
+        "USDJPY"
+      ]
+    },
+    {
+      "id": "busy-005",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "USDJPY rises sharply after a strong US payrolls print. Which transmission channel is most direct?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Higher expected Fed path widens the US-Japan yield gap"
+        },
+        {
+          "id": "B",
+          "text": "Japan import prices fall"
+        },
+        {
+          "id": "C",
+          "text": "BoJ automatically intervenes"
+        },
+        {
+          "id": "D",
+          "text": "US equity volatility must fall"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: stronger US data can lift US rate expectations and widen the differential.",
+        "B": "Wrong: higher USDJPY means JPY weakness, which tends to raise Japan import costs.",
+        "C": "Wrong: intervention is discretionary, not automatic.",
+        "D": "Wrong: equity vol may move either way."
+      },
+      "vocabulary": [
+        "payrolls",
+        "yield differential",
+        "Fed path"
+      ]
+    },
+    {
+      "id": "busy-006",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "USDJPY is rising, but 1M USDJPY implied volatility also rises sharply. What does that combination most likely suggest?",
+      "options": [
+        {
+          "id": "A",
+          "text": "A calm trend with little uncertainty"
+        },
+        {
+          "id": "B",
+          "text": "Directional move plus elevated uncertainty/event risk"
+        },
+        {
+          "id": "C",
+          "text": "Volatility is irrelevant to FX"
+        },
+        {
+          "id": "D",
+          "text": "JPY funding costs have mechanically fallen"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanations": {
+        "A": "Wrong: rising implied vol is inconsistent with a calm market.",
+        "B": "Correct: spot is moving while options price more uncertainty.",
+        "C": "Wrong: volatility is a key FX risk factor.",
+        "D": "Wrong: implied vol does not directly equal JPY funding cost."
+      },
+      "vocabulary": [
+        "implied volatility",
+        "event risk"
+      ]
+    },
+    {
+      "id": "busy-007",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "challenging",
+      "question": "Japan authorities verbally warn against 'excessive FX moves' while USDJPY is near a recent high. What should a risk manager check first?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Only historical correlation with Nikkei"
+        },
+        {
+          "id": "B",
+          "text": "Directional USDJPY exposure, stop levels, liquidity and intervention sensitivity"
+        },
+        {
+          "id": "C",
+          "text": "US CPI seasonality only"
+        },
+        {
+          "id": "D",
+          "text": "Long-dated credit spreads only"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanations": {
+        "A": "Wrong: correlation alone does not capture intervention gap risk.",
+        "B": "Correct: intervention risk is most relevant to directional exposure, liquidity and gap behavior.",
+        "C": "Wrong: CPI may matter, but it is not the immediate risk focus.",
+        "D": "Wrong: credit spreads are secondary here."
+      },
+      "vocabulary": [
+        "intervention risk",
+        "gap risk",
+        "liquidity"
+      ]
+    },
+    {
+      "id": "busy-008",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "challenging",
+      "question": "USDJPY drops 2% in minutes after suspected intervention. Your book is short USDJPY gamma. What additional risk becomes important beyond directional delta?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Dynamic hedging losses as spot moves quickly"
+        },
+        {
+          "id": "B",
+          "text": "A guaranteed vega gain"
+        },
+        {
+          "id": "C",
+          "text": "Lower convexity risk"
+        },
+        {
+          "id": "D",
+          "text": "No need to rehedge"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: short gamma loses from large moves and can suffer adverse rehedging.",
+        "B": "Wrong: vega outcome depends on the book and vol move.",
+        "C": "Wrong: short gamma is negative convexity, not lower convexity risk.",
+        "D": "Wrong: delta changes rapidly when gamma is material."
+      },
+      "vocabulary": [
+        "gamma",
+        "dynamic hedging",
+        "intervention"
+      ]
+    },
+    {
+      "id": "busy-009",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "foundational",
+      "question": "If EURUSD rises from 1.08 to 1.10, what does that mean?",
+      "options": [
+        {
+          "id": "A",
+          "text": "EUR strengthened versus USD"
+        },
+        {
+          "id": "B",
+          "text": "USD strengthened versus EUR"
+        },
+        {
+          "id": "C",
+          "text": "Both currencies strengthened equally"
+        },
+        {
+          "id": "D",
+          "text": "FX basis widened"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: one euro buys more dollars, so EUR strengthened relative to USD.",
+        "B": "Wrong: the opposite is true.",
+        "C": "Wrong: FX is a relative price.",
+        "D": "Wrong: spot does not directly tell you basis."
+      },
+      "vocabulary": [
+        "EURUSD",
+        "spot"
+      ]
+    },
+    {
+      "id": "busy-010",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "A trader is long AUDJPY carry. Global equities sell off hard and JPY strengthens. Why can the position lose through two channels?",
+      "options": [
+        {
+          "id": "A",
+          "text": "AUD may weaken while JPY strengthens"
+        },
+        {
+          "id": "B",
+          "text": "AUD and JPY must both strengthen"
+        },
+        {
+          "id": "C",
+          "text": "Only interest accrual matters"
+        },
+        {
+          "id": "D",
+          "text": "The cross cannot move in risk-off"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: risk-off can weaken high-beta AUD and strengthen safe-haven JPY.",
+        "B": "Wrong: this is not the usual risk-off pattern.",
+        "C": "Wrong: spot can dominate carry accrual in stress.",
+        "D": "Wrong: FX crosses can move sharply in risk-off."
+      },
+      "vocabulary": [
+        "AUDJPY",
+        "carry",
+        "risk-off"
+      ]
+    },
+    {
+      "id": "busy-011",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "What would most weaken the thesis for a long USDJPY carry trade?",
+      "options": [
+        {
+          "id": "A",
+          "text": "US-Japan rate differential narrows sharply"
+        },
+        {
+          "id": "B",
+          "text": "US-Japan rate differential widens"
+        },
+        {
+          "id": "C",
+          "text": "JPY volatility falls"
+        },
+        {
+          "id": "D",
+          "text": "Spot remains stable"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: a narrower differential reduces carry support and can favor JPY.",
+        "B": "Wrong: wider differential tends to support USDJPY carry.",
+        "C": "Wrong: lower vol can support carry rather than weaken it.",
+        "D": "Wrong: stable spot is generally helpful to carry."
+      },
+      "vocabulary": [
+        "carry",
+        "rate differential"
+      ]
+    },
+    {
+      "id": "busy-012",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "challenging",
+      "question": "USDJPY falls while US 2Y yields are unchanged and Japan 2Y yields rise 20bp. Which explanation is most coherent?",
+      "options": [
+        {
+          "id": "A",
+          "text": "A narrower short-end rate differential supports JPY"
+        },
+        {
+          "id": "B",
+          "text": "The move must be caused by US inflation"
+        },
+        {
+          "id": "C",
+          "text": "Japan yields are irrelevant to FX"
+        },
+        {
+          "id": "D",
+          "text": "It proves intervention occurred"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: higher JPY front-end yields narrow the differential and can support JPY.",
+        "B": "Wrong: US inflation is not required to explain this move.",
+        "C": "Wrong: Japan rates matter directly for relative-value FX.",
+        "D": "Wrong: the data do not prove intervention."
+      },
+      "vocabulary": [
+        "front-end rates",
+        "rate differential"
+      ]
+    },
+    {
+      "id": "busy-013",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "A sudden rise in USDJPY risk reversal toward JPY calls most likely means:",
+      "options": [
+        {
+          "id": "A",
+          "text": "More demand for USDJPY upside protection"
+        },
+        {
+          "id": "B",
+          "text": "More demand for JPY-upside / USDJPY-downside protection"
+        },
+        {
+          "id": "C",
+          "text": "Spot must immediately fall"
+        },
+        {
+          "id": "D",
+          "text": "ATM vol must fall"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanations": {
+        "A": "Wrong: JPY calls correspond to USDJPY downside.",
+        "B": "Correct: downside protection becomes relatively more expensive.",
+        "C": "Wrong: skew can reprice before spot moves.",
+        "D": "Wrong: skew and ATM vol can move independently."
+      },
+      "vocabulary": [
+        "risk reversal",
+        "skew",
+        "JPY call"
+      ]
+    },
+    {
+      "id": "busy-014",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "challenging",
+      "question": "USDJPY spot is flat, but your FX options book loses money after the market prices more intervention risk. Which factor is most likely responsible?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Vega/skew repricing"
+        },
+        {
+          "id": "B",
+          "text": "Spot delta only"
+        },
+        {
+          "id": "C",
+          "text": "Coupon accrual"
+        },
+        {
+          "id": "D",
+          "text": "Credit migration"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: intervention risk can lift implied vol and downside skew even if spot is flat.",
+        "B": "Wrong: flat spot limits pure delta P&L.",
+        "C": "Wrong: coupon accrual is not the main FX-options driver here.",
+        "D": "Wrong: credit migration is unrelated."
+      },
+      "vocabulary": [
+        "vega",
+        "skew",
+        "intervention risk"
+      ]
+    },
+    {
+      "id": "busy-015",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "foundational",
+      "question": "If you are short USDJPY, which spot move hurts you?",
+      "options": [
+        {
+          "id": "A",
+          "text": "USDJPY falls"
+        },
+        {
+          "id": "B",
+          "text": "USDJPY rises"
+        },
+        {
+          "id": "C",
+          "text": "USDJPY is unchanged"
+        },
+        {
+          "id": "D",
+          "text": "JPY rates fall with spot unchanged"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanations": {
+        "A": "Wrong: a short USDJPY benefits from a fall.",
+        "B": "Correct: a short position loses when the price rises.",
+        "C": "Wrong: no spot move means no delta P&L.",
+        "D": "Wrong: with no rate sensitivity assumed, this is not the direct spot loss."
+      },
+      "vocabulary": [
+        "short position",
+        "USDJPY"
+      ]
+    },
+    {
+      "id": "busy-016",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "Which condition is most supportive of a classic FX carry strategy?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Stable spot and low realized volatility"
+        },
+        {
+          "id": "B",
+          "text": "Large frequent spot gaps"
+        },
+        {
+          "id": "C",
+          "text": "Rapidly rising funding currency"
+        },
+        {
+          "id": "D",
+          "text": "Highly uncertain policy regime"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: carry works best when yield pickup is not overwhelmed by FX moves.",
+        "B": "Wrong: gaps can wipe out accrued carry.",
+        "C": "Wrong: a stronger funding currency hurts short-funding positions.",
+        "D": "Wrong: policy uncertainty raises tail risk."
+      },
+      "vocabulary": [
+        "carry strategy",
+        "realized volatility"
+      ]
+    },
+    {
+      "id": "busy-017",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "challenging",
+      "question": "A desk reports small net USDJPY delta but large gross long and short positions across clients and tenors. What risk may still matter?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Concentration and basis risk despite small net delta"
+        },
+        {
+          "id": "B",
+          "text": "No risk because net is small"
+        },
+        {
+          "id": "C",
+          "text": "Only accounting risk"
+        },
+        {
+          "id": "D",
+          "text": "Only long-term inflation risk"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: offsetting gross positions can still carry tenor, basis, liquidity and concentration risks.",
+        "B": "Wrong: netting can hide important residual risks.",
+        "C": "Wrong: this is a market-risk issue.",
+        "D": "Wrong: inflation is not the primary concern."
+      },
+      "vocabulary": [
+        "gross exposure",
+        "net exposure",
+        "basis risk"
+      ]
+    },
+    {
+      "id": "busy-018",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "USDJPY rises after a dovish BoJ meeting. Which factor should you check before attributing the move entirely to BoJ?",
+      "options": [
+        {
+          "id": "A",
+          "text": "US yields and broader USD move"
+        },
+        {
+          "id": "B",
+          "text": "Only Japanese CPI from last year"
+        },
+        {
+          "id": "C",
+          "text": "Only Nikkei futures"
+        },
+        {
+          "id": "D",
+          "text": "Nothing else"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: FX is relative; concurrent US-rate or broad-USD moves may also matter.",
+        "B": "Wrong: stale data are less relevant to immediate attribution.",
+        "C": "Wrong: equities may help, but are not sufficient alone.",
+        "D": "Wrong: attribution should test alternative drivers."
+      },
+      "vocabulary": [
+        "attribution",
+        "broad USD"
+      ]
+    },
+    {
+      "id": "busy-019",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "challenging",
+      "question": "JPY strengthens sharply but Japanese equities hold up better than expected. Which interpretation is most prudent?",
+      "options": [
+        {
+          "id": "A",
+          "text": "FX-equity transmission may be weaker than usual; check exporter sensitivity and hedging"
+        },
+        {
+          "id": "B",
+          "text": "The JPY move is fake"
+        },
+        {
+          "id": "C",
+          "text": "Equities must fall later"
+        },
+        {
+          "id": "D",
+          "text": "FX no longer matters to equities"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: relationships are regime-dependent; investigate hedges, sector mix and expectations.",
+        "B": "Wrong: a divergence does not imply a fake move.",
+        "C": "Wrong: there is no certainty of a delayed fall.",
+        "D": "Wrong: FX can still matter even if the immediate beta is weaker."
+      },
+      "vocabulary": [
+        "regime",
+        "hedging",
+        "exporter sensitivity"
+      ]
+    },
+    {
+      "id": "busy-020",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "A client buys USDJPY 6M forward. Which broad risk profile is directionally closest?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Long USDJPY spot, short USD rates, long JPY rates"
+        },
+        {
+          "id": "B",
+          "text": "Short USDJPY spot, long USD rates, short JPY rates"
+        },
+        {
+          "id": "C",
+          "text": "Long USDJPY spot, long both rate legs"
+        },
+        {
+          "id": "D",
+          "text": "No rate sensitivity"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: a long forward is long USDJPY; forward value also depends on relative rates.",
+        "B": "Wrong: the spot direction is reversed.",
+        "C": "Wrong: relative-rate sensitivities are opposite across the two currencies.",
+        "D": "Wrong: forwards do have rate sensitivity through forward points."
+      },
+      "vocabulary": [
+        "FX forward",
+        "forward points"
+      ]
+    },
+    {
+      "id": "busy-021",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "challenging",
+      "question": "A long USDJPY forward gains even though spot is unchanged. Which change could explain it?",
+      "options": [
+        {
+          "id": "A",
+          "text": "US-Japan forward differential moves in favor of the position"
+        },
+        {
+          "id": "B",
+          "text": "No change in rates or basis"
+        },
+        {
+          "id": "C",
+          "text": "JPY volatility falls only"
+        },
+        {
+          "id": "D",
+          "text": "US equity index rises only"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: forward points can change with relative rates/basis, affecting mark-to-market.",
+        "B": "Wrong: with no relevant inputs changing, valuation should be stable.",
+        "C": "Wrong: a plain forward has no direct vega.",
+        "D": "Wrong: equities are not a direct input."
+      },
+      "vocabulary": [
+        "forward points",
+        "cross-currency basis"
+      ]
+    },
+    {
+      "id": "busy-022",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "foundational",
+      "question": "What is 'safe-haven demand' in FX?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Buying currencies perceived as resilient in stress"
+        },
+        {
+          "id": "B",
+          "text": "Buying only the highest-yielding currency"
+        },
+        {
+          "id": "C",
+          "text": "Selling all government bonds"
+        },
+        {
+          "id": "D",
+          "text": "Buying volatility-neutral carry"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: investors may seek perceived safety/liquidity in stress.",
+        "B": "Wrong: high yield is usually a carry characteristic, not safe haven.",
+        "C": "Wrong: safe-haven behavior can include buying government bonds.",
+        "D": "Wrong: this is not the definition."
+      },
+      "vocabulary": [
+        "safe haven",
+        "risk-off"
+      ]
+    },
+    {
+      "id": "busy-023",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "If JPY strengthens while global equities fall and credit spreads widen, the cleanest label is:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Risk-off / deleveraging"
+        },
+        {
+          "id": "B",
+          "text": "Growth boom"
+        },
+        {
+          "id": "C",
+          "text": "Carry build-up"
+        },
+        {
+          "id": "D",
+          "text": "Volatility compression"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: the cross-asset pattern is consistent with defensive positioning and deleveraging.",
+        "B": "Wrong: a growth boom usually supports risk assets.",
+        "C": "Wrong: carry build-up usually coincides with calmer conditions.",
+        "D": "Wrong: spreads widening is inconsistent with compression."
+      },
+      "vocabulary": [
+        "risk-off",
+        "credit spreads",
+        "deleveraging"
+      ]
+    },
+    {
+      "id": "busy-024",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "challenging",
+      "question": "Which is the best evidence that an FX move is positioning-driven rather than purely macro-data-driven?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Large move despite little new macro information, with crowded positioning and stop-outs"
+        },
+        {
+          "id": "B",
+          "text": "A scheduled CPI release surprises"
+        },
+        {
+          "id": "C",
+          "text": "Central bank changes policy rate"
+        },
+        {
+          "id": "D",
+          "text": "Forward curve reprices with macro data"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: absence of new fundamentals plus crowded positioning and stop-outs points to positioning.",
+        "B": "Wrong: a CPI surprise is a clear macro catalyst.",
+        "C": "Wrong: policy-rate changes are fundamental catalysts.",
+        "D": "Wrong: data-linked repricing is macro-driven."
+      },
+      "vocabulary": [
+        "positioning",
+        "stop-out",
+        "crowded trade"
+      ]
+    },
+    {
+      "id": "busy-025",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "What is the main risk of relying only on carry income when evaluating an FX position?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Spot and volatility losses can dominate accrued carry"
+        },
+        {
+          "id": "B",
+          "text": "Carry is always negative"
+        },
+        {
+          "id": "C",
+          "text": "Spot never matters"
+        },
+        {
+          "id": "D",
+          "text": "Funding currencies cannot strengthen"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: a few large FX moves can overwhelm months of carry.",
+        "B": "Wrong: carry can be positive or negative.",
+        "C": "Wrong: spot is central to FX P&L.",
+        "D": "Wrong: funding currencies can strengthen sharply."
+      },
+      "vocabulary": [
+        "carry income",
+        "tail risk"
+      ]
+    },
+    {
+      "id": "busy-026",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "challenging",
+      "question": "A short-JPY carry portfolio is hedged with static stop-loss levels. Why can stress still be severe?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Gaps and poor liquidity can cause execution far beyond stop levels"
+        },
+        {
+          "id": "B",
+          "text": "Stops guarantee execution at the chosen price"
+        },
+        {
+          "id": "C",
+          "text": "Carry income expands automatically in stress"
+        },
+        {
+          "id": "D",
+          "text": "JPY cannot gap in liquid markets"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: stops are not guarantees; gaps and liquidity deterioration create slippage.",
+        "B": "Wrong: stop orders can execute far from trigger levels.",
+        "C": "Wrong: carry does not automatically offset stress losses.",
+        "D": "Wrong: even liquid FX can gap around events."
+      },
+      "vocabulary": [
+        "stop-loss",
+        "slippage",
+        "liquidity"
+      ]
+    },
+    {
+      "id": "busy-027",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "intermediate",
+      "question": "USDJPY falls, but broad USD indices are flat. What should you investigate?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Japan-specific drivers such as BoJ repricing, intervention risk or local flows"
+        },
+        {
+          "id": "B",
+          "text": "Only Fed policy"
+        },
+        {
+          "id": "C",
+          "text": "Only US equities"
+        },
+        {
+          "id": "D",
+          "text": "Nothing; broad USD and USDJPY must always move together"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: relative divergence points toward JPY-specific factors.",
+        "B": "Wrong: Fed may matter, but does not explain the divergence alone.",
+        "C": "Wrong: US equities are insufficient.",
+        "D": "Wrong: bilateral pairs can diverge from broad USD."
+      },
+      "vocabulary": [
+        "broad USD",
+        "local flows"
+      ]
+    },
+    {
+      "id": "busy-028",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "foundational",
+      "question": "If a currency's implied volatility rises, what does the options market generally imply?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Greater expected uncertainty / movement"
+        },
+        {
+          "id": "B",
+          "text": "Guaranteed depreciation"
+        },
+        {
+          "id": "C",
+          "text": "Guaranteed appreciation"
+        },
+        {
+          "id": "D",
+          "text": "Lower option value"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: higher implied vol means the market prices a wider distribution of outcomes.",
+        "B": "Wrong: vol is direction-neutral by itself.",
+        "C": "Wrong: same reason.",
+        "D": "Wrong: higher vol generally raises option value, all else equal."
+      },
+      "vocabulary": [
+        "implied volatility"
+      ]
+    },
+    {
+      "id": "busy-029",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "challenging",
+      "question": "A desk is long USDJPY delta but also long JPY-call skew. In a sharp USDJPY selloff, why might losses be smaller than delta alone suggests?",
+      "options": [
+        {
+          "id": "A",
+          "text": "The skew/options exposure can gain as downside protection becomes more valuable"
+        },
+        {
+          "id": "B",
+          "text": "Long skew guarantees zero loss"
+        },
+        {
+          "id": "C",
+          "text": "Delta reverses sign automatically"
+        },
+        {
+          "id": "D",
+          "text": "JPY calls lose when JPY strengthens"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: long downside protection can offset part of spot-delta losses.",
+        "B": "Wrong: hedges rarely guarantee zero loss.",
+        "C": "Wrong: delta does not automatically reverse.",
+        "D": "Wrong: JPY calls generally gain when JPY strengthens."
+      },
+      "vocabulary": [
+        "skew",
+        "JPY call",
+        "hedge"
+      ]
+    },
+    {
+      "id": "busy-030",
+      "category": "FX / Carry / Intervention",
+      "difficulty": "challenging",
+      "question": "A sudden JPY rally occurs with no major data release, but options skew and volumes spike. What is the best next check?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Positioning, stop-loss clusters, intervention headlines and liquidity"
+        },
+        {
+          "id": "B",
+          "text": "Only last quarter GDP"
+        },
+        {
+          "id": "C",
+          "text": "Only 10Y US breakevens"
+        },
+        {
+          "id": "D",
+          "text": "Assume the move is random"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: this pattern points toward flow/positioning/event risk.",
+        "B": "Wrong: stale GDP is unlikely to explain the immediate move.",
+        "C": "Wrong: breakevens alone are too narrow.",
+        "D": "Wrong: risk management should investigate observable drivers."
+      },
+      "vocabulary": [
+        "positioning",
+        "stop-loss",
+        "liquidity"
+      ]
+    },
+    {
+      "id": "busy-031",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "foundational",
+      "question": "A bond's yield rises. What happens to its price, all else equal?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Price rises"
+        },
+        {
+          "id": "B",
+          "text": "Price falls"
+        },
+        {
+          "id": "C",
+          "text": "Price is unchanged"
+        },
+        {
+          "id": "D",
+          "text": "Coupon disappears"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanations": {
+        "A": "Wrong: yield and price move inversely.",
+        "B": "Correct: higher discount rates reduce bond price.",
+        "C": "Wrong: price changes with yield.",
+        "D": "Wrong: coupon terms do not disappear."
+      },
+      "vocabulary": [
+        "bond yield",
+        "duration"
+      ]
+    },
+    {
+      "id": "busy-032",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "foundational",
+      "question": "What does DV01 measure?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Approximate P&L for a 1bp yield move"
+        },
+        {
+          "id": "B",
+          "text": "Daily volatility of equities"
+        },
+        {
+          "id": "C",
+          "text": "FX spot delta"
+        },
+        {
+          "id": "D",
+          "text": "Credit default probability"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: DV01 is the dollar value change for a 1bp rate move.",
+        "B": "Wrong: that is not DV01.",
+        "C": "Wrong: delta measures spot sensitivity.",
+        "D": "Wrong: default probability is a credit concept."
+      },
+      "vocabulary": [
+        "DV01",
+        "basis point"
+      ]
+    },
+    {
+      "id": "busy-033",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "Front-end yields rise while long-end yields are roughly unchanged. What curve move is this?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Bear flattening"
+        },
+        {
+          "id": "B",
+          "text": "Bull steepening"
+        },
+        {
+          "id": "C",
+          "text": "Bull flattening"
+        },
+        {
+          "id": "D",
+          "text": "Bear steepening"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: yields rise mainly at the front end, flattening the curve.",
+        "B": "Wrong: bull means yields fall.",
+        "C": "Wrong: bull means yields fall.",
+        "D": "Wrong: bear steepening requires the long end to rise more."
+      },
+      "vocabulary": [
+        "bear flattening",
+        "yield curve"
+      ]
+    },
+    {
+      "id": "busy-034",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "Long-end yields fall more than front-end yields. What curve move is this?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Bull flattening"
+        },
+        {
+          "id": "B",
+          "text": "Bear flattening"
+        },
+        {
+          "id": "C",
+          "text": "Bull steepening"
+        },
+        {
+          "id": "D",
+          "text": "Bear steepening"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: yields fall, with the long end falling more, so the curve flattens.",
+        "B": "Wrong: bear means yields rise.",
+        "C": "Wrong: steepening would require front-end yields to fall more.",
+        "D": "Wrong: bear means yields rise."
+      },
+      "vocabulary": [
+        "bull flattening",
+        "yield curve"
+      ]
+    },
+    {
+      "id": "busy-035",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "A central bank unexpectedly cuts rates and signals more easing. Which part of the curve usually reacts most directly first?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Front end"
+        },
+        {
+          "id": "B",
+          "text": "Only 30Y"
+        },
+        {
+          "id": "C",
+          "text": "Only inflation-linked bonds"
+        },
+        {
+          "id": "D",
+          "text": "Credit spreads only"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: the front end is closely tied to expected policy rates.",
+        "B": "Wrong: long-end may move too, but policy expectations hit front-end most directly.",
+        "C": "Wrong: linkers are not the only channel.",
+        "D": "Wrong: credit spreads are not the primary rate-policy instrument."
+      },
+      "vocabulary": [
+        "front end",
+        "policy rate"
+      ]
+    },
+    {
+      "id": "busy-036",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "challenging",
+      "question": "A book is long 10Y DV01 and yields rise 8bp. What is the first-order P&L sign?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Gain"
+        },
+        {
+          "id": "B",
+          "text": "Loss"
+        },
+        {
+          "id": "C",
+          "text": "Zero"
+        },
+        {
+          "id": "D",
+          "text": "Depends only on FX"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanations": {
+        "A": "Wrong: long DV01 benefits from falling yields.",
+        "B": "Correct: higher yields hurt a long-duration position.",
+        "C": "Wrong: an 8bp move is material.",
+        "D": "Wrong: rates P&L exists independently of FX."
+      },
+      "vocabulary": [
+        "DV01",
+        "duration"
+      ]
+    },
+    {
+      "id": "busy-037",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "US 2Y yields rise 20bp while 10Y rises 5bp. Which description is best?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Bear flattening"
+        },
+        {
+          "id": "B",
+          "text": "Bear steepening"
+        },
+        {
+          "id": "C",
+          "text": "Bull flattening"
+        },
+        {
+          "id": "D",
+          "text": "Parallel rally"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: yields rise and the front end rises more.",
+        "B": "Wrong: steepening would require the long end to rise more.",
+        "C": "Wrong: bull means yields fall.",
+        "D": "Wrong: changes are not parallel."
+      },
+      "vocabulary": [
+        "2s10s",
+        "bear flattening"
+      ]
+    },
+    {
+      "id": "busy-038",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "challenging",
+      "question": "Why can a long-duration bond lose even if the central bank cuts rates?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Long-end term premium or inflation expectations can rise enough to push long yields higher"
+        },
+        {
+          "id": "B",
+          "text": "Rate cuts always force all yields lower"
+        },
+        {
+          "id": "C",
+          "text": "Coupon payments stop"
+        },
+        {
+          "id": "D",
+          "text": "Duration becomes zero"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: long yields reflect more than the policy rate.",
+        "B": "Wrong: the curve can steepen bearishly at the long end.",
+        "C": "Wrong: coupons do not stop.",
+        "D": "Wrong: duration remains positive."
+      },
+      "vocabulary": [
+        "term premium",
+        "inflation expectations",
+        "duration"
+      ]
+    },
+    {
+      "id": "busy-039",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "A 5Y swap rate rises while the 5Y government bond yield is unchanged. What happens to the swap spread, using swap rate minus government yield?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Widens"
+        },
+        {
+          "id": "B",
+          "text": "Narrows"
+        },
+        {
+          "id": "C",
+          "text": "Unchanged"
+        },
+        {
+          "id": "D",
+          "text": "Becomes zero"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: swap spread increases when swap rate rises relative to the bond yield.",
+        "B": "Wrong: narrowing is the opposite.",
+        "C": "Wrong: one leg changed.",
+        "D": "Wrong: there is no reason it must be zero."
+      },
+      "vocabulary": [
+        "swap spread",
+        "swap rate"
+      ]
+    },
+    {
+      "id": "busy-040",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "challenging",
+      "question": "A rates desk has small net DV01 but large opposing positions in 2Y and 10Y. What risk remains?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Curve / basis risk"
+        },
+        {
+          "id": "B",
+          "text": "No market risk"
+        },
+        {
+          "id": "C",
+          "text": "Only credit risk"
+        },
+        {
+          "id": "D",
+          "text": "Only FX delta"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: net DV01 can hide large curve exposures.",
+        "B": "Wrong: offsetting parallel risk does not eliminate curve risk.",
+        "C": "Wrong: this is primarily rates risk.",
+        "D": "Wrong: FX is separate unless present."
+      },
+      "vocabulary": [
+        "curve risk",
+        "net DV01"
+      ]
+    },
+    {
+      "id": "busy-041",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "Which move most directly reflects stronger expectations of near-term central-bank tightening?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Higher front-end yields"
+        },
+        {
+          "id": "B",
+          "text": "Lower front-end yields"
+        },
+        {
+          "id": "C",
+          "text": "Lower breakevens only"
+        },
+        {
+          "id": "D",
+          "text": "Steeper credit curve only"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: front-end yields embed expected policy rates.",
+        "B": "Wrong: lower front-end yields imply easier policy expectations.",
+        "C": "Wrong: breakevens are inflation pricing, not policy path alone.",
+        "D": "Wrong: credit curve is not the direct measure."
+      },
+      "vocabulary": [
+        "front-end yields",
+        "tightening"
+      ]
+    },
+    {
+      "id": "busy-042",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "challenging",
+      "question": "A bond portfolio's P&L is worse than DV01 predicts during a large yield move. What is a likely reason?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Convexity and non-parallel curve moves"
+        },
+        {
+          "id": "B",
+          "text": "DV01 captures every nonlinear effect exactly"
+        },
+        {
+          "id": "C",
+          "text": "Bond prices move linearly for any size move"
+        },
+        {
+          "id": "D",
+          "text": "FX spot must be the cause"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: DV01 is local/linear and can miss convexity and curve-shape effects.",
+        "B": "Wrong: DV01 is only first-order.",
+        "C": "Wrong: bond prices are nonlinear in yield.",
+        "D": "Wrong: FX may matter only if relevant."
+      },
+      "vocabulary": [
+        "convexity",
+        "DV01",
+        "curve risk"
+      ]
+    },
+    {
+      "id": "busy-043",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "foundational",
+      "question": "If the yield curve is inverted, what does that mean?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Short-term yields exceed long-term yields"
+        },
+        {
+          "id": "B",
+          "text": "Long-term yields exceed short-term yields"
+        },
+        {
+          "id": "C",
+          "text": "All yields are equal"
+        },
+        {
+          "id": "D",
+          "text": "Credit spreads are negative"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: inversion means front-end yields are above longer-dated yields.",
+        "B": "Wrong: that is a normal upward-sloping curve.",
+        "C": "Wrong: that is flat, not inverted.",
+        "D": "Wrong: credit spreads are unrelated."
+      },
+      "vocabulary": [
+        "yield curve inversion"
+      ]
+    },
+    {
+      "id": "busy-044",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "A growth scare hits markets. Which rates move is most plausible?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Government bond yields fall as safe-haven demand rises"
+        },
+        {
+          "id": "B",
+          "text": "All yields must rise"
+        },
+        {
+          "id": "C",
+          "text": "Rates become irrelevant"
+        },
+        {
+          "id": "D",
+          "text": "Only swap spreads move"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: growth fears often lower expected policy rates and boost bond demand.",
+        "B": "Wrong: yields can fall in growth scares.",
+        "C": "Wrong: rates are central to macro repricing.",
+        "D": "Wrong: swap spreads may move but not alone."
+      },
+      "vocabulary": [
+        "growth scare",
+        "safe haven"
+      ]
+    },
+    {
+      "id": "busy-045",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "challenging",
+      "question": "Inflation data surprises higher, but long-end yields barely move while front-end yields jump. What does this suggest?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Market sees stronger near-term policy response but limited change in long-run inflation/risk premium"
+        },
+        {
+          "id": "B",
+          "text": "Market ignores inflation completely"
+        },
+        {
+          "id": "C",
+          "text": "Curve must steepen"
+        },
+        {
+          "id": "D",
+          "text": "Long-end yields are fixed"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: front-end repricing can reflect policy expectations without a large long-end change.",
+        "B": "Wrong: the front-end move shows inflation matters.",
+        "C": "Wrong: front-end rising more means flattening, not steepening.",
+        "D": "Wrong: long-end yields are market prices."
+      },
+      "vocabulary": [
+        "policy path",
+        "term premium",
+        "inflation"
+      ]
+    },
+    {
+      "id": "busy-046",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "Why can a steepening curve be either bullish or bearish for bonds?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Steepening describes relative moves, not whether yields rose or fell overall"
+        },
+        {
+          "id": "B",
+          "text": "Steepening always means yields rise"
+        },
+        {
+          "id": "C",
+          "text": "Steepening always means yields fall"
+        },
+        {
+          "id": "D",
+          "text": "Because bond prices ignore yields"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: bull steepening and bear steepening are both possible.",
+        "B": "Wrong: bull steepening exists.",
+        "C": "Wrong: bear steepening exists.",
+        "D": "Wrong: bond prices are yield-sensitive."
+      },
+      "vocabulary": [
+        "bull steepening",
+        "bear steepening"
+      ]
+    },
+    {
+      "id": "busy-047",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "challenging",
+      "question": "A portfolio is long 2Y duration and short 10Y duration with near-zero net DV01. Which move is most damaging?",
+      "options": [
+        {
+          "id": "A",
+          "text": "10Y yields fall relative to 2Y yields"
+        },
+        {
+          "id": "B",
+          "text": "Parallel 1bp move"
+        },
+        {
+          "id": "C",
+          "text": "No curve movement"
+        },
+        {
+          "id": "D",
+          "text": "Spot FX unchanged"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: the short 10Y loses when 10Y yields fall relative to 2Y.",
+        "B": "Wrong: near-zero net DV01 reduces parallel first-order sensitivity.",
+        "C": "Wrong: no move means no curve P&L.",
+        "D": "Wrong: FX is not the key exposure."
+      },
+      "vocabulary": [
+        "curve trade",
+        "DV01"
+      ]
+    },
+    {
+      "id": "busy-048",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "What is the main difference between nominal yield and real yield?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Nominal yield includes inflation compensation; real yield strips expected inflation more directly"
+        },
+        {
+          "id": "B",
+          "text": "They are identical"
+        },
+        {
+          "id": "C",
+          "text": "Real yield is always higher"
+        },
+        {
+          "id": "D",
+          "text": "Nominal yield excludes inflation"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: nominal yields can be decomposed into real yield plus inflation compensation/risk premia.",
+        "B": "Wrong: they differ conceptually and in market pricing.",
+        "C": "Wrong: real yields can be lower.",
+        "D": "Wrong: nominal yield includes, not excludes, inflation compensation."
+      },
+      "vocabulary": [
+        "real yield",
+        "nominal yield",
+        "breakeven"
+      ]
+    },
+    {
+      "id": "busy-049",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "Breakeven inflation rises while real yields are unchanged. What happens to nominal yields, approximately?",
+      "options": [
+        {
+          "id": "A",
+          "text": "They rise"
+        },
+        {
+          "id": "B",
+          "text": "They fall"
+        },
+        {
+          "id": "C",
+          "text": "They must be unchanged"
+        },
+        {
+          "id": "D",
+          "text": "They become negative"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: nominal yield is roughly real yield plus breakeven inflation.",
+        "B": "Wrong: higher breakevens push nominal yields up if real yields are stable.",
+        "C": "Wrong: one component changed.",
+        "D": "Wrong: no such implication."
+      },
+      "vocabulary": [
+        "breakeven inflation",
+        "real yield"
+      ]
+    },
+    {
+      "id": "busy-050",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "challenging",
+      "question": "Why can a government bond rally fail to hedge an equity selloff perfectly?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Inflation or fiscal concerns can make bonds sell off at the same time"
+        },
+        {
+          "id": "B",
+          "text": "Bonds and equities are always perfectly negatively correlated"
+        },
+        {
+          "id": "C",
+          "text": "Duration vanishes in stress"
+        },
+        {
+          "id": "D",
+          "text": "Credit spreads determine government bond price entirely"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: stock-bond correlation can change by regime.",
+        "B": "Wrong: correlations are not stable or perfect.",
+        "C": "Wrong: duration remains.",
+        "D": "Wrong: sovereign yields have their own drivers."
+      },
+      "vocabulary": [
+        "stock-bond correlation",
+        "regime"
+      ]
+    },
+    {
+      "id": "busy-051",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "foundational",
+      "question": "A 25bp rate move equals how many percentage points?",
+      "options": [
+        {
+          "id": "A",
+          "text": "0.025%"
+        },
+        {
+          "id": "B",
+          "text": "0.25%"
+        },
+        {
+          "id": "C",
+          "text": "2.5%"
+        },
+        {
+          "id": "D",
+          "text": "25%"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanations": {
+        "A": "Wrong: 0.025% is 2.5bp.",
+        "B": "Correct: 25bp = 0.25 percentage points.",
+        "C": "Wrong: 2.5% = 250bp.",
+        "D": "Wrong: 25% is far larger."
+      },
+      "vocabulary": [
+        "basis point"
+      ]
+    },
+    {
+      "id": "busy-052",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "If markets price fewer Fed cuts for the next six months, what is the most direct effect?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Front-end US yields tend to rise"
+        },
+        {
+          "id": "B",
+          "text": "Front-end US yields tend to fall"
+        },
+        {
+          "id": "C",
+          "text": "JPY rates must rise"
+        },
+        {
+          "id": "D",
+          "text": "Credit spreads must tighten"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: fewer expected cuts imply a higher expected policy path.",
+        "B": "Wrong: that would fit more easing.",
+        "C": "Wrong: Japan rates are separate.",
+        "D": "Wrong: credit spreads may move either way."
+      },
+      "vocabulary": [
+        "Fed cuts",
+        "front-end yields"
+      ]
+    },
+    {
+      "id": "busy-053",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "challenging",
+      "question": "A risk report shows stable total DV01 but a large shift from 5Y into 30Y exposure. Why should you care?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Longer-duration convexity and liquidity behavior can change even if total DV01 is stable"
+        },
+        {
+          "id": "B",
+          "text": "Total DV01 proves risk is unchanged"
+        },
+        {
+          "id": "C",
+          "text": "Tenor distribution never matters"
+        },
+        {
+          "id": "D",
+          "text": "Only coupon income changes"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: tenor concentration changes stress and nonlinear behavior.",
+        "B": "Wrong: aggregate DV01 can mask shape risk.",
+        "C": "Wrong: tenor matters greatly.",
+        "D": "Wrong: the concern is broader than carry."
+      },
+      "vocabulary": [
+        "tenor concentration",
+        "convexity",
+        "liquidity"
+      ]
+    },
+    {
+      "id": "busy-054",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "What does a 'parallel shift' in the yield curve mean?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Yields across maturities move by roughly the same amount"
+        },
+        {
+          "id": "B",
+          "text": "Only the 2Y yield moves"
+        },
+        {
+          "id": "C",
+          "text": "Only the 30Y yield moves"
+        },
+        {
+          "id": "D",
+          "text": "Credit spreads move together"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: the curve shifts with little shape change.",
+        "B": "Wrong: that is a localized move.",
+        "C": "Wrong: same.",
+        "D": "Wrong: credit spreads are separate."
+      },
+      "vocabulary": [
+        "parallel shift",
+        "yield curve"
+      ]
+    },
+    {
+      "id": "busy-055",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "challenging",
+      "question": "Why is a single DV01 number insufficient for a large multi-tenor book?",
+      "options": [
+        {
+          "id": "A",
+          "text": "It can hide key-rate and curve-shape exposures"
+        },
+        {
+          "id": "B",
+          "text": "DV01 already captures every tenor exactly"
+        },
+        {
+          "id": "C",
+          "text": "Rates books have no basis risk"
+        },
+        {
+          "id": "D",
+          "text": "Curve trades are always hedged"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: key-rate DV01s reveal where sensitivity sits along the curve.",
+        "B": "Wrong: aggregate DV01 compresses information.",
+        "C": "Wrong: basis risk can exist.",
+        "D": "Wrong: hedges can be imperfect."
+      },
+      "vocabulary": [
+        "key-rate DV01",
+        "curve risk"
+      ]
+    },
+    {
+      "id": "busy-056",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "A central bank is dovish, but the currency strengthens. Which rates-based explanation is plausible?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Foreign yields fell even more, improving the relative rate differential"
+        },
+        {
+          "id": "B",
+          "text": "Dovish policy mechanically strengthens every currency"
+        },
+        {
+          "id": "C",
+          "text": "Rate differentials never matter"
+        },
+        {
+          "id": "D",
+          "text": "The move proves intervention"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: FX depends on relative, not absolute, rates.",
+        "B": "Wrong: dovishness usually weakens a currency all else equal.",
+        "C": "Wrong: differentials are important.",
+        "D": "Wrong: intervention is not proven."
+      },
+      "vocabulary": [
+        "relative rates",
+        "dovish"
+      ]
+    },
+    {
+      "id": "busy-057",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "challenging",
+      "question": "Long-end yields rise on fiscal concerns while front-end yields fall on expected rate cuts. What curve move is this?",
+      "options": [
+        {
+          "id": "A",
+          "text": "A pronounced steepening"
+        },
+        {
+          "id": "B",
+          "text": "Bear flattening"
+        },
+        {
+          "id": "C",
+          "text": "Parallel rally"
+        },
+        {
+          "id": "D",
+          "text": "No curve change"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: front-end yields fall while long-end yields rise, creating strong steepening.",
+        "B": "Wrong: flattening is the opposite shape change.",
+        "C": "Wrong: the moves are not parallel.",
+        "D": "Wrong: curve shape changes materially."
+      },
+      "vocabulary": [
+        "fiscal risk",
+        "steepening",
+        "rate cuts"
+      ]
+    },
+    {
+      "id": "busy-058",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "If a payer swap position gains when swap rates rise, what is the directional intuition?",
+      "options": [
+        {
+          "id": "A",
+          "text": "It is effectively short duration / pays fixed"
+        },
+        {
+          "id": "B",
+          "text": "It is long duration / receives fixed"
+        },
+        {
+          "id": "C",
+          "text": "It has no rate sensitivity"
+        },
+        {
+          "id": "D",
+          "text": "It is only long FX"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: paying fixed benefits when fixed swap rates rise.",
+        "B": "Wrong: receiving fixed benefits from lower rates.",
+        "C": "Wrong: swaps have rate sensitivity.",
+        "D": "Wrong: FX is separate."
+      },
+      "vocabulary": [
+        "payer swap",
+        "duration"
+      ]
+    },
+    {
+      "id": "busy-059",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "challenging",
+      "question": "A book is hedged to zero parallel DV01 but loses on a 2s10s steepening. What does this reveal?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Residual curve exposure"
+        },
+        {
+          "id": "B",
+          "text": "Hedge failure due to accounting only"
+        },
+        {
+          "id": "C",
+          "text": "No real risk existed"
+        },
+        {
+          "id": "D",
+          "text": "Spot FX caused the loss by definition"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: a parallel hedge does not neutralize curve-shape risk.",
+        "B": "Wrong: this is genuine market risk.",
+        "C": "Wrong: P&L shows residual exposure.",
+        "D": "Wrong: FX is not implied."
+      },
+      "vocabulary": [
+        "2s10s",
+        "curve exposure"
+      ]
+    },
+    {
+      "id": "busy-060",
+      "category": "Rates / Curve / Central Bank",
+      "difficulty": "intermediate",
+      "question": "Which market signal most directly tests whether inflation concerns are driving a nominal-yield selloff?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Breakeven inflation and real yields"
+        },
+        {
+          "id": "B",
+          "text": "Only equity volume"
+        },
+        {
+          "id": "C",
+          "text": "Only FX spot"
+        },
+        {
+          "id": "D",
+          "text": "Only credit default swaps"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: decomposing nominal yields helps identify the driver.",
+        "B": "Wrong: equity volume is indirect.",
+        "C": "Wrong: FX is indirect.",
+        "D": "Wrong: CDS is credit-focused."
+      },
+      "vocabulary": [
+        "breakeven inflation",
+        "real yield"
+      ]
+    },
+    {
+      "id": "busy-061",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "foundational",
+      "question": "If you are long vega, what happens when implied volatility rises, all else equal?",
+      "options": [
+        {
+          "id": "A",
+          "text": "You gain"
+        },
+        {
+          "id": "B",
+          "text": "You lose"
+        },
+        {
+          "id": "C",
+          "text": "No effect"
+        },
+        {
+          "id": "D",
+          "text": "Delta becomes zero"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: long vega benefits from higher implied volatility.",
+        "B": "Wrong: short vega loses when vol rises.",
+        "C": "Wrong: vega is direct vol sensitivity.",
+        "D": "Wrong: delta does not become zero automatically."
+      },
+      "vocabulary": [
+        "vega",
+        "implied volatility"
+      ]
+    },
+    {
+      "id": "busy-062",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "foundational",
+      "question": "If you are short gamma, which market environment is generally most painful?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Large fast moves"
+        },
+        {
+          "id": "B",
+          "text": "Very stable spot"
+        },
+        {
+          "id": "C",
+          "text": "No trading"
+        },
+        {
+          "id": "D",
+          "text": "Low realized volatility"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: short gamma suffers from large moves and adverse rehedging.",
+        "B": "Wrong: stable markets are generally favorable for short gamma.",
+        "C": "Wrong: no movement reduces gamma impact.",
+        "D": "Wrong: low realized vol often helps short gamma."
+      },
+      "vocabulary": [
+        "gamma",
+        "realized volatility"
+      ]
+    },
+    {
+      "id": "busy-063",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "Spot is unchanged but implied volatility rises sharply. A long straddle most likely:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Gains from vega"
+        },
+        {
+          "id": "B",
+          "text": "Loses from vega"
+        },
+        {
+          "id": "C",
+          "text": "Has no P&L change"
+        },
+        {
+          "id": "D",
+          "text": "Becomes short gamma"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: a long straddle is typically long vega.",
+        "B": "Wrong: it is not short vega.",
+        "C": "Wrong: vol repricing can create P&L even with flat spot.",
+        "D": "Wrong: long straddles are long gamma."
+      },
+      "vocabulary": [
+        "straddle",
+        "vega",
+        "gamma"
+      ]
+    },
+    {
+      "id": "busy-064",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "Why can short-gamma traders lose money even if they delta hedge frequently?",
+      "options": [
+        {
+          "id": "A",
+          "text": "They tend to buy high and sell low during large moves"
+        },
+        {
+          "id": "B",
+          "text": "Delta hedging guarantees profit"
+        },
+        {
+          "id": "C",
+          "text": "Gamma disappears after hedging"
+        },
+        {
+          "id": "D",
+          "text": "Vega is always zero"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: adverse rebalancing is the classic short-gamma dynamic.",
+        "B": "Wrong: hedging reduces delta, not gamma P&L.",
+        "C": "Wrong: gamma remains after a delta hedge.",
+        "D": "Wrong: vega depends on the position."
+      },
+      "vocabulary": [
+        "delta hedging",
+        "short gamma"
+      ]
+    },
+    {
+      "id": "busy-065",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "challenging",
+      "question": "A book is delta-neutral but short gamma and short vega. What combination is worst?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Large spot move plus higher implied vol"
+        },
+        {
+          "id": "B",
+          "text": "Flat spot plus lower vol"
+        },
+        {
+          "id": "C",
+          "text": "Small mean-reverting moves plus lower vol"
+        },
+        {
+          "id": "D",
+          "text": "No market change"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: both gamma and vega move against the position.",
+        "B": "Wrong: lower vol helps short vega.",
+        "C": "Wrong: calm markets are relatively favorable.",
+        "D": "Wrong: no move produces little mark-to-market shock."
+      },
+      "vocabulary": [
+        "gamma",
+        "vega",
+        "delta-neutral"
+      ]
+    },
+    {
+      "id": "busy-066",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "What does negative skew in an equity index typically mean?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Downside puts trade at higher implied vol than comparable upside calls"
+        },
+        {
+          "id": "B",
+          "text": "Upside calls always have higher vol"
+        },
+        {
+          "id": "C",
+          "text": "All strikes have identical vol"
+        },
+        {
+          "id": "D",
+          "text": "Spot must rise"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: downside protection is typically more expensive.",
+        "B": "Wrong: that is the opposite pattern.",
+        "C": "Wrong: skew means strike-dependent vol.",
+        "D": "Wrong: skew does not force spot direction."
+      },
+      "vocabulary": [
+        "skew",
+        "implied volatility"
+      ]
+    },
+    {
+      "id": "busy-067",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "In USDJPY, a risk reversal moving toward more expensive JPY calls indicates:",
+      "options": [
+        {
+          "id": "A",
+          "text": "More demand for USDJPY downside protection"
+        },
+        {
+          "id": "B",
+          "text": "More demand for USDJPY upside only"
+        },
+        {
+          "id": "C",
+          "text": "No change in skew"
+        },
+        {
+          "id": "D",
+          "text": "ATM vol must collapse"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: JPY calls are USDJPY-downside options.",
+        "B": "Wrong: this is the opposite direction.",
+        "C": "Wrong: risk reversal measures skew.",
+        "D": "Wrong: ATM vol can move independently."
+      },
+      "vocabulary": [
+        "risk reversal",
+        "JPY call",
+        "skew"
+      ]
+    },
+    {
+      "id": "busy-068",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "challenging",
+      "question": "Your options book is flat delta but loses when spot jumps and then reverses. Which risk is most likely?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Short gamma"
+        },
+        {
+          "id": "B",
+          "text": "Long gamma"
+        },
+        {
+          "id": "C",
+          "text": "Long theta only"
+        },
+        {
+          "id": "D",
+          "text": "Positive carry only"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: short gamma can lose from path-dependent rehedging around large moves.",
+        "B": "Wrong: long gamma generally benefits from realized movement.",
+        "C": "Wrong: theta does not explain this path loss by itself.",
+        "D": "Wrong: carry is not the main driver."
+      },
+      "vocabulary": [
+        "gamma",
+        "path dependency"
+      ]
+    },
+    {
+      "id": "busy-069",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "foundational",
+      "question": "What does theta measure?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Option value sensitivity to time decay"
+        },
+        {
+          "id": "B",
+          "text": "Sensitivity to spot only"
+        },
+        {
+          "id": "C",
+          "text": "Sensitivity to rates only"
+        },
+        {
+          "id": "D",
+          "text": "Sensitivity to credit spread"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: theta is time decay, all else equal.",
+        "B": "Wrong: spot sensitivity is delta.",
+        "C": "Wrong: rate sensitivity is rho.",
+        "D": "Wrong: credit spread is not theta."
+      },
+      "vocabulary": [
+        "theta",
+        "time decay"
+      ]
+    },
+    {
+      "id": "busy-070",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "A short straddle earns theta in calm markets. What is the trade-off?",
+      "options": [
+        {
+          "id": "A",
+          "text": "It is exposed to large spot moves and often higher vol"
+        },
+        {
+          "id": "B",
+          "text": "It has no tail risk"
+        },
+        {
+          "id": "C",
+          "text": "It is long gamma"
+        },
+        {
+          "id": "D",
+          "text": "It benefits from every volatility spike"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: short straddles are typically short gamma and short vega.",
+        "B": "Wrong: tail risk is substantial.",
+        "C": "Wrong: they are short gamma.",
+        "D": "Wrong: vol spikes usually hurt short vega."
+      },
+      "vocabulary": [
+        "short straddle",
+        "theta",
+        "tail risk"
+      ]
+    },
+    {
+      "id": "busy-071",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "challenging",
+      "question": "Implied volatility rises, but your long-vol book loses. What should you check?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Strike/tenor vega distribution, skew, gamma path and hedges"
+        },
+        {
+          "id": "B",
+          "text": "Assume the vol data are wrong"
+        },
+        {
+          "id": "C",
+          "text": "Only spot close-to-close"
+        },
+        {
+          "id": "D",
+          "text": "Only coupon accrual"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: aggregate 'long vol' can hide offsetting exposures and path effects.",
+        "B": "Wrong: data issues are possible but should not be assumed first.",
+        "C": "Wrong: spot alone is insufficient.",
+        "D": "Wrong: coupon accrual is irrelevant here."
+      },
+      "vocabulary": [
+        "vega bucket",
+        "skew",
+        "gamma"
+      ]
+    },
+    {
+      "id": "busy-072",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "What is the main intuition behind gamma being highest near ATM for short-dated options?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Small spot moves can change delta rapidly near the strike"
+        },
+        {
+          "id": "B",
+          "text": "OTM options always have highest gamma"
+        },
+        {
+          "id": "C",
+          "text": "Gamma equals vega"
+        },
+        {
+          "id": "D",
+          "text": "ATM options have no delta"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: near expiry and near strike, delta transitions most rapidly.",
+        "B": "Wrong: deep OTM options generally have lower gamma.",
+        "C": "Wrong: gamma and vega are different Greeks.",
+        "D": "Wrong: ATM delta is typically around 0.5 in simple cases."
+      },
+      "vocabulary": [
+        "ATM",
+        "gamma",
+        "delta"
+      ]
+    },
+    {
+      "id": "busy-073",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "challenging",
+      "question": "A short-dated option book has modest vega but very high gamma. What does that imply?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Spot path can matter more than small vol changes"
+        },
+        {
+          "id": "B",
+          "text": "The book is riskless"
+        },
+        {
+          "id": "C",
+          "text": "Only long-dated vol matters"
+        },
+        {
+          "id": "D",
+          "text": "Theta must be positive for the holder"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: short-dated options can have concentrated gamma despite smaller vega.",
+        "B": "Wrong: high gamma means meaningful risk.",
+        "C": "Wrong: short-dated spot path can dominate.",
+        "D": "Wrong: long option theta is generally negative."
+      },
+      "vocabulary": [
+        "short-dated options",
+        "gamma",
+        "vega"
+      ]
+    },
+    {
+      "id": "busy-074",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "Realized volatility is much lower than implied volatility for an extended period. Who tends to benefit, all else equal?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Short-vol sellers collecting premium/theta"
+        },
+        {
+          "id": "B",
+          "text": "Long-gamma holders"
+        },
+        {
+          "id": "C",
+          "text": "Buyers of expensive volatility"
+        },
+        {
+          "id": "D",
+          "text": "Anyone long options regardless of price"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: if realized stays below implied, short-vol strategies can benefit.",
+        "B": "Wrong: long gamma needs enough realized movement to offset theta.",
+        "C": "Wrong: buyers may overpay if realized stays low.",
+        "D": "Wrong: long options are not automatically profitable."
+      },
+      "vocabulary": [
+        "realized volatility",
+        "implied volatility",
+        "theta"
+      ]
+    },
+    {
+      "id": "busy-075",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "challenging",
+      "question": "Why can a long-gamma position still lose money over time?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Theta decay can exceed gains from realized movement"
+        },
+        {
+          "id": "B",
+          "text": "Long gamma guarantees profit"
+        },
+        {
+          "id": "C",
+          "text": "Gamma is the same as carry"
+        },
+        {
+          "id": "D",
+          "text": "Implied vol cannot fall"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: long options pay theta; realized moves must be large enough.",
+        "B": "Wrong: no option Greek guarantees profit.",
+        "C": "Wrong: gamma and carry are different.",
+        "D": "Wrong: implied vol can fall."
+      },
+      "vocabulary": [
+        "long gamma",
+        "theta"
+      ]
+    },
+    {
+      "id": "busy-076",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "What does a volatility smile indicate?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Implied volatility varies across strikes"
+        },
+        {
+          "id": "B",
+          "text": "All strikes have the same implied vol"
+        },
+        {
+          "id": "C",
+          "text": "Only spot delta matters"
+        },
+        {
+          "id": "D",
+          "text": "Option prices are linear"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: smile/skew reflects strike-dependent implied vol.",
+        "B": "Wrong: that would be a flat vol surface.",
+        "C": "Wrong: options have multiple risk factors.",
+        "D": "Wrong: option prices are nonlinear."
+      },
+      "vocabulary": [
+        "volatility smile",
+        "vol surface"
+      ]
+    },
+    {
+      "id": "busy-077",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "challenging",
+      "question": "A book is long ATM vega but short downside skew. In a risk-off shock, what can happen?",
+      "options": [
+        {
+          "id": "A",
+          "text": "ATM vol gains may be offset by losses from downside skew richening"
+        },
+        {
+          "id": "B",
+          "text": "Both exposures always gain"
+        },
+        {
+          "id": "C",
+          "text": "Skew cannot move in risk-off"
+        },
+        {
+          "id": "D",
+          "text": "Vega and skew are identical"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: risk-off often lifts both ATM vol and downside skew; signs matter separately.",
+        "B": "Wrong: short skew can lose.",
+        "C": "Wrong: skew often moves materially in stress.",
+        "D": "Wrong: they are distinct dimensions."
+      },
+      "vocabulary": [
+        "ATM vega",
+        "skew",
+        "risk-off"
+      ]
+    },
+    {
+      "id": "busy-078",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "foundational",
+      "question": "Delta of a standard call option is usually:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Positive"
+        },
+        {
+          "id": "B",
+          "text": "Negative"
+        },
+        {
+          "id": "C",
+          "text": "Always zero"
+        },
+        {
+          "id": "D",
+          "text": "Always greater than 2"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: call value usually rises with the underlying.",
+        "B": "Wrong: put delta is typically negative.",
+        "C": "Wrong: a standard call is not always delta-zero.",
+        "D": "Wrong: simple call delta is generally between 0 and 1."
+      },
+      "vocabulary": [
+        "call delta"
+      ]
+    },
+    {
+      "id": "busy-079",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "foundational",
+      "question": "Delta of a standard put option is usually:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Positive"
+        },
+        {
+          "id": "B",
+          "text": "Negative"
+        },
+        {
+          "id": "C",
+          "text": "Always zero"
+        },
+        {
+          "id": "D",
+          "text": "Always exactly -2"
+        }
+      ],
+      "correctAnswer": "B",
+      "explanations": {
+        "A": "Wrong: calls usually have positive delta.",
+        "B": "Correct: put value usually rises as the underlying falls.",
+        "C": "Wrong: simple put delta is not always zero.",
+        "D": "Wrong: simple put delta is generally between -1 and 0."
+      },
+      "vocabulary": [
+        "put delta"
+      ]
+    },
+    {
+      "id": "busy-080",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "After a large spot move, a previously delta-neutral option book becomes directional. Which Greek explains the delta change?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Gamma"
+        },
+        {
+          "id": "B",
+          "text": "Theta"
+        },
+        {
+          "id": "C",
+          "text": "Rho only"
+        },
+        {
+          "id": "D",
+          "text": "Carry"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: gamma measures how delta changes with spot.",
+        "B": "Wrong: theta is time decay.",
+        "C": "Wrong: rho is rate sensitivity.",
+        "D": "Wrong: carry does not define delta change."
+      },
+      "vocabulary": [
+        "gamma",
+        "delta"
+      ]
+    },
+    {
+      "id": "busy-081",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "challenging",
+      "question": "Why is 'vega by tenor' more informative than total vega alone?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Different expiries can reprice very differently in an event shock"
+        },
+        {
+          "id": "B",
+          "text": "All expiries move identically"
+        },
+        {
+          "id": "C",
+          "text": "Total vega already reveals event concentration"
+        },
+        {
+          "id": "D",
+          "text": "Tenor has no effect on option risk"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: event risk can concentrate in specific expiries.",
+        "B": "Wrong: term structures can move non-parallelly.",
+        "C": "Wrong: aggregate vega can hide concentration.",
+        "D": "Wrong: tenor is central to option risk."
+      },
+      "vocabulary": [
+        "vega by tenor",
+        "term structure"
+      ]
+    },
+    {
+      "id": "busy-082",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "An event passes with no surprise and implied volatility collapses. Which position benefits most directly?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Short vega"
+        },
+        {
+          "id": "B",
+          "text": "Long vega"
+        },
+        {
+          "id": "C",
+          "text": "Long gamma necessarily"
+        },
+        {
+          "id": "D",
+          "text": "Long downside skew necessarily"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: short vega gains when implied vol falls.",
+        "B": "Wrong: long vega loses.",
+        "C": "Wrong: gamma outcome depends on realized move/path.",
+        "D": "Wrong: skew may move independently."
+      },
+      "vocabulary": [
+        "vol crush",
+        "short vega"
+      ]
+    },
+    {
+      "id": "busy-083",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "challenging",
+      "question": "Your model shows small net vega but large long 1M vega and short 3M vega. What is the hidden risk?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Vol term-structure risk"
+        },
+        {
+          "id": "B",
+          "text": "No risk because net vega is small"
+        },
+        {
+          "id": "C",
+          "text": "Only spot risk"
+        },
+        {
+          "id": "D",
+          "text": "Only interest accrual"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: different expiries can move differently, creating term-structure P&L.",
+        "B": "Wrong: netting hides relative-vol exposures.",
+        "C": "Wrong: there is significant volatility risk.",
+        "D": "Wrong: accrual is not the main issue."
+      },
+      "vocabulary": [
+        "vol term structure",
+        "vega"
+      ]
+    },
+    {
+      "id": "busy-084",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "Which position is typically long convexity?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Long option"
+        },
+        {
+          "id": "B",
+          "text": "Short option"
+        },
+        {
+          "id": "C",
+          "text": "Short gamma book"
+        },
+        {
+          "id": "D",
+          "text": "Pure cash position"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: long options are typically long gamma/convexity.",
+        "B": "Wrong: short options are typically short convexity.",
+        "C": "Wrong: short gamma is negative convexity.",
+        "D": "Wrong: cash has no option convexity."
+      },
+      "vocabulary": [
+        "convexity",
+        "long option"
+      ]
+    },
+    {
+      "id": "busy-085",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "challenging",
+      "question": "Spot rises, implied vol falls, and a long call barely gains. Which offset is plausible?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Positive delta gain offset by negative vega P&L"
+        },
+        {
+          "id": "B",
+          "text": "Call delta is negative"
+        },
+        {
+          "id": "C",
+          "text": "Lower vol always helps long options"
+        },
+        {
+          "id": "D",
+          "text": "Gamma must be zero"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: long calls are positive delta and positive vega, so lower vol can offset spot gains.",
+        "B": "Wrong: standard call delta is positive.",
+        "C": "Wrong: lower vol hurts long vega.",
+        "D": "Wrong: gamma need not be zero."
+      },
+      "vocabulary": [
+        "delta",
+        "vega",
+        "call option"
+      ]
+    },
+    {
+      "id": "busy-086",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "What is 'volatility risk premium' in simple terms?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Implied volatility often trades above subsequent realized volatility as compensation for selling insurance"
+        },
+        {
+          "id": "B",
+          "text": "Realized vol is always above implied"
+        },
+        {
+          "id": "C",
+          "text": "Options have no risk premium"
+        },
+        {
+          "id": "D",
+          "text": "It is the same as credit spread"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: option sellers often require compensation for bearing tail risk.",
+        "B": "Wrong: the opposite is often observed on average.",
+        "C": "Wrong: option markets can embed risk premia.",
+        "D": "Wrong: credit spread is different."
+      },
+      "vocabulary": [
+        "volatility risk premium",
+        "realized volatility"
+      ]
+    },
+    {
+      "id": "busy-087",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "challenging",
+      "question": "A trader says, 'We are delta-neutral, so spot moves cannot hurt us.' What is the best response?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Delta neutrality is local; gamma can make delta change as spot moves"
+        },
+        {
+          "id": "B",
+          "text": "Correct, delta-neutral means risk-free"
+        },
+        {
+          "id": "C",
+          "text": "Only theta remains"
+        },
+        {
+          "id": "D",
+          "text": "Spot cannot affect option value without delta"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: delta-neutrality is only first-order at a point in time.",
+        "B": "Wrong: gamma and other Greeks remain.",
+        "C": "Wrong: vega/gamma/skew also matter.",
+        "D": "Wrong: nonlinear spot effects remain."
+      },
+      "vocabulary": [
+        "delta-neutral",
+        "gamma"
+      ]
+    },
+    {
+      "id": "busy-088",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "Why can skew steepen during market stress?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Demand for downside protection rises disproportionately"
+        },
+        {
+          "id": "B",
+          "text": "All strikes become equally valued"
+        },
+        {
+          "id": "C",
+          "text": "Tail risk disappears"
+        },
+        {
+          "id": "D",
+          "text": "Realized volatility must fall"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: investors often bid up protective puts/downside options.",
+        "B": "Wrong: that would flatten skew.",
+        "C": "Wrong: stress increases tail concern.",
+        "D": "Wrong: realized vol often rises."
+      },
+      "vocabulary": [
+        "skew steepening",
+        "downside protection"
+      ]
+    },
+    {
+      "id": "busy-089",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "challenging",
+      "question": "A risk report shows higher ATM vol but flatter skew. What should you avoid assuming?",
+      "options": [
+        {
+          "id": "A",
+          "text": "That all options gained equally"
+        },
+        {
+          "id": "B",
+          "text": "That ATM vol rose"
+        },
+        {
+          "id": "C",
+          "text": "That the surface changed in more than one dimension"
+        },
+        {
+          "id": "D",
+          "text": "That strike matters"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: different strikes can react differently when ATM vol and skew move in opposite ways.",
+        "B": "Wrong: this is given.",
+        "C": "Wrong: this is exactly what the data show.",
+        "D": "Wrong: strike dependence is central."
+      },
+      "vocabulary": [
+        "ATM vol",
+        "skew",
+        "vol surface"
+      ]
+    },
+    {
+      "id": "busy-090",
+      "category": "Volatility / Options / Greeks",
+      "difficulty": "intermediate",
+      "question": "Which metric is most useful for understanding how option delta changes after a spot move?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Gamma"
+        },
+        {
+          "id": "B",
+          "text": "Theta"
+        },
+        {
+          "id": "C",
+          "text": "Vega"
+        },
+        {
+          "id": "D",
+          "text": "Rho"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: gamma is the derivative of delta with respect to spot.",
+        "B": "Wrong: theta is time decay.",
+        "C": "Wrong: vega is vol sensitivity.",
+        "D": "Wrong: rho is rate sensitivity."
+      },
+      "vocabulary": [
+        "gamma",
+        "delta"
+      ]
+    },
+    {
+      "id": "busy-091",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "foundational",
+      "question": "A risk metric increases sharply from yesterday. What should you establish first?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Whether the change came from new trades, market moves, revaluation, or data issues"
+        },
+        {
+          "id": "B",
+          "text": "Immediately close all positions"
+        },
+        {
+          "id": "C",
+          "text": "Assume a model error"
+        },
+        {
+          "id": "D",
+          "text": "Ignore it if P&L is small"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: first identify the driver of the change.",
+        "B": "Wrong: action should follow diagnosis.",
+        "C": "Wrong: data/model issues are one possibility, not the default.",
+        "D": "Wrong: exposure changes can matter before P&L appears."
+      },
+      "vocabulary": [
+        "risk attribution",
+        "revaluation",
+        "data issue"
+      ]
+    },
+    {
+      "id": "busy-092",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "Spot is up, but a book that is long spot delta loses money. What should you check next?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Vega, gamma, skew, hedges and new trades"
+        },
+        {
+          "id": "B",
+          "text": "Conclude the delta sign is wrong"
+        },
+        {
+          "id": "C",
+          "text": "Only yesterday's spot"
+        },
+        {
+          "id": "D",
+          "text": "Nothing else"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: non-delta exposures or position changes can offset spot gains.",
+        "B": "Wrong: delta may be correct but not dominant.",
+        "C": "Wrong: other risk factors matter.",
+        "D": "Wrong: unexplained P&L needs attribution."
+      },
+      "vocabulary": [
+        "P&L attribution",
+        "vega",
+        "gamma"
+      ]
+    },
+    {
+      "id": "busy-093",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "A hedge reduces normal-day volatility but performs poorly in stress. What type of risk is this?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Hedge breakdown / basis risk"
+        },
+        {
+          "id": "B",
+          "text": "No risk"
+        },
+        {
+          "id": "C",
+          "text": "Pure carry income"
+        },
+        {
+          "id": "D",
+          "text": "Only accounting noise"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: relationships can break in stress, leaving residual basis risk.",
+        "B": "Wrong: ineffective hedges create real risk.",
+        "C": "Wrong: this is not mainly carry.",
+        "D": "Wrong: market behavior can cause real P&L."
+      },
+      "vocabulary": [
+        "basis risk",
+        "hedge effectiveness"
+      ]
+    },
+    {
+      "id": "busy-094",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "challenging",
+      "question": "Net exposure is near zero, but gross exposure is very large. Why can this still be dangerous?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Offsets may break due to basis, liquidity, tenor or counterparty differences"
+        },
+        {
+          "id": "B",
+          "text": "Net zero means no risk"
+        },
+        {
+          "id": "C",
+          "text": "Gross exposure is irrelevant in markets"
+        },
+        {
+          "id": "D",
+          "text": "Only fees matter"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: large offsetting books can carry hidden residual and liquidity risk.",
+        "B": "Wrong: netting is not perfect under stress.",
+        "C": "Wrong: gross size matters for unwind/liquidity.",
+        "D": "Wrong: risk is broader than fees."
+      },
+      "vocabulary": [
+        "gross exposure",
+        "net exposure",
+        "basis risk"
+      ]
+    },
+    {
+      "id": "busy-095",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "A desk's daily P&L is far outside the range suggested by its usual risk sensitivities. What is the best first response?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Reconcile trades, market moves, valuation inputs and unexplained P&L"
+        },
+        {
+          "id": "B",
+          "text": "Assume fraud"
+        },
+        {
+          "id": "C",
+          "text": "Increase limits immediately"
+        },
+        {
+          "id": "D",
+          "text": "Ignore one-day anomalies"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: reconcile systematically before escalating conclusions.",
+        "B": "Wrong: fraud is possible but not the default hypothesis.",
+        "C": "Wrong: limits should not be increased without understanding risk.",
+        "D": "Wrong: large unexplained P&L deserves investigation."
+      },
+      "vocabulary": [
+        "unexplained P&L",
+        "reconciliation"
+      ]
+    },
+    {
+      "id": "busy-096",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "foundational",
+      "question": "What is a hedge designed to do?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Reduce sensitivity to an unwanted risk factor"
+        },
+        {
+          "id": "B",
+          "text": "Eliminate every possible loss"
+        },
+        {
+          "id": "C",
+          "text": "Increase gross exposure by definition"
+        },
+        {
+          "id": "D",
+          "text": "Guarantee profit"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: hedging reduces targeted risk, not all risk.",
+        "B": "Wrong: hedges are imperfect and selective.",
+        "C": "Wrong: gross exposure may rise or fall.",
+        "D": "Wrong: hedges do not guarantee profit."
+      },
+      "vocabulary": [
+        "hedge",
+        "risk factor"
+      ]
+    },
+    {
+      "id": "busy-097",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "challenging",
+      "question": "A delta hedge is executed once at the start of the day and not adjusted. Why may it become ineffective?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Gamma causes delta to change as spot moves"
+        },
+        {
+          "id": "B",
+          "text": "Delta is permanently fixed"
+        },
+        {
+          "id": "C",
+          "text": "Theta cancels gamma"
+        },
+        {
+          "id": "D",
+          "text": "Spot cannot move intraday"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: nonlinear positions require rebalancing as delta changes.",
+        "B": "Wrong: option delta changes with spot/time/vol.",
+        "C": "Wrong: theta does not cancel gamma.",
+        "D": "Wrong: markets move intraday."
+      },
+      "vocabulary": [
+        "delta hedge",
+        "gamma"
+      ]
+    },
+    {
+      "id": "busy-098",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "A book has stable total risk but a sharp increase in one strategy bucket. What should you check?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Concentration hidden by offsets elsewhere"
+        },
+        {
+          "id": "B",
+          "text": "Nothing, total is stable"
+        },
+        {
+          "id": "C",
+          "text": "Only accounting classification"
+        },
+        {
+          "id": "D",
+          "text": "Only year-end seasonality"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: aggregate stability can mask concentrated sub-bucket risk.",
+        "B": "Wrong: concentration can matter independently of total.",
+        "C": "Wrong: classification may matter but does not eliminate risk.",
+        "D": "Wrong: seasonality is not the primary inference."
+      },
+      "vocabulary": [
+        "concentration",
+        "risk bucket"
+      ]
+    },
+    {
+      "id": "busy-099",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "challenging",
+      "question": "Why can a hedge ratio calibrated on recent history fail during a regime shift?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Correlations and betas can change"
+        },
+        {
+          "id": "B",
+          "text": "Historical beta is guaranteed"
+        },
+        {
+          "id": "C",
+          "text": "Hedges are static laws"
+        },
+        {
+          "id": "D",
+          "text": "Volatility never changes"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: hedge relationships are regime-dependent.",
+        "B": "Wrong: historical estimates are not guarantees.",
+        "C": "Wrong: hedges depend on market relationships.",
+        "D": "Wrong: volatility changes frequently."
+      },
+      "vocabulary": [
+        "hedge ratio",
+        "regime shift",
+        "beta"
+      ]
+    },
+    {
+      "id": "busy-100",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "A position shows a large unrealized gain but little realized P&L. What does that mean?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Most profit is mark-to-market and not yet crystallized by closing trades"
+        },
+        {
+          "id": "B",
+          "text": "The trade has no value"
+        },
+        {
+          "id": "C",
+          "text": "Cash has already been received"
+        },
+        {
+          "id": "D",
+          "text": "Risk is zero"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: unrealized P&L reflects current valuation of open positions.",
+        "B": "Wrong: the position may be valuable.",
+        "C": "Wrong: unrealized gains are not necessarily cash realized.",
+        "D": "Wrong: open positions still carry risk."
+      },
+      "vocabulary": [
+        "unrealized P&L",
+        "realized P&L"
+      ]
+    },
+    {
+      "id": "busy-101",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "foundational",
+      "question": "If a long position is closed at a higher price than it was bought, realized P&L is:",
+      "options": [
+        {
+          "id": "A",
+          "text": "Positive"
+        },
+        {
+          "id": "B",
+          "text": "Negative"
+        },
+        {
+          "id": "C",
+          "text": "Zero"
+        },
+        {
+          "id": "D",
+          "text": "Undefined"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: the sale crystallizes a gain.",
+        "B": "Wrong: higher sale price is profitable for a long.",
+        "C": "Wrong: there is a gain.",
+        "D": "Wrong: it is well-defined."
+      },
+      "vocabulary": [
+        "realized P&L"
+      ]
+    },
+    {
+      "id": "busy-102",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "challenging",
+      "question": "A hedge instrument and the underlying exposure move together normally, but diverge in stress. What should this be called?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Basis risk"
+        },
+        {
+          "id": "B",
+          "text": "Theta decay"
+        },
+        {
+          "id": "C",
+          "text": "Pure delta"
+        },
+        {
+          "id": "D",
+          "text": "Carry compression"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: imperfect co-movement between hedge and exposure is basis risk.",
+        "B": "Wrong: theta is time decay.",
+        "C": "Wrong: this is about relative behavior, not pure delta.",
+        "D": "Wrong: carry is not the main concept."
+      },
+      "vocabulary": [
+        "basis risk",
+        "hedge"
+      ]
+    },
+    {
+      "id": "busy-103",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "Why is P&L attribution useful for risk management?",
+      "options": [
+        {
+          "id": "A",
+          "text": "It links realized outcomes to specific risk factors and position changes"
+        },
+        {
+          "id": "B",
+          "text": "It predicts every future move"
+        },
+        {
+          "id": "C",
+          "text": "It eliminates model risk"
+        },
+        {
+          "id": "D",
+          "text": "It replaces stress testing"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: attribution helps explain what actually drove P&L.",
+        "B": "Wrong: attribution is explanatory, not perfect prediction.",
+        "C": "Wrong: model risk remains.",
+        "D": "Wrong: stress testing serves a different purpose."
+      },
+      "vocabulary": [
+        "P&L attribution"
+      ]
+    },
+    {
+      "id": "busy-104",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "challenging",
+      "question": "A desk's delta falls substantially with no large market move. Which explanation should be checked first?",
+      "options": [
+        {
+          "id": "A",
+          "text": "New trades, expiries, exercises, hedges or data changes"
+        },
+        {
+          "id": "B",
+          "text": "Only spot movement"
+        },
+        {
+          "id": "C",
+          "text": "Only volatility movement"
+        },
+        {
+          "id": "D",
+          "text": "Assume the report is correct and ignore"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: position lifecycle and trading activity can change delta materially.",
+        "B": "Wrong: the premise says no large market move.",
+        "C": "Wrong: vol can alter delta, but position changes are a key check.",
+        "D": "Wrong: material changes should be reconciled."
+      },
+      "vocabulary": [
+        "expiry",
+        "exercise",
+        "hedge"
+      ]
+    },
+    {
+      "id": "busy-105",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "Which is the best test of whether a hedge is working?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Compare exposure and hedge behavior under relevant scenarios, not just normal-day correlation"
+        },
+        {
+          "id": "B",
+          "text": "Check only notional size"
+        },
+        {
+          "id": "C",
+          "text": "Check only trade date"
+        },
+        {
+          "id": "D",
+          "text": "Check only accounting labels"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: hedge quality depends on sensitivity and scenario behavior.",
+        "B": "Wrong: equal notional does not mean equal risk.",
+        "C": "Wrong: trade date is not sufficient.",
+        "D": "Wrong: labels do not prove effectiveness."
+      },
+      "vocabulary": [
+        "hedge effectiveness",
+        "scenario analysis"
+      ]
+    },
+    {
+      "id": "busy-106",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "challenging",
+      "question": "A book is hedged to spot delta zero but has large vega. What can still cause major P&L?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Implied volatility repricing"
+        },
+        {
+          "id": "B",
+          "text": "Only spot level"
+        },
+        {
+          "id": "C",
+          "text": "Nothing; delta zero means risk-free"
+        },
+        {
+          "id": "D",
+          "text": "Coupon accrual only"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: delta-neutral books can still be highly sensitive to vol.",
+        "B": "Wrong: spot is not the only driver.",
+        "C": "Wrong: multiple Greeks remain.",
+        "D": "Wrong: accrual is secondary."
+      },
+      "vocabulary": [
+        "delta-neutral",
+        "vega"
+      ]
+    },
+    {
+      "id": "busy-107",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "A trader says an exposure is 'small' because net notional is small. What is the best challenge?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ask for risk-weighted sensitivity, gross offsets, tenor and liquidity rather than notional alone"
+        },
+        {
+          "id": "B",
+          "text": "Agree immediately"
+        },
+        {
+          "id": "C",
+          "text": "Only ask for trade count"
+        },
+        {
+          "id": "D",
+          "text": "Ignore valuation"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: notional is not the same as market risk.",
+        "B": "Wrong: small notional can still have large sensitivity.",
+        "C": "Wrong: trade count is not enough.",
+        "D": "Wrong: valuation and sensitivities matter."
+      },
+      "vocabulary": [
+        "notional",
+        "sensitivity",
+        "liquidity"
+      ]
+    },
+    {
+      "id": "busy-108",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "challenging",
+      "question": "Why can two trades with the same DV01 produce different stress P&L?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Different convexity, tenor, basis and liquidity characteristics"
+        },
+        {
+          "id": "B",
+          "text": "Same DV01 guarantees identical outcomes"
+        },
+        {
+          "id": "C",
+          "text": "Stress P&L ignores curve shape"
+        },
+        {
+          "id": "D",
+          "text": "Liquidity never matters for valuation"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: equal first-order sensitivity does not imply equal nonlinear/stress behavior.",
+        "B": "Wrong: DV01 is only one dimension.",
+        "C": "Wrong: stress scenarios can be non-parallel.",
+        "D": "Wrong: liquidity can matter greatly."
+      },
+      "vocabulary": [
+        "stress P&L",
+        "convexity",
+        "liquidity"
+      ]
+    },
+    {
+      "id": "busy-109",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "foundational",
+      "question": "What does 'mark-to-market' mean?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Valuing a position using current market prices/inputs"
+        },
+        {
+          "id": "B",
+          "text": "Using only historical cost forever"
+        },
+        {
+          "id": "C",
+          "text": "Ignoring market moves"
+        },
+        {
+          "id": "D",
+          "text": "Closing every trade"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: MTM updates value using current market conditions.",
+        "B": "Wrong: that is historical-cost accounting.",
+        "C": "Wrong: MTM explicitly reflects market moves.",
+        "D": "Wrong: valuation does not require closure."
+      },
+      "vocabulary": [
+        "mark-to-market"
+      ]
+    },
+    {
+      "id": "busy-110",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "A portfolio loses even though its main hedge gains. What is the best interpretation?",
+      "options": [
+        {
+          "id": "A",
+          "text": "The hedge offset part, but not all, of the underlying losses"
+        },
+        {
+          "id": "B",
+          "text": "The hedge failed completely"
+        },
+        {
+          "id": "C",
+          "text": "The portfolio must have a data error"
+        },
+        {
+          "id": "D",
+          "text": "Hedges only matter when profitable overall"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: a hedge can work partially without fully neutralizing risk.",
+        "B": "Wrong: a gaining hedge may still be effective.",
+        "C": "Wrong: data error is not implied.",
+        "D": "Wrong: hedges are evaluated by offset, not portfolio sign alone."
+      },
+      "vocabulary": [
+        "partial hedge",
+        "hedge effectiveness"
+      ]
+    },
+    {
+      "id": "busy-111",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "challenging",
+      "question": "A large P&L swing appears only after an end-of-day valuation batch. What should you investigate?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Market data snapshots, model inputs, reserves and revaluation effects"
+        },
+        {
+          "id": "B",
+          "text": "Only trader intent"
+        },
+        {
+          "id": "C",
+          "text": "Only intraday spot"
+        },
+        {
+          "id": "D",
+          "text": "Ignore because it happened after close"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: batch revaluation can reveal model/data/reserve effects.",
+        "B": "Wrong: intent does not explain valuation mechanics.",
+        "C": "Wrong: intraday spot is too narrow.",
+        "D": "Wrong: timing does not make the P&L irrelevant."
+      },
+      "vocabulary": [
+        "valuation batch",
+        "reserves",
+        "market data"
+      ]
+    },
+    {
+      "id": "busy-112",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "Why can a portfolio with positive carry still have negative total P&L?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Market moves can overwhelm carry income"
+        },
+        {
+          "id": "B",
+          "text": "Carry guarantees positive total return"
+        },
+        {
+          "id": "C",
+          "text": "Mark-to-market does not matter"
+        },
+        {
+          "id": "D",
+          "text": "Only realized P&L counts"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: carry is only one component of total P&L.",
+        "B": "Wrong: carry is not a guarantee.",
+        "C": "Wrong: MTM is central for open positions.",
+        "D": "Wrong: unrealized P&L matters economically and for risk."
+      },
+      "vocabulary": [
+        "carry",
+        "total P&L"
+      ]
+    },
+    {
+      "id": "busy-113",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "challenging",
+      "question": "A hedge reduces average daily P&L volatility but increases tail losses. What should a risk manager conclude?",
+      "options": [
+        {
+          "id": "A",
+          "text": "The hedge may improve normal risk while worsening stress convexity/basis behavior"
+        },
+        {
+          "id": "B",
+          "text": "The hedge is unambiguously perfect"
+        },
+        {
+          "id": "C",
+          "text": "Tail risk is irrelevant"
+        },
+        {
+          "id": "D",
+          "text": "Average volatility is the only metric that matters"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: risk must be assessed across regimes and stress scenarios.",
+        "B": "Wrong: a hedge with worse tails is not perfect.",
+        "C": "Wrong: tail risk is crucial.",
+        "D": "Wrong: average volatility misses stress behavior."
+      },
+      "vocabulary": [
+        "tail risk",
+        "stress testing",
+        "basis"
+      ]
+    },
+    {
+      "id": "busy-114",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "What is the purpose of a P&L explain?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Reconcile total P&L into understandable market and position drivers"
+        },
+        {
+          "id": "B",
+          "text": "Forecast next year's revenue"
+        },
+        {
+          "id": "C",
+          "text": "Settle cash automatically"
+        },
+        {
+          "id": "D",
+          "text": "Replace valuation models"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: P&L explain decomposes outcomes into drivers.",
+        "B": "Wrong: it is not primarily a revenue forecast.",
+        "C": "Wrong: settlement is separate.",
+        "D": "Wrong: models are still needed."
+      },
+      "vocabulary": [
+        "P&L explain"
+      ]
+    },
+    {
+      "id": "busy-115",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "challenging",
+      "question": "A book's reported exposure falls because two offsetting trades net more tightly, but gross notionals rise. What new concern may increase?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Liquidity and unwind risk"
+        },
+        {
+          "id": "B",
+          "text": "No concern because net fell"
+        },
+        {
+          "id": "C",
+          "text": "Only tax risk"
+        },
+        {
+          "id": "D",
+          "text": "Only coupon accrual"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: larger gross size can be costly to unwind even if net risk is smaller.",
+        "B": "Wrong: netting does not erase execution/liquidity risk.",
+        "C": "Wrong: not the core issue.",
+        "D": "Wrong: not the core issue."
+      },
+      "vocabulary": [
+        "unwind risk",
+        "gross notional",
+        "liquidity"
+      ]
+    },
+    {
+      "id": "busy-116",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "A hedge is entered with a different maturity from the exposure. What residual risk can arise?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Tenor mismatch / curve risk"
+        },
+        {
+          "id": "B",
+          "text": "No residual risk"
+        },
+        {
+          "id": "C",
+          "text": "Only credit migration"
+        },
+        {
+          "id": "D",
+          "text": "Only spot delta"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: different maturities can react differently to curve moves.",
+        "B": "Wrong: maturity mismatch leaves residual sensitivity.",
+        "C": "Wrong: credit migration is not implied.",
+        "D": "Wrong: the main issue is tenor/curve."
+      },
+      "vocabulary": [
+        "tenor mismatch",
+        "curve risk"
+      ]
+    },
+    {
+      "id": "busy-117",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "challenging",
+      "question": "If a position's P&L is mainly driven by a factor not included in the daily sensitivity report, what should happen?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Escalate the reporting gap and add the missing risk factor if material"
+        },
+        {
+          "id": "B",
+          "text": "Ignore it because the report is standard"
+        },
+        {
+          "id": "C",
+          "text": "Assume the factor is immaterial"
+        },
+        {
+          "id": "D",
+          "text": "Reduce all positions equally"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: material unexplained drivers indicate a risk-measurement gap.",
+        "B": "Wrong: standard reports can be incomplete.",
+        "C": "Wrong: observed P&L suggests materiality may exist.",
+        "D": "Wrong: action should be targeted after diagnosis."
+      },
+      "vocabulary": [
+        "risk factor",
+        "reporting gap",
+        "escalation"
+      ]
+    },
+    {
+      "id": "busy-118",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "Why can intraday hedging frequency matter for a short-gamma book?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Less frequent hedging can leave larger directional swings between rebalances"
+        },
+        {
+          "id": "B",
+          "text": "Gamma disappears intraday"
+        },
+        {
+          "id": "C",
+          "text": "More frequent hedging always guarantees profit"
+        },
+        {
+          "id": "D",
+          "text": "Theta is unaffected by time"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: gamma changes delta as spot moves; rebalance frequency affects path P&L.",
+        "B": "Wrong: gamma remains.",
+        "C": "Wrong: hedging can still realize adverse gamma losses.",
+        "D": "Wrong: theta is time-related."
+      },
+      "vocabulary": [
+        "hedging frequency",
+        "short gamma"
+      ]
+    },
+    {
+      "id": "busy-119",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "challenging",
+      "question": "A desk has two hedges that work individually but become highly correlated in stress. What risk does this create?",
+      "options": [
+        {
+          "id": "A",
+          "text": "False diversification"
+        },
+        {
+          "id": "B",
+          "text": "Guaranteed offset"
+        },
+        {
+          "id": "C",
+          "text": "Lower tail risk by definition"
+        },
+        {
+          "id": "D",
+          "text": "No effect on portfolio risk"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: supposedly separate hedges can fail together, reducing diversification.",
+        "B": "Wrong: higher correlation weakens diversification.",
+        "C": "Wrong: tail risk can increase.",
+        "D": "Wrong: portfolio risk changes materially."
+      },
+      "vocabulary": [
+        "false diversification",
+        "correlation"
+      ]
+    },
+    {
+      "id": "busy-120",
+      "category": "P&L / Exposure / Hedging",
+      "difficulty": "intermediate",
+      "question": "What should be checked when P&L and risk sensitivities appear inconsistent?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Trade population, market data, model version, timing, and unexplained residual"
+        },
+        {
+          "id": "B",
+          "text": "Only trader commentary"
+        },
+        {
+          "id": "C",
+          "text": "Only exchange rates"
+        },
+        {
+          "id": "D",
+          "text": "Nothing if totals are close"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: reconciliation requires checking data, model, timing and positions.",
+        "B": "Wrong: commentary alone is insufficient.",
+        "C": "Wrong: FX may not be the only driver.",
+        "D": "Wrong: residual inconsistency should be understood."
+      },
+      "vocabulary": [
+        "reconciliation",
+        "model version",
+        "timing"
+      ]
+    },
+    {
+      "id": "busy-121",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "foundational",
+      "question": "Equities fall, government bond yields fall, and JPY strengthens. What broad regime is most consistent?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Risk-off / growth scare"
+        },
+        {
+          "id": "B",
+          "text": "Risk-on boom"
+        },
+        {
+          "id": "C",
+          "text": "Inflationary melt-up"
+        },
+        {
+          "id": "D",
+          "text": "Carry build-up"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: defensive assets rally while equities weaken.",
+        "B": "Wrong: risk-on usually supports equities and carry.",
+        "C": "Wrong: an inflation shock often pushes yields higher.",
+        "D": "Wrong: carry build-up is usually calmer."
+      },
+      "vocabulary": [
+        "risk-off",
+        "growth scare"
+      ]
+    },
+    {
+      "id": "busy-122",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "intermediate",
+      "question": "Oil prices jump 15% on a supply shock. Which macro transmission is most plausible?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Higher inflation pressure and weaker growth through higher input costs"
+        },
+        {
+          "id": "B",
+          "text": "Lower inflation and stronger growth automatically"
+        },
+        {
+          "id": "C",
+          "text": "No impact outside energy"
+        },
+        {
+          "id": "D",
+          "text": "JPY rates must fall"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: energy shocks can raise inflation while hurting real activity.",
+        "B": "Wrong: the sign is usually the opposite.",
+        "C": "Wrong: energy costs transmit broadly.",
+        "D": "Wrong: policy/rates response is not mechanical."
+      },
+      "vocabulary": [
+        "oil shock",
+        "inflation",
+        "growth"
+      ]
+    },
+    {
+      "id": "busy-123",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "challenging",
+      "question": "Oil rises, breakeven inflation rises, and real yields are flat. Which interpretation is strongest?",
+      "options": [
+        {
+          "id": "A",
+          "text": "The nominal yield move is being driven mainly by inflation compensation"
+        },
+        {
+          "id": "B",
+          "text": "Growth expectations must be collapsing"
+        },
+        {
+          "id": "C",
+          "text": "Real yields are driving the move"
+        },
+        {
+          "id": "D",
+          "text": "There is no macro signal"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: higher breakevens with flat real yields point to inflation pricing.",
+        "B": "Wrong: not necessarily.",
+        "C": "Wrong: real yields are stated flat.",
+        "D": "Wrong: the decomposition is informative."
+      },
+      "vocabulary": [
+        "breakeven inflation",
+        "real yield",
+        "oil"
+      ]
+    },
+    {
+      "id": "busy-124",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "intermediate",
+      "question": "A stronger-than-expected CPI causes equities to fall and front-end yields to rise. What is the most direct link?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Markets price tighter monetary policy"
+        },
+        {
+          "id": "B",
+          "text": "Higher CPI directly raises corporate earnings"
+        },
+        {
+          "id": "C",
+          "text": "Rate expectations become more dovish"
+        },
+        {
+          "id": "D",
+          "text": "Credit risk disappears"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: sticky inflation can reduce expected easing or increase tightening odds.",
+        "B": "Wrong: higher inflation does not automatically raise real earnings.",
+        "C": "Wrong: the move is hawkish, not dovish.",
+        "D": "Wrong: credit risk does not disappear."
+      },
+      "vocabulary": [
+        "CPI",
+        "monetary policy",
+        "front-end yields"
+      ]
+    },
+    {
+      "id": "busy-125",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "challenging",
+      "question": "Equities fall and long-end yields rise at the same time. Which regime may explain this?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Inflation/fiscal shock rather than a pure growth scare"
+        },
+        {
+          "id": "B",
+          "text": "Classic safe-haven rally"
+        },
+        {
+          "id": "C",
+          "text": "Volatility collapse"
+        },
+        {
+          "id": "D",
+          "text": "Carry build-up"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: inflation or fiscal concerns can hurt both bonds and equities.",
+        "B": "Wrong: growth scares often see bond yields fall.",
+        "C": "Wrong: falling equities with rising yields is not vol compression.",
+        "D": "Wrong: carry build-up is inconsistent with stress."
+      },
+      "vocabulary": [
+        "fiscal shock",
+        "inflation shock",
+        "stock-bond correlation"
+      ]
+    },
+    {
+      "id": "busy-126",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "intermediate",
+      "question": "Credit spreads widen while equities fall. What does this usually signal?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Rising risk aversion / worsening growth or credit outlook"
+        },
+        {
+          "id": "B",
+          "text": "Improving credit conditions"
+        },
+        {
+          "id": "C",
+          "text": "Falling default risk only"
+        },
+        {
+          "id": "D",
+          "text": "A pure FX carry trade"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: both point to deteriorating risk appetite/credit conditions.",
+        "B": "Wrong: widening spreads mean worse, not better, credit pricing.",
+        "C": "Wrong: default risk is not falling by implication.",
+        "D": "Wrong: this is broader cross-asset stress."
+      },
+      "vocabulary": [
+        "credit spreads",
+        "risk aversion"
+      ]
+    },
+    {
+      "id": "busy-127",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "foundational",
+      "question": "What does 'risk-on' usually mean?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Investors are more willing to hold risky assets"
+        },
+        {
+          "id": "B",
+          "text": "Investors only buy cash"
+        },
+        {
+          "id": "C",
+          "text": "Volatility must be at zero"
+        },
+        {
+          "id": "D",
+          "text": "Central banks are tightening"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: risk appetite is stronger.",
+        "B": "Wrong: that is defensive positioning.",
+        "C": "Wrong: volatility need not be zero.",
+        "D": "Wrong: policy stance is separate."
+      },
+      "vocabulary": [
+        "risk-on",
+        "risk appetite"
+      ]
+    },
+    {
+      "id": "busy-128",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "intermediate",
+      "question": "A weak payrolls report sends Treasury yields lower and equities higher. What interpretation is plausible?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Markets see softer growth but more Fed easing, with easing dominating equities"
+        },
+        {
+          "id": "B",
+          "text": "Weak data always hurts every asset"
+        },
+        {
+          "id": "C",
+          "text": "Lower yields imply tighter policy"
+        },
+        {
+          "id": "D",
+          "text": "Equities cannot rise on weak data"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: bad-news-is-good-news can occur when policy easing expectations dominate.",
+        "B": "Wrong: cross-asset reactions are regime-dependent.",
+        "C": "Wrong: lower yields often imply easier expected policy.",
+        "D": "Wrong: equities can rally if policy relief dominates."
+      },
+      "vocabulary": [
+        "payrolls",
+        "Fed easing",
+        "bad news is good news"
+      ]
+    },
+    {
+      "id": "busy-129",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "challenging",
+      "question": "What would most challenge the thesis that a market move is a pure growth scare?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Long-end yields rising sharply and breakevens widening"
+        },
+        {
+          "id": "B",
+          "text": "Equities falling"
+        },
+        {
+          "id": "C",
+          "text": "Credit spreads widening"
+        },
+        {
+          "id": "D",
+          "text": "JPY strengthening"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: rising long yields and breakevens point more toward inflation/fiscal pressure.",
+        "B": "Wrong: equities falling fits a growth scare.",
+        "C": "Wrong: spreads widening fits a growth scare.",
+        "D": "Wrong: JPY strength can fit defensive risk-off."
+      },
+      "vocabulary": [
+        "growth scare",
+        "breakevens",
+        "long-end yields"
+      ]
+    },
+    {
+      "id": "busy-130",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "intermediate",
+      "question": "Commodity prices rise broadly, the USD weakens, and EM FX strengthens. What broad environment could this reflect?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Global reflation / improved risk appetite"
+        },
+        {
+          "id": "B",
+          "text": "Severe dollar funding stress"
+        },
+        {
+          "id": "C",
+          "text": "Classic deflation shock"
+        },
+        {
+          "id": "D",
+          "text": "JPY intervention only"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: stronger commodities and EM FX with weaker USD can fit reflation/risk-on.",
+        "B": "Wrong: dollar funding stress usually strengthens USD.",
+        "C": "Wrong: commodities typically weaken in deflation shocks.",
+        "D": "Wrong: this is too broad for a single JPY event."
+      },
+      "vocabulary": [
+        "reflation",
+        "EM FX",
+        "USD"
+      ]
+    },
+    {
+      "id": "busy-131",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "challenging",
+      "question": "A geopolitical shock lifts oil, weakens equities, and strengthens USD. Which risk channels should be considered together?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Inflation shock, growth drag, safe-haven demand and liquidity"
+        },
+        {
+          "id": "B",
+          "text": "Only oil beta"
+        },
+        {
+          "id": "C",
+          "text": "Only equity delta"
+        },
+        {
+          "id": "D",
+          "text": "Only rates carry"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: geopolitical shocks can transmit through multiple correlated channels.",
+        "B": "Wrong: oil is only one piece.",
+        "C": "Wrong: equity delta alone is incomplete.",
+        "D": "Wrong: carry alone is incomplete."
+      },
+      "vocabulary": [
+        "geopolitical risk",
+        "safe haven",
+        "liquidity"
+      ]
+    },
+    {
+      "id": "busy-132",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "intermediate",
+      "question": "Why can EM FX be especially vulnerable during global dollar strength?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Dollar funding pressure and external debt sensitivity can intensify"
+        },
+        {
+          "id": "B",
+          "text": "EM currencies are pegged to JPY"
+        },
+        {
+          "id": "C",
+          "text": "Dollar strength guarantees lower local rates"
+        },
+        {
+          "id": "D",
+          "text": "Commodity exporters are always immune"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: USD liabilities and funding conditions can amplify stress.",
+        "B": "Wrong: most EM FX is not mechanically pegged to JPY.",
+        "C": "Wrong: local rates may rise, not fall.",
+        "D": "Wrong: commodity exporters can still be vulnerable."
+      },
+      "vocabulary": [
+        "EM FX",
+        "dollar funding"
+      ]
+    },
+    {
+      "id": "busy-133",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "challenging",
+      "question": "Equities rally, but credit spreads widen. What should you conclude?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cross-asset signals are conflicting; investigate sector, technical and positioning drivers"
+        },
+        {
+          "id": "B",
+          "text": "Risk-on is proven"
+        },
+        {
+          "id": "C",
+          "text": "Credit markets are irrelevant"
+        },
+        {
+          "id": "D",
+          "text": "The equity rally must be fake"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: divergence requires deeper attribution, not a one-label conclusion.",
+        "B": "Wrong: widening spreads contradict a clean risk-on signal.",
+        "C": "Wrong: credit is informative.",
+        "D": "Wrong: divergence does not prove one market is fake."
+      },
+      "vocabulary": [
+        "cross-asset divergence",
+        "credit spreads"
+      ]
+    },
+    {
+      "id": "busy-134",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "intermediate",
+      "question": "Why can a stronger currency reduce imported inflation?",
+      "options": [
+        {
+          "id": "A",
+          "text": "It lowers the domestic-currency cost of foreign goods, all else equal"
+        },
+        {
+          "id": "B",
+          "text": "It raises import prices mechanically"
+        },
+        {
+          "id": "C",
+          "text": "It has no effect on trade prices"
+        },
+        {
+          "id": "D",
+          "text": "It always causes recession"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: appreciation makes foreign-currency goods cheaper domestically.",
+        "B": "Wrong: depreciation raises import costs.",
+        "C": "Wrong: exchange rates affect import prices.",
+        "D": "Wrong: macro outcome is not automatic."
+      },
+      "vocabulary": [
+        "imported inflation",
+        "currency appreciation"
+      ]
+    },
+    {
+      "id": "busy-135",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "challenging",
+      "question": "A central-bank hawkish surprise causes the currency to strengthen and equities to fall. Which position may be hit twice?",
+      "options": [
+        {
+          "id": "A",
+          "text": "An unhedged exporter with foreign revenues and high rate sensitivity"
+        },
+        {
+          "id": "B",
+          "text": "A domestic cash holder with no market exposure"
+        },
+        {
+          "id": "C",
+          "text": "A long-vol hedge necessarily"
+        },
+        {
+          "id": "D",
+          "text": "A fully hedged zero-beta portfolio"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: stronger currency can reduce translated foreign earnings while higher rates pressure valuation.",
+        "B": "Wrong: little direct market exposure.",
+        "C": "Wrong: long vol may gain in stress.",
+        "D": "Wrong: fully hedged/zero-beta is designed to reduce such sensitivity."
+      },
+      "vocabulary": [
+        "hawkish surprise",
+        "currency translation",
+        "rate sensitivity"
+      ]
+    },
+    {
+      "id": "busy-136",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "intermediate",
+      "question": "What is a 'growth scare'?",
+      "options": [
+        {
+          "id": "A",
+          "text": "A sudden deterioration in perceived growth outlook"
+        },
+        {
+          "id": "B",
+          "text": "A guaranteed recession"
+        },
+        {
+          "id": "C",
+          "text": "A rise in inflation expectations only"
+        },
+        {
+          "id": "D",
+          "text": "A commodity rally only"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: it is a repricing of growth concerns, not necessarily a realized recession.",
+        "B": "Wrong: a scare need not become recession.",
+        "C": "Wrong: inflation is separate.",
+        "D": "Wrong: commodities can move either way."
+      },
+      "vocabulary": [
+        "growth scare"
+      ]
+    },
+    {
+      "id": "busy-137",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "challenging",
+      "question": "Which combination best fits an inflation shock rather than a pure growth shock?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Equities down, nominal yields up, breakevens up"
+        },
+        {
+          "id": "B",
+          "text": "Equities down, yields down, breakevens down"
+        },
+        {
+          "id": "C",
+          "text": "Equities up, yields down, JPY up"
+        },
+        {
+          "id": "D",
+          "text": "Credit tighter, vol lower"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: higher inflation compensation can push yields up while hurting equities.",
+        "B": "Wrong: that fits disinflation/growth fear more closely.",
+        "C": "Wrong: this is mixed and not a classic inflation shock.",
+        "D": "Wrong: tighter credit/lower vol is risk-on."
+      },
+      "vocabulary": [
+        "inflation shock",
+        "breakeven inflation"
+      ]
+    },
+    {
+      "id": "busy-138",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "intermediate",
+      "question": "If USD funding conditions tighten globally, which asset is often supported initially?",
+      "options": [
+        {
+          "id": "A",
+          "text": "USD"
+        },
+        {
+          "id": "B",
+          "text": "High-beta EM FX"
+        },
+        {
+          "id": "C",
+          "text": "Commodity importers' currencies automatically"
+        },
+        {
+          "id": "D",
+          "text": "All equities"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: demand for dollar liquidity can support USD.",
+        "B": "Wrong: EM FX can weaken under funding stress.",
+        "C": "Wrong: there is no automatic support.",
+        "D": "Wrong: equities often face pressure."
+      },
+      "vocabulary": [
+        "USD funding",
+        "liquidity"
+      ]
+    },
+    {
+      "id": "busy-139",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "challenging",
+      "question": "A broad equity selloff is led by rate-sensitive growth stocks while banks outperform. Which macro driver is plausible?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Higher yields / higher discount rates"
+        },
+        {
+          "id": "B",
+          "text": "Severe deflation with collapsing yields"
+        },
+        {
+          "id": "C",
+          "text": "Falling term premium only"
+        },
+        {
+          "id": "D",
+          "text": "JPY intervention"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: higher discount rates disproportionately pressure long-duration growth equities.",
+        "B": "Wrong: collapsing yields often support growth valuations.",
+        "C": "Wrong: falling term premium would lower yields.",
+        "D": "Wrong: JPY intervention is too narrow."
+      },
+      "vocabulary": [
+        "discount rate",
+        "growth stocks",
+        "higher yields"
+      ]
+    },
+    {
+      "id": "busy-140",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "intermediate",
+      "question": "Why can falling oil prices be positive for an oil-importing economy?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Lower import bill and inflation pressure"
+        },
+        {
+          "id": "B",
+          "text": "Higher energy costs"
+        },
+        {
+          "id": "C",
+          "text": "Guaranteed stronger exports"
+        },
+        {
+          "id": "D",
+          "text": "Higher credit spreads by definition"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: cheaper energy improves terms of trade and reduces inflation pressure.",
+        "B": "Wrong: costs fall, not rise.",
+        "C": "Wrong: export effects are not guaranteed.",
+        "D": "Wrong: spreads need not widen."
+      },
+      "vocabulary": [
+        "terms of trade",
+        "oil importer"
+      ]
+    },
+    {
+      "id": "busy-141",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "challenging",
+      "question": "If JPY strengthens because of risk-off deleveraging, what cross-asset signal would support that interpretation?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Equities down, vol up, credit spreads wider"
+        },
+        {
+          "id": "B",
+          "text": "Equities up, vol down, spreads tighter"
+        },
+        {
+          "id": "C",
+          "text": "Oil up only"
+        },
+        {
+          "id": "D",
+          "text": "No change outside FX"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: broad stress across assets is consistent with deleveraging.",
+        "B": "Wrong: that is more risk-on.",
+        "C": "Wrong: oil alone is insufficient.",
+        "D": "Wrong: a purely isolated FX move would weaken the case."
+      },
+      "vocabulary": [
+        "deleveraging",
+        "credit spreads",
+        "volatility"
+      ]
+    },
+    {
+      "id": "busy-142",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "intermediate",
+      "question": "Which variable best distinguishes a stronger USD caused by US exceptional growth from one caused by global funding stress?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Cross-asset risk behavior, credit spreads and dollar funding indicators"
+        },
+        {
+          "id": "B",
+          "text": "USD spot alone"
+        },
+        {
+          "id": "C",
+          "text": "One equity index only"
+        },
+        {
+          "id": "D",
+          "text": "Gold price alone"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: the broader pattern helps identify the underlying regime.",
+        "B": "Wrong: spot alone does not identify cause.",
+        "C": "Wrong: one index is too narrow.",
+        "D": "Wrong: gold alone is ambiguous."
+      },
+      "vocabulary": [
+        "dollar funding",
+        "US exceptionalism",
+        "cross-asset"
+      ]
+    },
+    {
+      "id": "busy-143",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "challenging",
+      "question": "A fiscal-expansion announcement pushes long yields higher and the currency stronger. What should you check before calling it bullish growth?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Whether the move reflects term-premium/fiscal-risk concerns rather than better growth"
+        },
+        {
+          "id": "B",
+          "text": "Only equity futures"
+        },
+        {
+          "id": "C",
+          "text": "Only oil prices"
+        },
+        {
+          "id": "D",
+          "text": "Nothing else"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: higher long yields can reflect risk premium, not just stronger growth.",
+        "B": "Wrong: equities help but are not enough.",
+        "C": "Wrong: oil is indirect.",
+        "D": "Wrong: attribution requires more evidence."
+      },
+      "vocabulary": [
+        "fiscal expansion",
+        "term premium",
+        "fiscal risk"
+      ]
+    },
+    {
+      "id": "busy-144",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "intermediate",
+      "question": "Why can equity volatility rise when bond volatility rises?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Uncertainty about discount rates and macro policy can transmit across assets"
+        },
+        {
+          "id": "B",
+          "text": "The two vols are mechanically identical"
+        },
+        {
+          "id": "C",
+          "text": "Equity vol only reflects earnings"
+        },
+        {
+          "id": "D",
+          "text": "Bond vol never affects financial conditions"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: rate uncertainty changes valuations and financial conditions.",
+        "B": "Wrong: they are related but not identical.",
+        "C": "Wrong: equity vol has multiple drivers.",
+        "D": "Wrong: bond-market volatility can affect financing and discount rates."
+      },
+      "vocabulary": [
+        "bond volatility",
+        "equity volatility",
+        "financial conditions"
+      ]
+    },
+    {
+      "id": "busy-145",
+      "category": "Cross-Asset / Macro",
+      "difficulty": "challenging",
+      "question": "A commodity exporter's currency weakens even as commodity prices rise. What should you investigate?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Domestic political risk, rate cuts, capital outflows or broader USD strength"
+        },
+        {
+          "id": "B",
+          "text": "Assume the commodity data are wrong"
+        },
+        {
+          "id": "C",
+          "text": "Commodity prices can never diverge from FX"
+        },
+        {
+          "id": "D",
+          "text": "Only local inflation from five years ago"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: country-specific and global factors can overwhelm terms-of-trade support.",
+        "B": "Wrong: divergence is possible.",
+        "C": "Wrong: correlations are not identities.",
+        "D": "Wrong: stale inflation data are unlikely to explain the immediate move."
+      },
+      "vocabulary": [
+        "terms of trade",
+        "capital outflows",
+        "political risk"
+      ]
+    },
+    {
+      "id": "busy-146",
+      "category": "Risk Management / Judgement",
+      "difficulty": "foundational",
+      "question": "VaR is stable, but market liquidity deteriorates sharply. What should a risk manager conclude?",
+      "options": [
+        {
+          "id": "A",
+          "text": "VaR may understate liquidity and gap risk"
+        },
+        {
+          "id": "B",
+          "text": "Risk is unchanged"
+        },
+        {
+          "id": "C",
+          "text": "Liquidity never affects market risk"
+        },
+        {
+          "id": "D",
+          "text": "VaR automatically captures all stress effects"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: standard VaR may not capture stressed liquidity/gaps well.",
+        "B": "Wrong: liquidity deterioration changes risk.",
+        "C": "Wrong: liquidity is central to exit/hedge risk.",
+        "D": "Wrong: VaR has known limitations."
+      },
+      "vocabulary": [
+        "VaR",
+        "liquidity risk",
+        "gap risk"
+      ]
+    },
+    {
+      "id": "busy-147",
+      "category": "Risk Management / Judgement",
+      "difficulty": "intermediate",
+      "question": "A position is small in total notional but concentrated in one illiquid tenor. What matters most?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Concentration and exit liquidity"
+        },
+        {
+          "id": "B",
+          "text": "Only total notional"
+        },
+        {
+          "id": "C",
+          "text": "Only daily carry"
+        },
+        {
+          "id": "D",
+          "text": "Nothing because size is small"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: concentrated illiquid risk can be hard to unwind.",
+        "B": "Wrong: notional alone is insufficient.",
+        "C": "Wrong: carry is secondary to stress exit risk.",
+        "D": "Wrong: small aggregate size does not eliminate concentration."
+      },
+      "vocabulary": [
+        "concentration",
+        "liquidity",
+        "tenor"
+      ]
+    },
+    {
+      "id": "busy-148",
+      "category": "Risk Management / Judgement",
+      "difficulty": "challenging",
+      "question": "A desk is within limits, but stress loss has doubled. What should happen?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Investigate the driver and assess whether limits remain appropriate"
+        },
+        {
+          "id": "B",
+          "text": "Ignore it because limits are not breached"
+        },
+        {
+          "id": "C",
+          "text": "Automatically double the limit"
+        },
+        {
+          "id": "D",
+          "text": "Close every position immediately"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: stress deterioration can be material even within formal limits.",
+        "B": "Wrong: limits are not the only risk signal.",
+        "C": "Wrong: more risk does not justify a higher limit automatically.",
+        "D": "Wrong: action should be proportionate and informed."
+      },
+      "vocabulary": [
+        "stress loss",
+        "risk limits",
+        "escalation"
+      ]
+    },
+    {
+      "id": "busy-149",
+      "category": "Risk Management / Judgement",
+      "difficulty": "intermediate",
+      "question": "Which question is most senior-risk-manager-like after seeing a large exposure increase?",
+      "options": [
+        {
+          "id": "A",
+          "text": "What changed, why does it matter, and what should we do next?"
+        },
+        {
+          "id": "B",
+          "text": "Is the number green or red?"
+        },
+        {
+          "id": "C",
+          "text": "Who entered the trade?"
+        },
+        {
+          "id": "D",
+          "text": "Can we hide the change in another bucket?"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: senior risk thinking links observation, impact and action.",
+        "B": "Wrong: color alone is not analysis.",
+        "C": "Wrong: ownership may matter but is not the core risk question.",
+        "D": "Wrong: reclassification does not reduce risk."
+      },
+      "vocabulary": [
+        "risk judgement",
+        "escalation"
+      ]
+    },
+    {
+      "id": "busy-150",
+      "category": "Risk Management / Judgement",
+      "difficulty": "challenging",
+      "question": "A model reports low risk because recent volatility is low, but there is a major event tomorrow. What is the key concern?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Backward-looking calibration may understate event risk"
+        },
+        {
+          "id": "B",
+          "text": "Low recent vol guarantees low future risk"
+        },
+        {
+          "id": "C",
+          "text": "Models should ignore events"
+        },
+        {
+          "id": "D",
+          "text": "Only realized P&L matters"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: historical calibration can miss discrete event risk.",
+        "B": "Wrong: regime can change abruptly.",
+        "C": "Wrong: event risk is relevant.",
+        "D": "Wrong: forward-looking risk matters before P&L occurs."
+      },
+      "vocabulary": [
+        "model risk",
+        "event risk",
+        "historical volatility"
+      ]
+    },
+    {
+      "id": "busy-151",
+      "category": "Risk Management / Judgement",
+      "difficulty": "intermediate",
+      "question": "What is a good reason to escalate a risk issue before a limit breach?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Rapid deterioration, concentration, poor liquidity or model uncertainty"
+        },
+        {
+          "id": "B",
+          "text": "Never escalate before a breach"
+        },
+        {
+          "id": "C",
+          "text": "Only if P&L is already negative"
+        },
+        {
+          "id": "D",
+          "text": "Only if senior management asks first"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: risk management is forward-looking, not only breach-driven.",
+        "B": "Wrong: early escalation can prevent larger problems.",
+        "C": "Wrong: risk can be high before losses occur.",
+        "D": "Wrong: risk managers should act proactively."
+      },
+      "vocabulary": [
+        "escalation",
+        "concentration",
+        "liquidity"
+      ]
+    },
+    {
+      "id": "busy-152",
+      "category": "Risk Management / Judgement",
+      "difficulty": "challenging",
+      "question": "Two risk metrics disagree materially about the same book. What is the best response?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Understand methodology, assumptions and scenario sensitivity before choosing one"
+        },
+        {
+          "id": "B",
+          "text": "Use the smaller number"
+        },
+        {
+          "id": "C",
+          "text": "Average them blindly"
+        },
+        {
+          "id": "D",
+          "text": "Ignore both"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: differing methods may capture different risk dimensions.",
+        "B": "Wrong: choosing the lower figure is biased.",
+        "C": "Wrong: averaging can be meaningless.",
+        "D": "Wrong: disagreement itself is informative."
+      },
+      "vocabulary": [
+        "model risk",
+        "methodology"
+      ]
+    },
+    {
+      "id": "busy-153",
+      "category": "Risk Management / Judgement",
+      "difficulty": "intermediate",
+      "question": "A risk limit is not breached, but liquidity has disappeared. What should dominate the decision?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ability to exit/hedge under stress, not just formal limit status"
+        },
+        {
+          "id": "B",
+          "text": "Only the limit number"
+        },
+        {
+          "id": "C",
+          "text": "Only yesterday's volume"
+        },
+        {
+          "id": "D",
+          "text": "Only trader confidence"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: effective risk depends on market capacity and exitability.",
+        "B": "Wrong: limits are necessary but not sufficient.",
+        "C": "Wrong: historical volume may not reflect current stress.",
+        "D": "Wrong: confidence is not a risk metric."
+      },
+      "vocabulary": [
+        "liquidity",
+        "risk limit"
+      ]
+    },
+    {
+      "id": "busy-154",
+      "category": "Risk Management / Judgement",
+      "difficulty": "challenging",
+      "question": "Why can concentration be dangerous even when VaR looks modest?",
+      "options": [
+        {
+          "id": "A",
+          "text": "VaR may diversify normal moves while a concentrated position has severe idiosyncratic or liquidity stress"
+        },
+        {
+          "id": "B",
+          "text": "Concentration always reduces risk"
+        },
+        {
+          "id": "C",
+          "text": "VaR fully captures every tail"
+        },
+        {
+          "id": "D",
+          "text": "Only P&L volatility matters"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: concentration can create nonlinear, jump and exit risks beyond normal VaR.",
+        "B": "Wrong: concentration generally reduces diversification.",
+        "C": "Wrong: VaR is not complete.",
+        "D": "Wrong: tail and liquidity risk matter."
+      },
+      "vocabulary": [
+        "concentration",
+        "VaR",
+        "tail risk"
+      ]
+    },
+    {
+      "id": "busy-155",
+      "category": "Risk Management / Judgement",
+      "difficulty": "foundational",
+      "question": "What is a stress test designed to answer?",
+      "options": [
+        {
+          "id": "A",
+          "text": "How the portfolio behaves under severe but plausible scenarios"
+        },
+        {
+          "id": "B",
+          "text": "What happened yesterday only"
+        },
+        {
+          "id": "C",
+          "text": "What the accounting profit is"
+        },
+        {
+          "id": "D",
+          "text": "What the exact future price will be"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: stress tests explore portfolio vulnerability under adverse scenarios.",
+        "B": "Wrong: that is historical analysis.",
+        "C": "Wrong: accounting profit is not the main purpose.",
+        "D": "Wrong: stress tests are not exact forecasts."
+      },
+      "vocabulary": [
+        "stress test",
+        "scenario analysis"
+      ]
+    },
+    {
+      "id": "busy-156",
+      "category": "Risk Management / Judgement",
+      "difficulty": "intermediate",
+      "question": "A stress test assumes all hedges remain perfectly liquid. What is the main weakness?",
+      "options": [
+        {
+          "id": "A",
+          "text": "It may understate execution and liquidity risk"
+        },
+        {
+          "id": "B",
+          "text": "It is automatically conservative"
+        },
+        {
+          "id": "C",
+          "text": "Liquidity never matters to hedges"
+        },
+        {
+          "id": "D",
+          "text": "Perfect liquidity is always realistic"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: stressed markets can impair hedge execution and widen basis.",
+        "B": "Wrong: this assumption can be optimistic.",
+        "C": "Wrong: liquidity is central.",
+        "D": "Wrong: stress often reduces liquidity."
+      },
+      "vocabulary": [
+        "liquidity risk",
+        "stress test",
+        "hedge"
+      ]
+    },
+    {
+      "id": "busy-157",
+      "category": "Risk Management / Judgement",
+      "difficulty": "challenging",
+      "question": "A book's risk is spread across many desks, but all depend on the same market factor. What hidden issue exists?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Common-factor concentration"
+        },
+        {
+          "id": "B",
+          "text": "Perfect diversification"
+        },
+        {
+          "id": "C",
+          "text": "No need for aggregation"
+        },
+        {
+          "id": "D",
+          "text": "Only operational risk"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: organizational dispersion can hide economic concentration.",
+        "B": "Wrong: common factor reduces diversification.",
+        "C": "Wrong: aggregation is necessary.",
+        "D": "Wrong: this is market risk."
+      },
+      "vocabulary": [
+        "common-factor risk",
+        "aggregation"
+      ]
+    },
+    {
+      "id": "busy-158",
+      "category": "Risk Management / Judgement",
+      "difficulty": "intermediate",
+      "question": "What does 'risk appetite' mean in practice?",
+      "options": [
+        {
+          "id": "A",
+          "text": "The amount/type of risk an institution is willing to accept in pursuit of objectives"
+        },
+        {
+          "id": "B",
+          "text": "The same as realized P&L"
+        },
+        {
+          "id": "C",
+          "text": "A regulatory capital number only"
+        },
+        {
+          "id": "D",
+          "text": "A trader's personal preference"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: risk appetite defines tolerated risk within governance.",
+        "B": "Wrong: P&L is an outcome, not appetite.",
+        "C": "Wrong: capital is one constraint among many.",
+        "D": "Wrong: institutional appetite is not individual preference."
+      },
+      "vocabulary": [
+        "risk appetite",
+        "governance"
+      ]
+    },
+    {
+      "id": "busy-159",
+      "category": "Risk Management / Judgement",
+      "difficulty": "challenging",
+      "question": "A desk says, 'This position has never lost money in backtests.' What is the strongest challenge?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Ask whether the backtest includes relevant stress regimes, liquidity and structural breaks"
+        },
+        {
+          "id": "B",
+          "text": "Accept the result as proof"
+        },
+        {
+          "id": "C",
+          "text": "Assume future markets match history exactly"
+        },
+        {
+          "id": "D",
+          "text": "Ignore model assumptions"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: historical success may not survive regime shifts or liquidity stress.",
+        "B": "Wrong: backtests are not proof.",
+        "C": "Wrong: stationarity is not guaranteed.",
+        "D": "Wrong: assumptions are central."
+      },
+      "vocabulary": [
+        "backtest",
+        "structural break",
+        "liquidity"
+      ]
+    },
+    {
+      "id": "busy-160",
+      "category": "Risk Management / Judgement",
+      "difficulty": "intermediate",
+      "question": "When should a risk manager distinguish between market-move and new-trade effects?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Whenever exposure or P&L changes materially"
+        },
+        {
+          "id": "B",
+          "text": "Never"
+        },
+        {
+          "id": "C",
+          "text": "Only at year-end"
+        },
+        {
+          "id": "D",
+          "text": "Only after a breach"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: attribution is key to understanding risk evolution.",
+        "B": "Wrong: the distinction is fundamental.",
+        "C": "Wrong: it should be routine.",
+        "D": "Wrong: waiting for a breach is too late."
+      },
+      "vocabulary": [
+        "risk attribution",
+        "new trade"
+      ]
+    },
+    {
+      "id": "busy-161",
+      "category": "Risk Management / Judgement",
+      "difficulty": "challenging",
+      "question": "A stress scenario produces a large gain. Should the risk manager conclude the book is safe?",
+      "options": [
+        {
+          "id": "A",
+          "text": "No; other scenarios, model assumptions and path dependence may still reveal losses"
+        },
+        {
+          "id": "B",
+          "text": "Yes, one stress gain proves safety"
+        },
+        {
+          "id": "C",
+          "text": "Yes, because stress tests are exhaustive"
+        },
+        {
+          "id": "D",
+          "text": "No, but only because accounting rules say so"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: one favorable scenario says little about full tail exposure.",
+        "B": "Wrong: risk is multidimensional.",
+        "C": "Wrong: stress sets are not exhaustive.",
+        "D": "Wrong: the issue is economic risk, not accounting."
+      },
+      "vocabulary": [
+        "stress scenario",
+        "path dependence"
+      ]
+    },
+    {
+      "id": "busy-162",
+      "category": "Risk Management / Judgement",
+      "difficulty": "intermediate",
+      "question": "Why is liquidity risk especially important for concentrated positions?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Large positions may move the market against you when unwinding"
+        },
+        {
+          "id": "B",
+          "text": "Concentrated positions are always easier to sell"
+        },
+        {
+          "id": "C",
+          "text": "Liquidity improves in stress"
+        },
+        {
+          "id": "D",
+          "text": "Market impact is irrelevant"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: size relative to market depth can worsen exit prices.",
+        "B": "Wrong: concentration often reduces exit flexibility.",
+        "C": "Wrong: liquidity usually worsens in stress.",
+        "D": "Wrong: market impact is central."
+      },
+      "vocabulary": [
+        "market impact",
+        "liquidity",
+        "concentration"
+      ]
+    },
+    {
+      "id": "busy-163",
+      "category": "Risk Management / Judgement",
+      "difficulty": "challenging",
+      "question": "A model uses yesterday's closing prices, but the market gapped overnight. What risk does that create in morning reporting?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Stale-data / timing risk"
+        },
+        {
+          "id": "B",
+          "text": "No risk"
+        },
+        {
+          "id": "C",
+          "text": "Only credit migration"
+        },
+        {
+          "id": "D",
+          "text": "Only legal risk"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: stale inputs can materially misstate current exposure/P&L.",
+        "B": "Wrong: timing matters after a gap.",
+        "C": "Wrong: this is a market-data issue.",
+        "D": "Wrong: not primarily legal."
+      },
+      "vocabulary": [
+        "stale data",
+        "timing risk"
+      ]
+    },
+    {
+      "id": "busy-164",
+      "category": "Risk Management / Judgement",
+      "difficulty": "intermediate",
+      "question": "What is the best reason to compare risk across multiple metrics?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Different metrics capture different dimensions and failure modes"
+        },
+        {
+          "id": "B",
+          "text": "One metric is always enough"
+        },
+        {
+          "id": "C",
+          "text": "Metrics should be identical"
+        },
+        {
+          "id": "D",
+          "text": "More metrics automatically mean lower risk"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: VaR, stress, Greeks, concentration and liquidity each reveal different aspects.",
+        "B": "Wrong: no single metric is complete.",
+        "C": "Wrong: different methodologies need not match.",
+        "D": "Wrong: measurement does not reduce risk by itself."
+      },
+      "vocabulary": [
+        "risk metrics",
+        "VaR",
+        "stress"
+      ]
+    },
+    {
+      "id": "busy-165",
+      "category": "Risk Management / Judgement",
+      "difficulty": "challenging",
+      "question": "A position is profitable but consumes rapidly increasing stress capital. What should risk management focus on?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Whether return compensates for rising tail risk and whether the exposure fits appetite"
+        },
+        {
+          "id": "B",
+          "text": "Profit means risk is acceptable"
+        },
+        {
+          "id": "C",
+          "text": "Stress capital is irrelevant if P&L is positive"
+        },
+        {
+          "id": "D",
+          "text": "Increase the position immediately"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: risk-adjusted economics and appetite matter, not P&L alone.",
+        "B": "Wrong: profitable trades can carry excessive tail risk.",
+        "C": "Wrong: stress capital is a risk signal.",
+        "D": "Wrong: more exposure is not justified automatically."
+      },
+      "vocabulary": [
+        "stress capital",
+        "risk-adjusted return",
+        "risk appetite"
+      ]
+    },
+    {
+      "id": "busy-166",
+      "category": "Risk Management / Judgement",
+      "difficulty": "intermediate",
+      "question": "What is a 'limit breach'?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Exposure or risk exceeds an approved threshold"
+        },
+        {
+          "id": "B",
+          "text": "Any negative P&L day"
+        },
+        {
+          "id": "C",
+          "text": "Any volatility increase"
+        },
+        {
+          "id": "D",
+          "text": "Any trader disagreement"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: a limit breach is a formal threshold exceedance.",
+        "B": "Wrong: loss alone is not necessarily a breach.",
+        "C": "Wrong: volatility rise may remain within limits.",
+        "D": "Wrong: disagreement is not a breach."
+      },
+      "vocabulary": [
+        "limit breach",
+        "risk limit"
+      ]
+    },
+    {
+      "id": "busy-167",
+      "category": "Risk Management / Judgement",
+      "difficulty": "challenging",
+      "question": "A risk metric falls after a model change, with no position or market move. What should you ask?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Whether methodology changed the measurement rather than the economics"
+        },
+        {
+          "id": "B",
+          "text": "Celebrate lower risk immediately"
+        },
+        {
+          "id": "C",
+          "text": "Assume traders reduced positions"
+        },
+        {
+          "id": "D",
+          "text": "Ignore because the number improved"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: model changes can alter reported risk without changing underlying exposure.",
+        "B": "Wrong: lower reported risk may be methodological.",
+        "C": "Wrong: no trade change is stated.",
+        "D": "Wrong: unexplained metric changes should be understood."
+      },
+      "vocabulary": [
+        "model change",
+        "methodology",
+        "measurement risk"
+      ]
+    },
+    {
+      "id": "busy-168",
+      "category": "Risk Management / Judgement",
+      "difficulty": "intermediate",
+      "question": "Why should a risk manager care about 'what would make me wrong?'",
+      "options": [
+        {
+          "id": "A",
+          "text": "It identifies invalidation signals and prevents one-sided reasoning"
+        },
+        {
+          "id": "B",
+          "text": "It weakens conviction unnecessarily"
+        },
+        {
+          "id": "C",
+          "text": "Risk views should never change"
+        },
+        {
+          "id": "D",
+          "text": "Only traders need scenarios"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: explicit falsification criteria improve judgement.",
+        "B": "Wrong: disciplined uncertainty improves decisions.",
+        "C": "Wrong: views should update with evidence.",
+        "D": "Wrong: risk managers need scenario thinking."
+      },
+      "vocabulary": [
+        "invalidation signal",
+        "scenario thinking"
+      ]
+    },
+    {
+      "id": "busy-169",
+      "category": "Risk Management / Judgement",
+      "difficulty": "challenging",
+      "question": "A portfolio is diversified by asset class but all positions lose when real yields rise. What does this show?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Hidden common-factor exposure"
+        },
+        {
+          "id": "B",
+          "text": "Perfect diversification"
+        },
+        {
+          "id": "C",
+          "text": "No need for stress testing"
+        },
+        {
+          "id": "D",
+          "text": "Asset-class labels fully determine risk"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: economic factor exposure can cut across asset classes.",
+        "B": "Wrong: common-factor sensitivity undermines diversification.",
+        "C": "Wrong: stress testing is especially useful here.",
+        "D": "Wrong: labels do not capture all drivers."
+      },
+      "vocabulary": [
+        "common-factor exposure",
+        "real yields",
+        "diversification"
+      ]
+    },
+    {
+      "id": "busy-170",
+      "category": "Risk Management / Judgement",
+      "difficulty": "intermediate",
+      "question": "What is the best next step after identifying a material unexplained risk concentration?",
+      "options": [
+        {
+          "id": "A",
+          "text": "Validate the data, understand the driver, assess stress/liquidity, and escalate if needed"
+        },
+        {
+          "id": "B",
+          "text": "Immediately hide it in another bucket"
+        },
+        {
+          "id": "C",
+          "text": "Wait for a loss"
+        },
+        {
+          "id": "D",
+          "text": "Assume it will mean-revert"
+        }
+      ],
+      "correctAnswer": "A",
+      "explanations": {
+        "A": "Correct: diagnosis, stress assessment and governance come before action.",
+        "B": "Wrong: reclassification does not reduce risk.",
+        "C": "Wrong: risk management should be proactive.",
+        "D": "Wrong: mean reversion is not guaranteed."
+      },
+      "vocabulary": [
+        "escalation",
+        "concentration",
+        "stress assessment"
+      ]
+    }
+  ]
+}

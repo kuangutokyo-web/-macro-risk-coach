@@ -1,11 +1,14 @@
 export type Language = "en" | "ja";
 import type { VocabularyReference } from "./vocabulary/types";
+import { importedBusyQuestionBank } from "./content/busy-bank";
+import { legacyBusyQuestionBank } from "./content/legacy-busy-bank";
 
 export type Mode = "home" | "busy" | "normal" | "deep" | "news" | "review" | "vocabulary";
 
 export type QuizQuestion = {
   id: string;
   category: string;
+  difficulty?: "foundational" | "intermediate" | "challenging";
   question: string;
   options: string[];
   correct: number;
@@ -20,171 +23,12 @@ type CaseField = { key: string; label: LocalizedText; hint: LocalizedText };
 export type NormalCase = { id: string; tag: LocalizedText; title: LocalizedText; scenario: LocalizedText; vocabulary: Array<{ termId: string; text: LocalizedText }>; modelAnswer: { en: string[]; ja: string[] }; fields: CaseField[] };
 export type DeepCase = Omit<NormalCase, "modelAnswer">;
 
-export const busyQuestionBank: QuizQuestion[] = [
-  {
-    id: "real-yields",
-    category: "Rates → Equities",
-    question: "US real yields jump 25bp while inflation expectations barely move. Which equity exposure is most directly vulnerable?",
-    options: ["Long-duration growth stocks", "Floating-rate banks", "Cash-rich value stocks", "Commodity producers"],
-    correct: 0,
-    explanations: [
-      "Correct. Higher real discount rates reduce the present value of distant cash flows most sharply.",
-      "Banks may benefit from higher rates, though the curve and credit cycle still matter.",
-      "Nearer-term cash flows and strong balance sheets make this group relatively less duration-sensitive.",
-      "Commodity producers respond more directly to spot prices, demand, and inflation expectations.",
-    ],
-    vocabulary: [{ termId:"real-yield", text:"real yields" }, { termId:"inflation-expectations" }, { termId:"long-duration", text:"Long-duration growth stocks" }, { termId:"basis-point", text:"25bp" }],
-    optionVocabulary: [[{termId:"long-duration",text:"Long-duration growth stocks"}],[{termId:"floating-rate",text:"Floating-rate banks"}],[],[]],
-    explanationVocabulary: [[{termId:"discount-rate",text:"discount rates"}],[],[],[{termId:"inflation-expectations"}]],
-  },
-  {
-    id: "yen-carry",
-    category: "FX → Cross-asset",
-    question: "A rapid yen rally is most likely to create immediate stress through which channel?",
-    options: ["Higher US inflation breakevens", "Unwinding of yen-funded carry trades", "Lower Japanese import costs", "A steeper US yield curve"],
-    correct: 1,
-    explanations: [
-      "A yen rally does not mechanically raise US inflation expectations.",
-      "Correct. Yen strength raises the funding cost of short-yen positions and can force deleveraging across risk assets.",
-      "This is a medium-term economic benefit for Japan, not the primary immediate market-stress channel.",
-      "The US curve could move for many reasons, but yen appreciation does not directly steepen it.",
-    ],
-    vocabulary: [{ termId:"carry-trade", text:"yen-funded carry trades" }, { termId:"deleveraging" }],
-    optionVocabulary: [[{termId:"inflation-breakeven",text:"inflation breakevens"}],[{termId:"carry-trade",text:"yen-funded carry trades"}],[],[{termId:"yield-curve",text:"yield curve"}]],
-    explanationVocabulary: [[{termId:"inflation-expectations"}],[{termId:"funding-cost",text:"funding cost"},{termId:"deleveraging"}],[],[]],
-  },
-  {
-    id: "oil-shock",
-    category: "Commodities → Macro",
-    question: "Oil rises 20% on a supply shock. For an oil-importing economy, what is the cleanest first-order macro effect?",
-    options: ["Better terms of trade", "Lower headline inflation", "Higher inflation and weaker real income", "Stronger current account balance"],
-    correct: 2,
-    explanations: [
-      "Importers pay more for the same energy, so their terms of trade deteriorate.",
-      "Energy feeds directly into headline inflation, so the initial effect is higher, not lower.",
-      "Correct. The economy pays more for imported energy, lifting prices and reducing household purchasing power.",
-      "A larger energy import bill usually weakens the current account, all else equal.",
-    ],
-    vocabulary: [{ termId:"supply-shock" }, { termId:"terms-of-trade", text:"terms of trade" }, { termId:"current-account", text:"current account balance" }],
-    optionVocabulary: [[{termId:"terms-of-trade",text:"terms of trade"}],[],[],[{termId:"current-account",text:"current account balance"}]],
-    explanationVocabulary: [[{termId:"terms-of-trade",text:"terms of trade"}],[{termId:"inflation-expectations",text:"headline inflation"}],[],[{termId:"current-account",text:"current account"}]],
-  },
-  {
-    id: "curve-inversion",
-    category: "Rates → Cycle",
-    question: "The yield curve bull-steepens after weak payrolls. What does that usually mean?",
-    options: ["Long yields rise faster than short yields", "Short yields fall faster than long yields", "All yields rise equally", "Inflation expectations surge"],
-    correct: 1,
-    explanations: [
-      "That would be a bear steepening because yields are rising.",
-      "Correct. Yields fall (bull), with the front end falling more as markets price policy easing.",
-      "A parallel move changes the level of rates, not the curve slope.",
-      "Weak payrolls more often reduce growth and policy-rate expectations than cause an inflation surge.",
-    ],
-    vocabulary: [{ termId:"yield-curve", text:"yield curve" }, { termId:"bull-steepening", text:"bull-steepens" }],
-    optionVocabulary: [[],[],[],[{termId:"inflation-expectations"}]],
-    explanationVocabulary: [[{termId:"bear-steepening",text:"bear steepening"}],[{termId:"bull-steepening",text:"bull"}],[],[]],
-  },
-  {
-    id: "credit-spreads",
-    category: "Credit → Risk",
-    question: "Credit spreads widen sharply while government yields fall. What is the strongest interpretation?",
-    options: ["Risk-free and risky assets are both rallying", "Credit risk is improving", "Growth or default concerns are overriding the rates rally", "Corporate funding conditions are easing"],
-    correct: 2,
-    explanations: [
-      "Government bonds may rally, but wider spreads mean corporate credit is under pressure.",
-      "Improving credit risk would usually compress, not widen, spreads.",
-      "Correct. The flight to government bonds is not enough to offset rising compensation for corporate risk.",
-      "Wider spreads raise the cost of corporate borrowing and tighten funding conditions.",
-    ],
-    vocabulary: [{ termId:"credit-spread", text:"Credit spreads" }],
-    optionVocabulary: [[],[{termId:"default-risk",text:"Credit risk"}],[{termId:"default-risk",text:"default concerns"}],[{termId:"funding-cost",text:"funding conditions"}]],
-    explanationVocabulary: [[{termId:"credit-spread",text:"wider spreads"}],[{termId:"credit-spread",text:"spreads"}],[{termId:"default-risk",text:"corporate risk"}],[{termId:"credit-spread",text:"Wider spreads"},{termId:"funding-cost",text:"funding conditions"}]],
-  },
-  {
-    id: "duration-shock",
-    category: "Rates → Risk",
-    question: "Government yields rise 40bp in a parallel move. Which position is likely to lose the most, all else equal?",
-    options: ["A high-DV01 long bond position", "A floating-rate note near reset", "A short-duration cash portfolio", "A receive-floating interest-rate swap"],
-    correct: 0,
-    explanations: [
-      "Correct. A larger DV01 means a larger price loss for the same rise in yields.",
-      "A floating-rate note resets its coupon, so its price is usually less sensitive to a parallel yield rise.",
-      "Short-duration cash flows have limited rate sensitivity compared with long bonds.",
-      "Receiving floating generally benefits as the reference rate resets higher; it is not the clearest loss exposure here.",
-    ],
-    vocabulary: [{ termId:"dv01", text:"DV01" }, { termId:"basis-point", text:"40bp" }],
-    optionVocabulary: [[{termId:"dv01",text:"high-DV01"}],[{termId:"floating-rate",text:"floating-rate note"}],[{termId:"long-duration",text:"short-duration"}],[]],
-    explanationVocabulary: [[{termId:"dv01",text:"DV01"}],[{termId:"floating-rate",text:"floating-rate note"}],[{termId:"long-duration",text:"Short-duration"}],[]],
-  },
-  {
-    id: "hawkish-fx",
-    category: "Macro → FX",
-    question: "A central bank delivers an unexpected hawkish hike while peers remain unchanged. What is the cleanest immediate FX channel?",
-    options: ["The currency strengthens as its yield advantage widens", "The currency must weaken because growth will slow", "The current account improves immediately", "FX volatility must fall"],
-    correct: 0,
-    explanations: [
-      "Correct. Wider expected rate differentials can attract capital and support the currency, at least initially.",
-      "Slower growth may matter later, but it does not erase the immediate policy-divergence channel.",
-      "Monetary policy does not mechanically change trade flows or the current account on impact.",
-      "A policy surprise can increase, rather than necessarily reduce, FX volatility.",
-    ],
-    vocabulary: [{ termId:"policy-divergence", text:"policy" }, { termId:"current-account", text:"current account" }],
-    optionVocabulary: [[{termId:"policy-divergence",text:"yield advantage"}],[],[{termId:"current-account",text:"current account"}],[]],
-    explanationVocabulary: [[{termId:"policy-divergence",text:"rate differentials"}],[{termId:"policy-divergence",text:"policy-divergence"}],[{termId:"current-account",text:"current account"}],[]],
-  },
-  {
-    id: "equity-skew",
-    category: "Options → Equities",
-    question: "Equity index downside skew steepens sharply. What does that most directly indicate?",
-    options: ["Downside puts became richer relative to comparable calls", "All implied volatility fell", "The index delta became zero", "Credit spreads must tighten"],
-    correct: 0,
-    explanations: [
-      "Correct. Steeper downside skew means the market is charging more for downside protection relative to upside options.",
-      "The overall volatility level can rise or fall independently of the relative pricing across strikes.",
-      "Skew describes relative option prices, not a requirement that the portfolio delta is zero.",
-      "Option skew and credit spreads can co-move in stress, but one does not mechanically force the other to tighten.",
-    ],
-    vocabulary: [{ termId:"skew", text:"downside skew" }],
-    optionVocabulary: [[{termId:"skew",text:"Downside puts"}],[],[],[{termId:"credit-spread",text:"Credit spreads"}]],
-    explanationVocabulary: [[{termId:"skew",text:"downside skew"}],[{termId:"skew",text:"relative pricing across strikes"}],[{termId:"skew",text:"Skew"}],[{termId:"credit-spread",text:"credit spreads"}]],
-  },
-  {
-    id: "credit-basis",
-    category: "Credit → Hedging",
-    question: "A corporate-bond book is duration-hedged with Treasury futures but loses as credit spreads widen. What remains?",
-    options: ["Basis risk between corporate credit and the government-rate hedge", "No market risk because duration is hedged", "Only settlement risk", "A guaranteed gain from lower government yields"],
-    correct: 0,
-    explanations: [
-      "Correct. The hedge offsets government-rate duration, not a widening corporate credit spread.",
-      "Duration hedging removes only one driver; spread, liquidity, and issuer risks remain.",
-      "Settlement risk is unrelated to the described mark-to-market loss.",
-      "Lower government yields can help the bond, but widening spreads may more than offset that gain.",
-    ],
-    vocabulary: [{ termId:"basis-risk", text:"duration-hedged" }, { termId:"credit-spread", text:"credit spreads" }],
-    optionVocabulary: [[{termId:"basis-risk",text:"Basis risk"},{termId:"credit-spread",text:"corporate credit"}],[],[],[]],
-    explanationVocabulary: [[{termId:"basis-risk",text:"hedge"},{termId:"credit-spread",text:"credit spread"}],[{termId:"credit-spread",text:"spread"}],[],[{termId:"credit-spread",text:"widening spreads"}]],
-  },
-  {
-    id: "liquidity-stress",
-    category: "Risk → Liquidity",
-    question: "Bid–ask spreads widen and market depth falls during a sell-off. Which risk is rising most directly?",
-    options: ["Liquidity risk and the cost of exiting positions", "Coupon reinvestment income", "The accounting face value of cash", "A guaranteed decline in realized volatility"],
-    correct: 0,
-    explanations: [
-      "Correct. Wider bid–ask spreads and thinner depth make trades costlier and increase market impact.",
-      "Coupon reinvestment is not what bid–ask width and depth measure.",
-      "Cash face value is not changed by thinner secondary-market liquidity.",
-      "Poor liquidity can amplify price moves; it does not guarantee lower realized volatility.",
-    ],
-    vocabulary: [{ termId:"liquidity-risk", text:"market depth" }],
-    optionVocabulary: [[{termId:"liquidity-risk",text:"Liquidity risk"}],[],[],[]],
-    explanationVocabulary: [[{termId:"liquidity-risk",text:"bid–ask spreads"}],[],[{termId:"liquidity-risk",text:"liquidity"}],[{termId:"liquidity-risk",text:"Poor liquidity"}]],
-  },
-];
 
-/** Full bank used by weekly review; retained as a compatibility export. */
-export const quizQuestions = busyQuestionBank;
+export const busyQuestionBank: QuizQuestion[] = importedBusyQuestionBank;
+
+/** Daily content uses only busyQuestionBank; legacy records remain reviewable. */
+export const reviewQuestionBank = [...busyQuestionBank, ...legacyBusyQuestionBank];
+export const quizQuestions = reviewQuestionBank;
 
 export const normalCase: NormalCase = {
   id: "ecb-hawkish-surprise",
