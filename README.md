@@ -30,3 +30,5 @@ npm run dev     # local development
 npm run build   # production build
 npm run lint    # static checks
 ```
+
+Deployments are automatically built from the `main` branch by Vercel.
