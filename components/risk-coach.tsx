@@ -8,6 +8,7 @@ import { vocabularyById } from "@/lib/vocabulary/catalog";
 import type { SourceContext, VocabularyReference } from "@/lib/vocabulary/types";
 import { useVocabulary } from "@/lib/vocabulary/use-vocabulary";
 import { VocabularyBank } from "./vocabulary/vocabulary-bank";
+import { VocabularyContentProvider } from "./vocabulary/content-context";
 import { VocabularyText } from "./vocabulary/term";
 import { CatalogVocabularyText } from "./vocabulary/catalog-text";
 import { NewsDrill } from "./news/news-drill";
@@ -62,7 +63,7 @@ export function RiskCoach() {
   const clearWrong = () => { setWrongAnswers([]); localStorage.removeItem("mrc-wrong-answers"); };
 
   return (
-    <main>
+    <VocabularyContentProvider entries={vocabulary.entries}><main>
       <header className="topbar">
         <button className="brand" onClick={() => navigate("home")} aria-label="Macro Risk Coach home"><span className="brand-mark"><Mark /></span><span>MACRO RISK COACH</span></button>
         <nav aria-label="Primary navigation">
@@ -79,8 +80,8 @@ export function RiskCoach() {
       {mode === "deep" && dailyContent && <CaseMode key={dailyContent.dateKey} kind="deep" data={dailyContent.deepCase} dailyLabel={dailyContent.displayDate} language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
       {mode === "news" && <NewsDrill savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} onBack={() => navigate("home")} />}
       {mode === "review" && <Review wrongAnswers={wrongAnswers} onClear={clearWrong} onPractice={() => navigate("busy")} />}
-      {mode === "vocabulary" && <VocabularyBank entries={vocabulary.entries} onRemove={vocabulary.remove} onReview={vocabulary.recordReview} onBack={() => navigate("home")} />}
-    </main>
+      {mode === "vocabulary" && <VocabularyBank entries={vocabulary.entries} onRemove={vocabulary.remove} onReview={vocabulary.recordReview} onUpdateContent={vocabulary.updateContent} onResetContent={vocabulary.resetContent} onBack={() => navigate("home")} />}
+    </main></VocabularyContentProvider>
   );
 }
 

@@ -1,7 +1,8 @@
-import type { ReviewResult, SourceContext, VocabularyEntry, VocabularyRepository, VocabularyStore } from "./types";
+import type { LegacyVocabularyStore, ReviewResult, SourceContext, VocabularyContentOverrides, VocabularyEntry, VocabularyRepository, VocabularyStore } from "./types";
 import { createReviewProgress, scheduleReview } from "./scheduler";
 
-export const VOCABULARY_STORAGE_KEY = "mrc-vocabulary-v1";
+export const VOCABULARY_STORAGE_KEY = "mrc-vocabulary-v2";
+export const LEGACY_VOCABULARY_STORAGE_KEY = "mrc-vocabulary-v1";
 
 export interface KeyValueStorage { getItem(key: string): string | null; setItem(key: string, value: string): void }
 
@@ -11,12 +12,14 @@ export class LocalStorageVocabularyRepository implements VocabularyRepository {
   private read(): VocabularyStore {
     try {
       const parsed = JSON.parse(this.storage.getItem(VOCABULARY_STORAGE_KEY) || "null") as VocabularyStore | null;
-      return parsed?.version === 1 && Array.isArray(parsed.entries) ? parsed : { version:1, entries:[] };
-    } catch { return { version:1, entries:[] }; }
+      if (parsed?.version === 2 && Array.isArray(parsed.entries)) return parsed;
+      const legacy = JSON.parse(this.storage.getItem(LEGACY_VOCABULARY_STORAGE_KEY) || "null") as LegacyVocabularyStore | null;
+      return legacy?.version === 1 && Array.isArray(legacy.entries) ? { version:2, entries:legacy.entries } : { version:2, entries:[] };
+    } catch { return { version:2, entries:[] }; }
   }
 
   private write(entries: VocabularyEntry[]): VocabularyEntry[] {
-    this.storage.setItem(VOCABULARY_STORAGE_KEY, JSON.stringify({ version:1, entries } satisfies VocabularyStore));
+    this.storage.setItem(VOCABULARY_STORAGE_KEY, JSON.stringify({ version:2, entries } satisfies VocabularyStore));
     return entries;
   }
 
@@ -34,5 +37,18 @@ export class LocalStorageVocabularyRepository implements VocabularyRepository {
 
   recordReview(termId: string, result: ReviewResult) {
     return this.write(this.list().map((entry) => entry.termId === termId ? { ...entry, review:scheduleReview(entry.review, result) } : entry));
+  }
+
+  updateContent(termId: string, overrides: VocabularyContentOverrides) {
+    return this.write(this.list().map((entry) => entry.termId === termId ? { ...entry, contentOverrides:overrides } : entry));
+  }
+
+  resetContent(termId: string) {
+    return this.write(this.list().map((entry) => {
+      if (entry.termId !== termId) return entry;
+      const { contentOverrides: _contentOverrides, ...preserved } = entry;
+      void _contentOverrides;
+      return preserved;
+    }));
   }
 }

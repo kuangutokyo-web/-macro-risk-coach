@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { LocalStorageVocabularyRepository } from "./repository";
-import type { ReviewResult, SourceContext, VocabularyEntry } from "./types";
+import type { ReviewResult, SourceContext, VocabularyContentOverrides, VocabularyEntry } from "./types";
 
 export function useVocabulary() {
   const [entries, setEntries] = useState<VocabularyEntry[]>([]);
@@ -29,6 +29,14 @@ export function useVocabulary() {
     if (repository) setEntries(repository.recordReview(termId, result));
   }, [repository]);
 
+  const updateContent = useCallback((termId: string, overrides: VocabularyContentOverrides) => {
+    if (repository) setEntries(repository.updateContent(termId, overrides));
+  }, [repository]);
+
+  const resetContent = useCallback((termId: string) => {
+    if (repository) setEntries(repository.resetContent(termId));
+  }, [repository]);
+
   const savedIds = useMemo(() => new Set(entries.map((entry) => entry.termId)), [entries]);
-  return { entries, hydrated, savedIds, save, remove, recordReview };
+  return { entries, hydrated, savedIds, save, remove, recordReview, updateContent, resetContent };
 }

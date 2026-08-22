@@ -19,6 +19,8 @@ export type VocabularyTerm = {
   category: VocabularyCategory;
 };
 
+export type VocabularyContentOverrides = Partial<Omit<VocabularyTerm, "id" | "aliases">>;
+
 export type VocabularyReference = { termId: string; text?: string };
 
 export type SourceContext = {
@@ -45,13 +47,17 @@ export type VocabularyEntry = {
   sourceContexts: SourceContext[];
   dateAdded: string;
   review: ReviewProgress;
+  contentOverrides?: VocabularyContentOverrides;
 };
 
-export type VocabularyStore = { version: 1; entries: VocabularyEntry[] };
+export type VocabularyStore = { version: 2; entries: VocabularyEntry[] };
+export type LegacyVocabularyStore = { version: 1; entries: Omit<VocabularyEntry, "contentOverrides">[] };
 
 export interface VocabularyRepository {
   list(): VocabularyEntry[];
   save(termId: string, context: SourceContext): VocabularyEntry[];
   remove(termId: string): VocabularyEntry[];
   recordReview(termId: string, result: ReviewResult): VocabularyEntry[];
+  updateContent(termId: string, overrides: VocabularyContentOverrides): VocabularyEntry[];
+  resetContent(termId: string): VocabularyEntry[];
 }
