@@ -11,6 +11,8 @@ export type QuizQuestion = {
   correct: number;
   explanations: string[];
   vocabulary: VocabularyReference[];
+  optionVocabulary: VocabularyReference[][];
+  explanationVocabulary: VocabularyReference[][];
 };
 
 export const quizQuestions: QuizQuestion[] = [
@@ -27,6 +29,8 @@ export const quizQuestions: QuizQuestion[] = [
       "Commodity producers respond more directly to spot prices, demand, and inflation expectations.",
     ],
     vocabulary: [{ termId:"real-yield", text:"real yields" }, { termId:"inflation-expectations" }, { termId:"long-duration", text:"Long-duration growth stocks" }, { termId:"basis-point", text:"25bp" }],
+    optionVocabulary: [[{termId:"long-duration",text:"Long-duration growth stocks"}],[{termId:"floating-rate",text:"Floating-rate banks"}],[],[]],
+    explanationVocabulary: [[{termId:"discount-rate",text:"discount rates"}],[],[],[{termId:"inflation-expectations"}]],
   },
   {
     id: "yen-carry",
@@ -41,6 +45,8 @@ export const quizQuestions: QuizQuestion[] = [
       "The US curve could move for many reasons, but yen appreciation does not directly steepen it.",
     ],
     vocabulary: [{ termId:"carry-trade", text:"yen-funded carry trades" }, { termId:"deleveraging" }],
+    optionVocabulary: [[{termId:"inflation-breakeven",text:"inflation breakevens"}],[{termId:"carry-trade",text:"yen-funded carry trades"}],[],[{termId:"yield-curve",text:"yield curve"}]],
+    explanationVocabulary: [[{termId:"inflation-expectations"}],[{termId:"funding-cost",text:"funding cost"},{termId:"deleveraging"}],[],[]],
   },
   {
     id: "oil-shock",
@@ -55,6 +61,8 @@ export const quizQuestions: QuizQuestion[] = [
       "A larger energy import bill usually weakens the current account, all else equal.",
     ],
     vocabulary: [{ termId:"supply-shock" }, { termId:"terms-of-trade", text:"terms of trade" }, { termId:"current-account", text:"current account balance" }],
+    optionVocabulary: [[{termId:"terms-of-trade",text:"terms of trade"}],[],[],[{termId:"current-account",text:"current account balance"}]],
+    explanationVocabulary: [[{termId:"terms-of-trade",text:"terms of trade"}],[{termId:"inflation-expectations",text:"headline inflation"}],[],[{termId:"current-account",text:"current account"}]],
   },
   {
     id: "curve-inversion",
@@ -69,6 +77,8 @@ export const quizQuestions: QuizQuestion[] = [
       "Weak payrolls more often reduce growth and policy-rate expectations than cause an inflation surge.",
     ],
     vocabulary: [{ termId:"yield-curve", text:"yield curve" }, { termId:"bull-steepening", text:"bull-steepens" }],
+    optionVocabulary: [[],[],[],[{termId:"inflation-expectations"}]],
+    explanationVocabulary: [[{termId:"bear-steepening",text:"bear steepening"}],[{termId:"bull-steepening",text:"bull"}],[],[]],
   },
   {
     id: "credit-spreads",
@@ -83,6 +93,8 @@ export const quizQuestions: QuizQuestion[] = [
       "Wider spreads raise the cost of corporate borrowing and tighten funding conditions.",
     ],
     vocabulary: [{ termId:"credit-spread", text:"Credit spreads" }],
+    optionVocabulary: [[],[{termId:"default-risk",text:"Credit risk"}],[{termId:"default-risk",text:"default concerns"}],[{termId:"funding-cost",text:"funding conditions"}]],
+    explanationVocabulary: [[{termId:"credit-spread",text:"wider spreads"}],[{termId:"credit-spread",text:"spreads"}],[{termId:"default-risk",text:"corporate risk"}],[{termId:"credit-spread",text:"Wider spreads"},{termId:"funding-cost",text:"funding conditions"}]],
   },
 ];
 
@@ -99,6 +111,18 @@ export const normalCase = {
     { termId:"investment-grade", text:{ en:"investment-grade property bonds", ja:"投資適格不動産社債" } },
     { termId:"pnl-driver", text:{ en:"P&L Drivers", ja:"損益要因" } },
   ],
+  modelAnswer: {
+    en: [
+      "Relevant Exposure — European exporters face a stronger euro; the long EUR/USD position benefits; investment-grade property bonds face both duration and spread pressure.",
+      "Main P&L Drivers — EUR appreciation, higher front-end discount rates, and any widening in property credit spreads.",
+      "Further Check — Verify FX hedge ratios, bond duration, spread sensitivity, and whether exporter revenues are naturally hedged.",
+    ],
+    ja: [
+      "関連エクスポージャー — 欧州輸出企業はユーロ高の逆風、EUR/USDロングは利益、投資適格不動産社債はデュレーションとスプレッドの両面で圧力を受ける。",
+      "主な損益要因 — ユーロ上昇、短期の割引率上昇、不動産クレジットスプレッドの拡大。",
+      "追加確認 — FXヘッジ比率、債券デュレーション、スプレッド感応度、輸出企業売上の自然ヘッジを確認する。",
+    ],
+  },
   fields: [
     { key: "exposure", label: { en: "Relevant Exposure", ja: "関連エクスポージャー" }, hint: { en: "What in the portfolio is actually exposed?", ja: "ポートフォリオの何が実際に影響を受けるか？" } },
     { key: "drivers", label: { en: "Main P&L Drivers", ja: "主な損益要因" }, hint: { en: "Name the dominant market transmission channels.", ja: "主要な市場伝達チャネルを特定してください。" } },

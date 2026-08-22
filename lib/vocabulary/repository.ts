@@ -25,7 +25,7 @@ export class LocalStorageVocabularyRepository implements VocabularyRepository {
   save(termId: string, context: SourceContext) {
     const entries = this.list(); const existing = entries.find((entry) => entry.termId === termId);
     if (!existing) return this.write([...entries, { termId, sourceContexts:[context], dateAdded:new Date().toISOString(), review:createReviewProgress() }]);
-    const duplicate = existing.sourceContexts.some((item) => item.mode === context.mode && item.contentId === context.contentId);
+    const duplicate = existing.sourceContexts.some((item) => item.mode === context.mode && item.contentId === context.contentId && item.surface === context.surface && item.label === context.label);
     if (duplicate) return entries;
     return this.write(entries.map((entry) => entry.termId === termId ? { ...entry, sourceContexts:[...entry.sourceContexts, context] } : entry));
   }

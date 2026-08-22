@@ -4,6 +4,7 @@ export type VocabularyCategory = (typeof vocabularyCategories)[number];
 export type ReviewStatus = "new" | "learning" | "mastered";
 export type ReviewResult = "correct" | "incorrect" | "know" | "again";
 export type VocabularySourceMode = "busy" | "normal" | "deep" | "news";
+export type VocabularySourceSurface = "question" | "option" | "explanation" | "case" | "model-answer" | "ai-feedback";
 
 export type VocabularyTerm = {
   id: string;
@@ -24,6 +25,7 @@ export type SourceContext = {
   mode: VocabularySourceMode;
   contentId: string;
   label: string;
+  surface?: VocabularySourceSurface;
   excerpt?: string;
 };
 
