@@ -2,7 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Arrow, Check, Clock, Mark, Spark } from "./icons";
-import { deepCase, type Language, type Mode, normalCase, quizQuestions } from "@/lib/content";
+import { busyQuestionBank, deepCaseBank, type DeepCase, type Language, type Mode, normalCaseBank, type NormalCase, quizQuestions, type QuizQuestion } from "@/lib/content";
+import { createDailyContent, type DailyContent } from "@/lib/daily-rotation";
 import { vocabularyById } from "@/lib/vocabulary/catalog";
 import type { SourceContext, VocabularyReference } from "@/lib/vocabulary/types";
 import { useVocabulary } from "@/lib/vocabulary/use-vocabulary";
@@ -30,6 +31,7 @@ export function RiskCoach() {
   const [language, setLanguage] = useState<Language>("en");
   const [wrongAnswers, setWrongAnswers] = useState<WrongAnswer[]>([]);
   const [hydrated, setHydrated] = useState(false);
+  const [dailyContent, setDailyContent] = useState<DailyContent | null>(null);
   const vocabulary = useVocabulary();
 
   useEffect(() => {
@@ -38,6 +40,17 @@ export function RiskCoach() {
       setHydrated(true);
     }, 0);
     return () => window.clearTimeout(hydration);
+  }, []);
+  useEffect(() => {
+    let midnightTimer = 0;
+    const refreshDailyContent = () => {
+      const now = new Date();
+      setDailyContent(createDailyContent(now, { busy: busyQuestionBank, normal: normalCaseBank, deep: deepCaseBank }));
+      const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+      midnightTimer = window.setTimeout(refreshDailyContent, nextMidnight.getTime() - now.getTime() + 1_000);
+    };
+    const hydrationTimer = window.setTimeout(refreshDailyContent, 0);
+    return () => { window.clearTimeout(hydrationTimer); window.clearTimeout(midnightTimer); };
   }, []);
   const navigate = (next: Mode) => { setMode(next); window.scrollTo({ top: 0, behavior: "smooth" }); };
 
@@ -60,10 +73,10 @@ export function RiskCoach() {
         </nav>
       </header>
 
-      {mode === "home" && <Home onSelect={navigate} reviewCount={wrongAnswers.length} />}
-      {mode === "busy" && <BusyMode onBack={() => navigate("home")} onSaveWrong={saveWrong} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
-      {mode === "normal" && <CaseMode kind="normal" language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
-      {mode === "deep" && <CaseMode kind="deep" language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
+      {mode === "home" && <Home onSelect={navigate} reviewCount={wrongAnswers.length} dailyLabel={dailyContent?.displayDate} />}
+      {mode === "busy" && dailyContent && <BusyMode key={dailyContent.dateKey} questions={dailyContent.busyQuestions} dailyLabel={dailyContent.displayDate} onBack={() => navigate("home")} onSaveWrong={saveWrong} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
+      {mode === "normal" && dailyContent && <CaseMode key={dailyContent.dateKey} kind="normal" data={dailyContent.normalCase} dailyLabel={dailyContent.displayDate} language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
+      {mode === "deep" && dailyContent && <CaseMode key={dailyContent.dateKey} kind="deep" data={dailyContent.deepCase} dailyLabel={dailyContent.displayDate} language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
       {mode === "news" && <NewsDrill savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} onBack={() => navigate("home")} />}
       {mode === "review" && <Review wrongAnswers={wrongAnswers} onClear={clearWrong} onPractice={() => navigate("busy")} />}
       {mode === "vocabulary" && <VocabularyBank entries={vocabulary.entries} onRemove={vocabulary.remove} onReview={vocabulary.recordReview} onBack={() => navigate("home")} />}
@@ -71,7 +84,7 @@ export function RiskCoach() {
   );
 }
 
-function Home({ onSelect, reviewCount }: { onSelect: (mode: Mode) => void; reviewCount: number }) {
+function Home({ onSelect, reviewCount, dailyLabel }: { onSelect: (mode: Mode) => void; reviewCount: number; dailyLabel?: string }) {
   return <>
     <section className="hero">
       <div className="hero-copy"><p className="kicker"><span /> DAILY RISK PRACTICE</p><h1>Think clearly<br />when markets<br /><em>don’t.</em></h1><p className="lede">Train the judgment that sits between a market move and a risk decision. Choose the depth that fits your day.</p></div>
@@ -85,24 +98,24 @@ function Home({ onSelect, reviewCount }: { onSelect: (mode: Mode) => void; revie
       </div>
     </section>
     <section className="mode-section">
-      <div className="section-heading"><p className="kicker">CHOOSE YOUR SESSION</p><p>{reviewCount ? `${reviewCount} item${reviewCount === 1 ? "" : "s"} waiting in weekly review.` : "Consistency beats intensity. Start where you are."}</p></div>
+      <div className="section-heading"><p className="kicker">TODAY’S SET{dailyLabel ? ` · ${dailyLabel}` : ""}</p><p>{reviewCount ? `${reviewCount} item${reviewCount === 1 ? "" : "s"} waiting in weekly review.` : "Consistency beats intensity. Start where you are."}</p></div>
       <div className="mode-grid">{modes.map((item, index) => <button key={item.id} className={`mode-card ${item.tone}`} onClick={() => onSelect(item.id)}><span className="mode-index">0{index + 1}</span><div className="mode-meta"><span>{item.eyebrow}</span><span><Clock /> {item.time}</span></div><h2>{item.title}</h2><p>{item.body}</p><span className="card-action">{item.action} <Arrow /></span></button>)}</div>
     </section>
   </>;
 }
 
-function BusyMode({ onBack, onSaveWrong, savedIds, onSaveTerm }: { onBack: () => void; onSaveWrong: (entry: WrongAnswer) => void; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
+function BusyMode({ questions, dailyLabel, onBack, onSaveWrong, savedIds, onSaveTerm }: { questions:QuizQuestion[]; dailyLabel:string; onBack: () => void; onSaveWrong: (entry: WrongAnswer) => void; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
   const [index, setIndex] = useState(0); const [selected, setSelected] = useState<number | null>(null); const [score, setScore] = useState(0); const [complete, setComplete] = useState(false);
-  const q = quizQuestions[index];
+  const q = questions[index];
   const choose = (option: number) => {
     if (selected !== null) return; setSelected(option);
     if (option === q.correct) setScore((s) => s + 1); else onSaveWrong({ questionId: q.id, selected: option, savedAt: new Date().toISOString() });
   };
-  const next = () => { if (index === quizQuestions.length - 1) setComplete(true); else { setIndex((i) => i + 1); setSelected(null); } };
-  if (complete) return <SessionShell eyebrow="BUSY MODE / COMPLETE" title="Signal captured." onBack={onBack}><div className="result-panel"><span className="score-ring">{score}<small>/ 5</small></span><div><h2>{score >= 4 ? "Strong market sense." : "Useful misses."}</h2><p>{5 - score ? `${5 - score} question${5 - score === 1 ? " was" : "s were"} saved for weekly review.` : "A clean run. Come back tomorrow for another pass."}</p><button className="primary" onClick={onBack}>Return to dashboard <Arrow /></button></div></div></SessionShell>;
-  return <SessionShell eyebrow={`BUSY MODE / QUESTION ${index + 1} OF 5`} title="What moves next?" onBack={onBack}>
-    <div className="progress"><span style={{ width: `${((index + (selected !== null ? 1 : 0)) / 5) * 100}%` }} /></div>
-    <div className="quiz-card"><p className="category">{q.category}</p><h2><VocabularyText text={q.question} references={q.vocabulary} context={{mode:"busy",contentId:q.id,label:`Busy question: ${q.category}`,surface:"question",excerpt:q.question}} savedIds={savedIds} onSave={onSaveTerm} /></h2><VocabularyTermStrip references={q.vocabulary} context={{mode:"busy",contentId:q.id,label:`Busy question: ${q.category}`,surface:"question",excerpt:q.question}} savedIds={savedIds} onSave={onSaveTerm} /><div className="options">{q.options.map((option, i) => { const state = selected === null ? "" : i === q.correct ? "correct" : i === selected ? "wrong" : "muted"; return <BusyOption key={option} option={option} index={i} state={state} explanation={selected !== null ? q.explanations[i] : null} optionReferences={q.optionVocabulary[i]} explanationReferences={q.explanationVocabulary[i]} questionId={q.id} category={q.category} correct={i === q.correct} selected={i === selected} savedIds={savedIds} onSaveTerm={onSaveTerm} onChoose={choose} />; })}</div>{selected !== null && <div className="feedback-footer"><p><Check /> {selected === q.correct ? "Correct — keep the transmission chain explicit." : "Saved to weekly review — this is where the learning compounds."}</p><button className="primary" onClick={next}>{index === 4 ? "See result" : "Next question"} <Arrow /></button></div>}</div>
+  const next = () => { if (index === questions.length - 1) setComplete(true); else { setIndex((i) => i + 1); setSelected(null); } };
+  if (complete) return <SessionShell eyebrow="BUSY MODE / COMPLETE" title="Signal captured." onBack={onBack} dailyLabel={dailyLabel}><div className="result-panel"><span className="score-ring">{score}<small>/ {questions.length}</small></span><div><h2>{score >= 4 ? "Strong market sense." : "Useful misses."}</h2><p>{questions.length - score ? `${questions.length - score} question${questions.length - score === 1 ? " was" : "s were"} saved for weekly review.` : "A clean run. Come back tomorrow for another pass."}</p><button className="primary" onClick={onBack}>Return to dashboard <Arrow /></button></div></div></SessionShell>;
+  return <SessionShell eyebrow={`BUSY MODE / QUESTION ${index + 1} OF ${questions.length}`} title="What moves next?" onBack={onBack} dailyLabel={dailyLabel}>
+    <div className="progress"><span style={{ width: `${((index + (selected !== null ? 1 : 0)) / questions.length) * 100}%` }} /></div>
+    <div className="quiz-card"><p className="category">{q.category}</p><h2><VocabularyText text={q.question} references={q.vocabulary} context={{mode:"busy",contentId:q.id,label:`Busy question: ${q.category}`,surface:"question",excerpt:q.question}} savedIds={savedIds} onSave={onSaveTerm} /></h2><VocabularyTermStrip references={q.vocabulary} context={{mode:"busy",contentId:q.id,label:`Busy question: ${q.category}`,surface:"question",excerpt:q.question}} savedIds={savedIds} onSave={onSaveTerm} /><div className="options">{q.options.map((option, i) => { const state = selected === null ? "" : i === q.correct ? "correct" : i === selected ? "wrong" : "muted"; return <BusyOption key={option} option={option} index={i} state={state} explanation={selected !== null ? q.explanations[i] : null} optionReferences={q.optionVocabulary[i]} explanationReferences={q.explanationVocabulary[i]} questionId={q.id} category={q.category} correct={i === q.correct} selected={i === selected} savedIds={savedIds} onSaveTerm={onSaveTerm} onChoose={choose} />; })}</div>{selected !== null && <div className="feedback-footer"><p><Check /> {selected === q.correct ? "Correct — keep the transmission chain explicit." : "Saved to weekly review — this is where the learning compounds."}</p><button className="primary" onClick={next}>{index === questions.length - 1 ? "See result" : "Next question"} <Arrow /></button></div>}</div>
   </SessionShell>;
 }
 
@@ -116,8 +129,7 @@ function BusyOption({ option, index, state, explanation, optionReferences, expla
   return <div className={`option-row ${state}`}><button type="button" className="option-hit" aria-label={`Select ${option}`} onClick={() => onChoose(index)} disabled={Boolean(explanation)} /><span className="option-letter">{String.fromCharCode(65+index)}</span><b><VocabularyText text={option} references={optionReferences} context={optionContext} savedIds={savedIds} onSave={onSaveTerm} /></b>{explanation && <small data-explanation-kind={correct ? "correct" : selected ? "selected-wrong" : "wrong"}><VocabularyText text={explanation} references={explanationReferences} context={explanationContext} savedIds={savedIds} onSave={onSaveTerm} /></small>}</div>;
 }
 
-function CaseMode({ kind, language, setLanguage, onBack, savedIds, onSaveTerm }: { kind: "normal" | "deep"; language: Language; setLanguage: (l: Language) => void; onBack: () => void; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
-  const data = kind === "normal" ? normalCase : deepCase;
+function CaseMode({ kind, data, dailyLabel, language, setLanguage, onBack, savedIds, onSaveTerm }: { kind: "normal" | "deep"; data:NormalCase | DeepCase; dailyLabel:string; language: Language; setLanguage: (l: Language) => void; onBack: () => void; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
   const [answers, setAnswers] = useState<Record<string, string>>({}); const [evaluation, setEvaluation] = useState<Evaluation | null>(null); const [loading, setLoading] = useState(false); const [error, setError] = useState(""); const [submitted, setSubmitted] = useState(false);
   const complete = data.fields.every((field) => (answers[field.key] || "").trim().length > 15);
   const evaluate = async () => {
@@ -125,11 +137,11 @@ function CaseMode({ kind, language, setLanguage, onBack, savedIds, onSaveTerm }:
     setLoading(true); setError("");
     try { const response = await fetch("/api/evaluate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ language, scenario: data.scenario[language], answers }) }); const result = await response.json(); if (!response.ok) throw new Error(result.error || "Evaluation failed."); setEvaluation(result); } catch (err) { setError(err instanceof Error ? err.message : "Evaluation failed."); } finally { setLoading(false); }
   };
-  return <SessionShell eyebrow={`${kind.toUpperCase()} MODE / ${kind === "normal" ? "FOCUSED CASE" : "FULL ANALYSIS"}`} title={data.title[language]} onBack={onBack} headerExtra={<LanguageToggle language={language} setLanguage={setLanguage} />}>
-    <div className="case-layout"><aside className="case-brief"><p className="category">{data.tag[language]}</p><h2>{language === "en" ? "The setup" : "シナリオ"}</h2><p><VocabularyText text={data.scenario[language]} references={data.vocabulary.map((reference) => ({termId:reference.termId,text:reference.text[language]}))} context={{mode:kind,contentId:`${kind}-case-1`,label:`${kind === "normal" ? "Normal" : "Deep"} case: ${data.title.en}`,surface:"case",excerpt:data.scenario.en}} savedIds={savedIds} onSave={onSaveTerm} /></p><div className="case-note"><span>{kind === "normal" ? "3" : "5"}</span><p>{language === "en" ? "questions only. Keep the causal chain concise and testable." : "問のみ。因果関係を簡潔かつ検証可能に。"}</p></div></aside>
+  return <SessionShell eyebrow={`${kind.toUpperCase()} MODE / ${kind === "normal" ? "FOCUSED CASE" : "FULL ANALYSIS"}`} title={data.title[language]} onBack={onBack} dailyLabel={dailyLabel} headerExtra={<LanguageToggle language={language} setLanguage={setLanguage} />}>
+    <div className="case-layout"><aside className="case-brief"><p className="category">{data.tag[language]}</p><h2>{language === "en" ? "The setup" : "シナリオ"}</h2><p><VocabularyText text={data.scenario[language]} references={data.vocabulary.map((reference) => ({termId:reference.termId,text:reference.text[language]}))} context={{mode:kind,contentId:data.id,label:`${kind === "normal" ? "Normal" : "Deep"} case: ${data.title.en}`,surface:"case",excerpt:data.scenario.en}} savedIds={savedIds} onSave={onSaveTerm} /></p><div className="case-note"><span>{kind === "normal" ? "3" : "5"}</span><p>{language === "en" ? "questions only. Keep the causal chain concise and testable." : "問のみ。因果関係を簡潔かつ検証可能に。"}</p></div></aside>
       <section className="analysis-form">{data.fields.map((field, i) => <label key={field.key}><span className="step-no">0{i + 1}</span><span className="field-copy"><b>{field.label[language]}</b><small>{field.hint[language]}</small></span><textarea value={answers[field.key] || ""} onChange={(e) => setAnswers({ ...answers, [field.key]: e.target.value })} placeholder={language === "en" ? "Write your view…" : "見解を入力…"} rows={4} /></label>)}
         <div className="submit-row"><p>{complete ? <><Check /> Ready to submit</> : `${Object.values(answers).filter((a) => a.trim().length > 15).length} of ${data.fields.length} steps developed`}</p><button className="primary" disabled={!complete || loading} onClick={evaluate}>{loading ? "Evaluating…" : kind === "deep" ? <><Spark /> Evaluate with OpenAI</> : "Complete case"} {!loading && kind === "normal" && <Arrow />}</button></div>
-        {submitted && <><div className="completion-note"><Check /><div><h3>{language === "en" ? "Case complete" : "ケース完了"}</h3><p>{language === "en" ? "Your analysis is saved in this session. Re-read it once for hidden assumptions and unpriced second-order effects." : "分析が完了しました。暗黙の前提と織り込まれていない二次的影響を再確認してください。"}</p></div></div>{kind === "normal" && <ModelAnswer language={language} savedIds={savedIds} onSaveTerm={onSaveTerm} />}</>}
+        {submitted && <><div className="completion-note"><Check /><div><h3>{language === "en" ? "Case complete" : "ケース完了"}</h3><p>{language === "en" ? "Your analysis is saved in this session. Re-read it once for hidden assumptions and unpriced second-order effects." : "分析が完了しました。暗黙の前提と織り込まれていない二次的影響を再確認してください。"}</p></div></div>{kind === "normal" && <ModelAnswer data={data as NormalCase} language={language} savedIds={savedIds} onSaveTerm={onSaveTerm} />}</>}
         {error && <div className="error-note"><b>Evaluation unavailable</b><p>{error}</p><small>Your analysis is still intact. Configure OPENAI_API_KEY in Vercel to enable AI feedback.</small></div>}
         {evaluation && <EvaluationPanel evaluation={evaluation} language={language} savedIds={savedIds} onSaveTerm={onSaveTerm} />}
       </section></div>
@@ -141,8 +153,8 @@ function EvaluationPanel({ evaluation, language, savedIds, onSaveTerm }: { evalu
   return <div className="evaluation"><div className="evaluation-head"><div><p className="category">OPENAI EVALUATION</p><h2>{evaluation.overallScore}<span>/100</span></h2></div><p>{render(evaluation.summary,"summary")}</p></div><div className="eval-columns"><div><h3>{language === "ja" ? "良い点" : "What works"}</h3>{evaluation.strengths.map((x,index) => <p key={x}><Check /> {render(x,`strength-${index+1}`)}</p>)}</div><div><h3>{language === "ja" ? "改善点" : "Push further"}</h3>{evaluation.improvements.map((x,index) => <p key={x}><Arrow /> {render(x,`improvement-${index+1}`)}</p>)}</div></div><div className="step-scores">{evaluation.stepFeedback.map((x,index) => <div key={x.step}><span>{x.step}</span><b>{x.score}/20</b><p>{render(x.feedback,`step-${index+1}`)}</p></div>)}</div></div>;
 }
 
-function ModelAnswer({ language, savedIds, onSaveTerm }: { language:Language; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
-  return <div className="model-answer"><p className="category">MODEL ANSWER</p><h3>{language === "en" ? "A concise risk view" : "簡潔なリスク見解"}</h3>{normalCase.modelAnswer[language].map((line,index) => <p key={line}><span>0{index+1}</span><CatalogVocabularyText text={line} context={{mode:"normal",contentId:`normal-model-answer-${index+1}`,label:`Normal model answer ${index+1}: ${normalCase.title.en}`,surface:"model-answer",excerpt:line}} savedIds={savedIds} onSave={onSaveTerm} /></p>)}</div>;
+function ModelAnswer({ data, language, savedIds, onSaveTerm }: { data:NormalCase; language:Language; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
+  return <div className="model-answer"><p className="category">MODEL ANSWER</p><h3>{language === "en" ? "A concise risk view" : "簡潔なリスク見解"}</h3>{data.modelAnswer[language].map((line,index) => <p key={line}><span>0{index+1}</span><CatalogVocabularyText text={line} context={{mode:"normal",contentId:`${data.id}:model-answer:${index+1}`,label:`Normal model answer ${index+1}: ${data.title.en}`,surface:"model-answer",excerpt:line}} savedIds={savedIds} onSave={onSaveTerm} /></p>)}</div>;
 }
 
 function Review({ wrongAnswers, onClear, onPractice }: { wrongAnswers: WrongAnswer[]; onClear: () => void; onPractice: () => void }) {
@@ -150,8 +162,8 @@ function Review({ wrongAnswers, onClear, onPractice }: { wrongAnswers: WrongAnsw
   return <SessionShell eyebrow="WEEKLY REVIEW" title="Turn misses into signals." onBack={() => history.back()}><div className="review-panel">{items.length === 0 ? <div className="empty-state"><Mark /><h2>No questions waiting.</h2><p>Wrong answers from Busy mode will collect here for deliberate review.</p><button className="primary" onClick={onPractice}>Start a quick drill <Arrow /></button></div> : <><div className="review-head"><p>{items.length} concept{items.length === 1 ? "" : "s"} to revisit. Explain each answer aloud before revealing the note.</p><button className="text-button" onClick={onClear}>Clear review</button></div>{items.map(({ entry, question }) => question && <article className="review-item" key={entry.questionId}><p className="category">{question.category}</p><h2>{question.question}</h2><div className="review-compare"><div><span>Your answer</span><p>{question.options[entry.selected]}</p></div><div><span>Correct answer</span><p>{question.options[question.correct]}</p></div></div><p className="review-explain">{question.explanations[question.correct]}</p></article>)}</>}</div></SessionShell>;
 }
 
-function SessionShell({ eyebrow, title, onBack, headerExtra, children }: { eyebrow: string; title: string; onBack: () => void; headerExtra?: React.ReactNode; children: React.ReactNode }) {
-  return <section className="session"><div className="session-header"><button className="back" onClick={onBack}>← Dashboard</button><div><p className="kicker">{eyebrow}</p><h1>{title}</h1></div>{headerExtra || <span />}</div>{children}</section>;
+function SessionShell({ eyebrow, title, onBack, dailyLabel, headerExtra, children }: { eyebrow: string; title: string; onBack: () => void; dailyLabel?:string; headerExtra?: React.ReactNode; children: React.ReactNode }) {
+  return <section className="session"><div className="session-header"><button className="back" onClick={onBack}>← Dashboard</button><div><p className="kicker">{eyebrow}</p><h1>{title}</h1>{dailyLabel && <p className="daily-set-label">TODAY’S SET · {dailyLabel}</p>}</div>{headerExtra || <span />}</div>{children}</section>;
 }
 
 function VocabularyTermStrip({ references, context, savedIds, onSave }: { references:VocabularyReference[]; context:SourceContext; savedIds:Set<string>; onSave:(termId:string,context:SourceContext)=>void }) {

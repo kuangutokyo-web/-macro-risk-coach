@@ -15,7 +15,12 @@ export type QuizQuestion = {
   explanationVocabulary: VocabularyReference[][];
 };
 
-export const quizQuestions: QuizQuestion[] = [
+type LocalizedText = { en: string; ja: string };
+type CaseField = { key: string; label: LocalizedText; hint: LocalizedText };
+export type NormalCase = { id: string; tag: LocalizedText; title: LocalizedText; scenario: LocalizedText; vocabulary: Array<{ termId: string; text: LocalizedText }>; modelAnswer: { en: string[]; ja: string[] }; fields: CaseField[] };
+export type DeepCase = Omit<NormalCase, "modelAnswer">;
+
+export const busyQuestionBank: QuizQuestion[] = [
   {
     id: "real-yields",
     category: "Rates → Equities",
@@ -96,9 +101,93 @@ export const quizQuestions: QuizQuestion[] = [
     optionVocabulary: [[],[{termId:"default-risk",text:"Credit risk"}],[{termId:"default-risk",text:"default concerns"}],[{termId:"funding-cost",text:"funding conditions"}]],
     explanationVocabulary: [[{termId:"credit-spread",text:"wider spreads"}],[{termId:"credit-spread",text:"spreads"}],[{termId:"default-risk",text:"corporate risk"}],[{termId:"credit-spread",text:"Wider spreads"},{termId:"funding-cost",text:"funding conditions"}]],
   },
+  {
+    id: "duration-shock",
+    category: "Rates → Risk",
+    question: "Government yields rise 40bp in a parallel move. Which position is likely to lose the most, all else equal?",
+    options: ["A high-DV01 long bond position", "A floating-rate note near reset", "A short-duration cash portfolio", "A receive-floating interest-rate swap"],
+    correct: 0,
+    explanations: [
+      "Correct. A larger DV01 means a larger price loss for the same rise in yields.",
+      "A floating-rate note resets its coupon, so its price is usually less sensitive to a parallel yield rise.",
+      "Short-duration cash flows have limited rate sensitivity compared with long bonds.",
+      "Receiving floating generally benefits as the reference rate resets higher; it is not the clearest loss exposure here.",
+    ],
+    vocabulary: [{ termId:"dv01", text:"DV01" }, { termId:"basis-point", text:"40bp" }],
+    optionVocabulary: [[{termId:"dv01",text:"high-DV01"}],[{termId:"floating-rate",text:"floating-rate note"}],[{termId:"long-duration",text:"short-duration"}],[]],
+    explanationVocabulary: [[{termId:"dv01",text:"DV01"}],[{termId:"floating-rate",text:"floating-rate note"}],[{termId:"long-duration",text:"Short-duration"}],[]],
+  },
+  {
+    id: "hawkish-fx",
+    category: "Macro → FX",
+    question: "A central bank delivers an unexpected hawkish hike while peers remain unchanged. What is the cleanest immediate FX channel?",
+    options: ["The currency strengthens as its yield advantage widens", "The currency must weaken because growth will slow", "The current account improves immediately", "FX volatility must fall"],
+    correct: 0,
+    explanations: [
+      "Correct. Wider expected rate differentials can attract capital and support the currency, at least initially.",
+      "Slower growth may matter later, but it does not erase the immediate policy-divergence channel.",
+      "Monetary policy does not mechanically change trade flows or the current account on impact.",
+      "A policy surprise can increase, rather than necessarily reduce, FX volatility.",
+    ],
+    vocabulary: [{ termId:"policy-divergence", text:"policy" }, { termId:"current-account", text:"current account" }],
+    optionVocabulary: [[{termId:"policy-divergence",text:"yield advantage"}],[],[{termId:"current-account",text:"current account"}],[]],
+    explanationVocabulary: [[{termId:"policy-divergence",text:"rate differentials"}],[{termId:"policy-divergence",text:"policy-divergence"}],[{termId:"current-account",text:"current account"}],[]],
+  },
+  {
+    id: "equity-skew",
+    category: "Options → Equities",
+    question: "Equity index downside skew steepens sharply. What does that most directly indicate?",
+    options: ["Downside puts became richer relative to comparable calls", "All implied volatility fell", "The index delta became zero", "Credit spreads must tighten"],
+    correct: 0,
+    explanations: [
+      "Correct. Steeper downside skew means the market is charging more for downside protection relative to upside options.",
+      "The overall volatility level can rise or fall independently of the relative pricing across strikes.",
+      "Skew describes relative option prices, not a requirement that the portfolio delta is zero.",
+      "Option skew and credit spreads can co-move in stress, but one does not mechanically force the other to tighten.",
+    ],
+    vocabulary: [{ termId:"skew", text:"downside skew" }],
+    optionVocabulary: [[{termId:"skew",text:"Downside puts"}],[],[],[{termId:"credit-spread",text:"Credit spreads"}]],
+    explanationVocabulary: [[{termId:"skew",text:"downside skew"}],[{termId:"skew",text:"relative pricing across strikes"}],[{termId:"skew",text:"Skew"}],[{termId:"credit-spread",text:"credit spreads"}]],
+  },
+  {
+    id: "credit-basis",
+    category: "Credit → Hedging",
+    question: "A corporate-bond book is duration-hedged with Treasury futures but loses as credit spreads widen. What remains?",
+    options: ["Basis risk between corporate credit and the government-rate hedge", "No market risk because duration is hedged", "Only settlement risk", "A guaranteed gain from lower government yields"],
+    correct: 0,
+    explanations: [
+      "Correct. The hedge offsets government-rate duration, not a widening corporate credit spread.",
+      "Duration hedging removes only one driver; spread, liquidity, and issuer risks remain.",
+      "Settlement risk is unrelated to the described mark-to-market loss.",
+      "Lower government yields can help the bond, but widening spreads may more than offset that gain.",
+    ],
+    vocabulary: [{ termId:"basis-risk", text:"duration-hedged" }, { termId:"credit-spread", text:"credit spreads" }],
+    optionVocabulary: [[{termId:"basis-risk",text:"Basis risk"},{termId:"credit-spread",text:"corporate credit"}],[],[],[]],
+    explanationVocabulary: [[{termId:"basis-risk",text:"hedge"},{termId:"credit-spread",text:"credit spread"}],[{termId:"credit-spread",text:"spread"}],[],[{termId:"credit-spread",text:"widening spreads"}]],
+  },
+  {
+    id: "liquidity-stress",
+    category: "Risk → Liquidity",
+    question: "Bid–ask spreads widen and market depth falls during a sell-off. Which risk is rising most directly?",
+    options: ["Liquidity risk and the cost of exiting positions", "Coupon reinvestment income", "The accounting face value of cash", "A guaranteed decline in realized volatility"],
+    correct: 0,
+    explanations: [
+      "Correct. Wider bid–ask spreads and thinner depth make trades costlier and increase market impact.",
+      "Coupon reinvestment is not what bid–ask width and depth measure.",
+      "Cash face value is not changed by thinner secondary-market liquidity.",
+      "Poor liquidity can amplify price moves; it does not guarantee lower realized volatility.",
+    ],
+    vocabulary: [{ termId:"liquidity-risk", text:"market depth" }],
+    optionVocabulary: [[{termId:"liquidity-risk",text:"Liquidity risk"}],[],[],[]],
+    explanationVocabulary: [[{termId:"liquidity-risk",text:"bid–ask spreads"}],[],[{termId:"liquidity-risk",text:"liquidity"}],[{termId:"liquidity-risk",text:"Poor liquidity"}]],
+  },
 ];
 
-export const normalCase = {
+/** Full bank used by weekly review; retained as a compatibility export. */
+export const quizQuestions = busyQuestionBank;
+
+export const normalCase: NormalCase = {
+  id: "ecb-hawkish-surprise",
   tag: { en: "POLICY DIVERGENCE", ja: "金融政策の乖離" },
   title: { en: "The hawkish surprise", ja: "タカ派サプライズ" },
   scenario: {
@@ -130,7 +219,8 @@ export const normalCase = {
   ],
 };
 
-export const deepCase = {
+export const deepCase: DeepCase = {
+  id: "oil-inflation-curve",
   tag: { en: "CROSS-ASSET SHOCK", ja: "クロスアセット・ショック" },
   title: { en: "Oil, inflation, and the curve", ja: "原油、インフレ、イールドカーブ" },
   scenario: {
@@ -153,3 +243,45 @@ export const deepCase = {
     { key: "action", label: { en: "Risk Action", ja: "リスク対応" }, hint: { en: "Recommend a proportionate, executable action.", ja: "実行可能で適切な対応を提案。" } },
   ],
 };
+
+export const normalCaseBank: NormalCase[] = [
+  normalCase,
+  {
+    id: "us-cpi-downside",
+    tag: { en: "INFLATION SURPRISE", ja: "インフレ・サプライズ" },
+    title: { en: "The softer CPI print", ja: "弱いCPI" },
+    scenario: { en: "US core CPI is below consensus. Two-year Treasury yields fall 16bp, the dollar weakens, and rate-sensitive equities rally. Your portfolio receives fixed in five-year swaps, holds US bank equities, and is long USD/JPY.", ja: "米コアCPIが市場予想を下回り、米2年債利回りは16bp低下、ドル安となり、金利敏感株が上昇。ポートフォリオは5年スワップ固定受け、米銀行株、USD/JPYロングを保有。" },
+    vocabulary: [{termId:"basis-point",text:{en:"16bp",ja:"16bp"}},{termId:"receive-fixed",text:{en:"receives fixed",ja:"固定受け"}},{termId:"pnl-driver",text:{en:"P&L",ja:"損益"}}],
+    modelAnswer: { en:["Relevant Exposure — The receive-fixed swap benefits from lower yields; long USD/JPY loses as the dollar weakens; bank equities face a mixed curve and growth signal.","Main P&L Drivers — Front-end rates, USD/JPY, yield-curve shape, and the banks’ net-interest-income sensitivity.","Further Check — Confirm DV01, FX hedge ratios, curve exposure, and whether the inflation surprise changes the policy path."], ja:["関連エクスポージャー — 金利低下で固定受けスワップは利益、ドル安でUSD/JPYロングは損失。銀行株はカーブと成長シグナルの影響が混在する。","主な損益要因 — 短期金利、USD/JPY、イールドカーブ形状、銀行の純金利収益感応度。","追加確認 — DV01、FXヘッジ比率、カーブ・エクスポージャー、インフレ下振れが政策経路を変えるか確認する。"] },
+    fields: normalCase.fields,
+  },
+  {
+    id: "china-demand-slowdown",
+    tag: { en: "GROWTH SHOCK", ja: "成長ショック" },
+    title: { en: "China demand disappoints", ja: "中国需要の下振れ" },
+    scenario: { en: "China activity data misses expectations. Copper falls 5%, AUD/USD drops 1.3%, and Asian industrial equities underperform. Your portfolio is long Australian miners, short AUD/USD, and holds investment-grade Asian industrial bonds.", ja: "中国の景気指標が市場予想を下回り、銅は5%下落、AUD/USDは1.3%下落、アジア工業株はアンダーパフォーム。ポートフォリオは豪鉱山株ロング、AUD/USDショート、アジア工業企業の投資適格債を保有。" },
+    vocabulary: [{termId:"short-position",text:{en:"short AUD/USD",ja:"AUD/USDショート"}},{termId:"investment-grade",text:{en:"investment-grade",ja:"投資適格債"}},{termId:"credit-spread",text:{en:"industrial bonds",ja:"工業企業"}}],
+    modelAnswer: { en:["Relevant Exposure — Miners face weaker commodity earnings; short AUD/USD gains; industrial bonds may suffer spread widening.","Main P&L Drivers — Copper, AUD, China growth expectations, and Asian industrial credit spreads.","Further Check — Measure commodity beta, FX hedge ratios, issuer concentration, liquidity, and policy-response scenarios."], ja:["関連エクスポージャー — 鉱山株は商品収益悪化、AUD/USDショートは利益、工業社債はスプレッド拡大の可能性。","主な損益要因 — 銅、豪ドル、中国成長期待、アジア工業企業のクレジットスプレッド。","追加確認 — 商品ベータ、FXヘッジ比率、発行体集中、流動性、政策対応シナリオを確認する。"] },
+    fields: normalCase.fields,
+  },
+];
+
+export const deepCaseBank: DeepCase[] = [
+  deepCase,
+  {
+    id: "yen-carry-unwind",
+    tag: { en: "VOLATILITY SHOCK", ja: "ボラティリティ・ショック" },
+    title: { en: "The yen carry unwind", ja: "円キャリーの巻き戻し" },
+    scenario: { en: "The Bank of Japan tightens unexpectedly. The yen rallies 4%, global equities fall, implied volatility jumps, and cross-currency basis widens. Your book is short JPY, long technology equities, short index volatility, and holds leveraged emerging-market credit.", ja: "日銀が予想外に引き締め。円は4%上昇し、世界株は下落、インプライド・ボラティリティは急上昇、クロスカレンシー・ベーシスは拡大。ブックは円ショート、テクノロジー株ロング、株価指数ボラティリティ・ショート、レバレッジをかけた新興国社債を保有。" },
+    vocabulary: [{termId:"carry-trade",text:{en:"carry unwind",ja:"キャリーの巻き戻し"}},{termId:"short-position",text:{en:"short JPY",ja:"円ショート"}},{termId:"deleveraging",text:{en:"leveraged",ja:"レバレッジ"}},{termId:"basis-risk",text:{en:"cross-currency basis",ja:"クロスカレンシー・ベーシス"}}],
+    fields: deepCase.fields,
+  },
+  {
+    id: "growth-scare-rally",
+    tag: { en: "GROWTH SCARE", ja: "景気後退懸念" },
+    title: { en: "Rates rally, risk sells off", ja: "金利低下とリスク資産下落" },
+    scenario: { en: "Weak payrolls and falling surveys trigger a Treasury rally, wider credit spreads, lower oil, and a stronger yen. Your book is long cyclical equities, pays fixed in ten-year swaps, owns high-yield credit, and is long USD/JPY options with downside skew exposure.", ja: "弱い雇用統計と景況感指数の低下で米国債は上昇、クレジットスプレッドは拡大、原油は下落、円は上昇。ブックは景気敏感株ロング、10年スワップ固定払い、ハイイールド債、ダウンサイド・スキューを持つUSD/JPYオプションを保有。" },
+    vocabulary: [{termId:"credit-spread",text:{en:"credit spreads",ja:"クレジットスプレッド"}},{termId:"high-yield",text:{en:"high-yield credit",ja:"ハイイールド債"}},{termId:"skew",text:{en:"downside skew",ja:"ダウンサイド・スキュー"}},{termId:"yield-curve",text:{en:"Treasury",ja:"米国債"}}],
+    fields: deepCase.fields,
+  },
+];
