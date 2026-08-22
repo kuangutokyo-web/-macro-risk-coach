@@ -5,6 +5,7 @@ A focused practice app for building macro market-risk judgment at three time dep
 - **Busy (5–10 min):** five market-sense questions, instant option-by-option explanations, and persistent weekly review.
 - **Normal (20–30 min):** a short bilingual case covering only Relevant Exposure, Main P&L Drivers, and Further Check.
 - **Deep (45–60 min):** a bilingual five-step analysis with optional OpenAI evaluation.
+- **Vocabulary Bank:** save clickable terms from every learning mode, search multilingual definitions, and review them with prioritized spaced repetition.
 
 ## Local development
 
@@ -14,6 +15,8 @@ npm run dev
 ```
 
 Busy and Normal modes work without an API key. Deep analysis also works without one; only the final AI evaluation call requires a key.
+
+Vocabulary entries and review history are stored locally in a versioned repository format. The storage adapter can later be replaced by a database implementation without changing the learning UI or scheduling logic.
 
 ## OpenAI evaluation
 

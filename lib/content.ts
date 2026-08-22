@@ -1,5 +1,7 @@
 export type Language = "en" | "ja";
-export type Mode = "home" | "busy" | "normal" | "deep" | "review";
+import type { VocabularyReference } from "./vocabulary/types";
+
+export type Mode = "home" | "busy" | "normal" | "deep" | "review" | "vocabulary";
 
 export type QuizQuestion = {
   id: string;
@@ -8,6 +10,7 @@ export type QuizQuestion = {
   options: string[];
   correct: number;
   explanations: string[];
+  vocabulary: VocabularyReference[];
 };
 
 export const quizQuestions: QuizQuestion[] = [
@@ -23,6 +26,7 @@ export const quizQuestions: QuizQuestion[] = [
       "Nearer-term cash flows and strong balance sheets make this group relatively less duration-sensitive.",
       "Commodity producers respond more directly to spot prices, demand, and inflation expectations.",
     ],
+    vocabulary: [{ termId:"real-yield", text:"real yields" }, { termId:"inflation-expectations" }, { termId:"long-duration", text:"Long-duration growth stocks" }, { termId:"basis-point", text:"25bp" }],
   },
   {
     id: "yen-carry",
@@ -36,6 +40,7 @@ export const quizQuestions: QuizQuestion[] = [
       "This is a medium-term economic benefit for Japan, not the primary immediate market-stress channel.",
       "The US curve could move for many reasons, but yen appreciation does not directly steepen it.",
     ],
+    vocabulary: [{ termId:"carry-trade", text:"yen-funded carry trades" }, { termId:"deleveraging" }],
   },
   {
     id: "oil-shock",
@@ -49,6 +54,7 @@ export const quizQuestions: QuizQuestion[] = [
       "Correct. The economy pays more for imported energy, lifting prices and reducing household purchasing power.",
       "A larger energy import bill usually weakens the current account, all else equal.",
     ],
+    vocabulary: [{ termId:"supply-shock" }, { termId:"terms-of-trade", text:"terms of trade" }, { termId:"current-account", text:"current account balance" }],
   },
   {
     id: "curve-inversion",
@@ -62,6 +68,7 @@ export const quizQuestions: QuizQuestion[] = [
       "A parallel move changes the level of rates, not the curve slope.",
       "Weak payrolls more often reduce growth and policy-rate expectations than cause an inflation surge.",
     ],
+    vocabulary: [{ termId:"yield-curve", text:"yield curve" }, { termId:"bull-steepening", text:"bull-steepens" }],
   },
   {
     id: "credit-spreads",
@@ -75,6 +82,7 @@ export const quizQuestions: QuizQuestion[] = [
       "Correct. The flight to government bonds is not enough to offset rising compensation for corporate risk.",
       "Wider spreads raise the cost of corporate borrowing and tighten funding conditions.",
     ],
+    vocabulary: [{ termId:"credit-spread", text:"Credit spreads" }],
   },
 ];
 
@@ -85,6 +93,12 @@ export const normalCase = {
     en: "The ECB unexpectedly signals that rates may stay restrictive for longer. Two-year German yields rise 18bp, EUR/USD gains 1.1%, and European bank equities outperform while rate-sensitive real estate falls 3.4%. Your portfolio holds European exporters, a long EUR/USD position, and investment-grade property bonds.",
     ja: "ECBは予想外に、政策金利を長期間引き締め的に維持する可能性を示唆。ドイツ2年債利回りは18bp上昇、EUR/USDは1.1%上昇。欧州銀行株はアウトパフォームする一方、金利敏感な不動産株は3.4%下落。ポートフォリオは欧州輸出企業、EUR/USDロング、投資適格不動産社債を保有。",
   },
+  vocabulary: [
+    { termId:"basis-point", text:{ en:"18bp", ja:"18bp" } },
+    { termId:"policy-divergence", text:{ en:"restrictive for longer", ja:"長期間引き締め的" } },
+    { termId:"investment-grade", text:{ en:"investment-grade property bonds", ja:"投資適格不動産社債" } },
+    { termId:"pnl-driver", text:{ en:"P&L Drivers", ja:"損益要因" } },
+  ],
   fields: [
     { key: "exposure", label: { en: "Relevant Exposure", ja: "関連エクスポージャー" }, hint: { en: "What in the portfolio is actually exposed?", ja: "ポートフォリオの何が実際に影響を受けるか？" } },
     { key: "drivers", label: { en: "Main P&L Drivers", ja: "主な損益要因" }, hint: { en: "Name the dominant market transmission channels.", ja: "主要な市場伝達チャネルを特定してください。" } },
@@ -99,6 +113,14 @@ export const deepCase = {
     en: "A major shipping route is disrupted overnight. Brent rises 14%, US 5y5y inflation swaps add 22bp, and the Treasury curve bear-steepens. Airlines and consumer discretionary sell off; energy credit rallies. Your book is long US airlines, receives fixed in 10-year swaps, holds a short CAD position, and owns high-yield energy bonds.",
     ja: "主要航路が一夜にして寸断。ブレント原油は14%上昇、米国5年先5年インフレスワップは22bp上昇し、米国債カーブはベア・スティープ化。航空・一般消費財株は売られ、エネルギー社債は上昇。ブックは米航空株ロング、10年スワップ固定受け、CADショート、ハイイールド・エネルギー債を保有。",
   },
+  vocabulary: [
+    { termId:"supply-shock", text:{ en:"disrupted overnight", ja:"一夜にして寸断" } },
+    { termId:"inflation-swap", text:{ en:"5y5y inflation swaps", ja:"5年先5年インフレスワップ" } },
+    { termId:"bear-steepening", text:{ en:"bear-steepens", ja:"ベア・スティープ化" } },
+    { termId:"receive-fixed", text:{ en:"receives fixed", ja:"固定受け" } },
+    { termId:"short-position", text:{ en:"short CAD position", ja:"CADショート" } },
+    { termId:"high-yield", text:{ en:"high-yield energy bonds", ja:"ハイイールド・エネルギー債" } },
+  ],
   fields: [
     { key: "marketMove", label: { en: "Market Move", ja: "市場変動" }, hint: { en: "Describe the shock and cross-asset reaction.", ja: "ショックとクロスアセットの反応を記述。" } },
     { key: "exposure", label: { en: "Relevant Exposure", ja: "関連エクスポージャー" }, hint: { en: "Map each position to the shock.", ja: "各ポジションをショックに対応付ける。" } },

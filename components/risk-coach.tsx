@@ -3,6 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { Arrow, Check, Clock, Mark, Spark } from "./icons";
 import { deepCase, type Language, type Mode, normalCase, quizQuestions } from "@/lib/content";
+import { vocabularyById } from "@/lib/vocabulary/catalog";
+import type { SourceContext, VocabularyReference } from "@/lib/vocabulary/types";
+import { useVocabulary } from "@/lib/vocabulary/use-vocabulary";
+import { VocabularyBank } from "./vocabulary/vocabulary-bank";
+import { VocabularyText } from "./vocabulary/term";
 
 type WrongAnswer = { questionId: string; selected: number; savedAt: string };
 type Evaluation = { overallScore: number; summary: string; strengths: string[]; improvements: string[]; stepFeedback: { step: string; score: number; feedback: string }[] };
@@ -22,6 +27,7 @@ export function RiskCoach() {
   const [language, setLanguage] = useState<Language>("en");
   const [wrongAnswers, setWrongAnswers] = useState<WrongAnswer[]>([]);
   const [hydrated, setHydrated] = useState(false);
+  const vocabulary = useVocabulary();
 
   useEffect(() => {
     const hydration = window.setTimeout(() => {
@@ -46,14 +52,16 @@ export function RiskCoach() {
         <nav aria-label="Primary navigation">
           <button className={mode === "home" ? "active" : ""} onClick={() => navigate("home")}>Today</button>
           <button className={mode === "review" ? "active" : ""} onClick={() => navigate("review")}>Weekly review <span className="count">{hydrated ? wrongAnswers.length : 0}</span></button>
+          <button className={mode === "vocabulary" ? "active" : ""} onClick={() => navigate("vocabulary")}>Vocabulary <span className="count vocab-count">{vocabulary.hydrated ? vocabulary.entries.length : 0}</span></button>
         </nav>
       </header>
 
       {mode === "home" && <Home onSelect={navigate} reviewCount={wrongAnswers.length} />}
-      {mode === "busy" && <BusyMode onBack={() => navigate("home")} onSaveWrong={saveWrong} />}
-      {mode === "normal" && <CaseMode kind="normal" language={language} setLanguage={setLanguage} onBack={() => navigate("home")} />}
-      {mode === "deep" && <CaseMode kind="deep" language={language} setLanguage={setLanguage} onBack={() => navigate("home")} />}
+      {mode === "busy" && <BusyMode onBack={() => navigate("home")} onSaveWrong={saveWrong} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
+      {mode === "normal" && <CaseMode kind="normal" language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
+      {mode === "deep" && <CaseMode kind="deep" language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
       {mode === "review" && <Review wrongAnswers={wrongAnswers} onClear={clearWrong} onPractice={() => navigate("busy")} />}
+      {mode === "vocabulary" && <VocabularyBank entries={vocabulary.entries} onRemove={vocabulary.remove} onReview={vocabulary.recordReview} onBack={() => navigate("home")} />}
     </main>
   );
 }
@@ -78,7 +86,7 @@ function Home({ onSelect, reviewCount }: { onSelect: (mode: Mode) => void; revie
   </>;
 }
 
-function BusyMode({ onBack, onSaveWrong }: { onBack: () => void; onSaveWrong: (entry: WrongAnswer) => void }) {
+function BusyMode({ onBack, onSaveWrong, savedIds, onSaveTerm }: { onBack: () => void; onSaveWrong: (entry: WrongAnswer) => void; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
   const [index, setIndex] = useState(0); const [selected, setSelected] = useState<number | null>(null); const [score, setScore] = useState(0); const [complete, setComplete] = useState(false);
   const q = quizQuestions[index];
   const choose = (option: number) => {
@@ -89,7 +97,7 @@ function BusyMode({ onBack, onSaveWrong }: { onBack: () => void; onSaveWrong: (e
   if (complete) return <SessionShell eyebrow="BUSY MODE / COMPLETE" title="Signal captured." onBack={onBack}><div className="result-panel"><span className="score-ring">{score}<small>/ 5</small></span><div><h2>{score >= 4 ? "Strong market sense." : "Useful misses."}</h2><p>{5 - score ? `${5 - score} question${5 - score === 1 ? " was" : "s were"} saved for weekly review.` : "A clean run. Come back tomorrow for another pass."}</p><button className="primary" onClick={onBack}>Return to dashboard <Arrow /></button></div></div></SessionShell>;
   return <SessionShell eyebrow={`BUSY MODE / QUESTION ${index + 1} OF 5`} title="What moves next?" onBack={onBack}>
     <div className="progress"><span style={{ width: `${((index + (selected !== null ? 1 : 0)) / 5) * 100}%` }} /></div>
-    <div className="quiz-card"><p className="category">{q.category}</p><h2>{q.question}</h2><div className="options">{q.options.map((option, i) => { const state = selected === null ? "" : i === q.correct ? "correct" : i === selected ? "wrong" : "muted"; return <button key={option} className={state} onClick={() => choose(i)}><span>{String.fromCharCode(65 + i)}</span><b>{option}</b>{selected !== null && <small>{q.explanations[i]}</small>}</button>; })}</div>{selected !== null && <div className="feedback-footer"><p><Check /> {selected === q.correct ? "Correct — keep the transmission chain explicit." : "Saved to weekly review — this is where the learning compounds."}</p><button className="primary" onClick={next}>{index === 4 ? "See result" : "Next question"} <Arrow /></button></div>}</div>
+    <div className="quiz-card"><p className="category">{q.category}</p><h2><VocabularyText text={q.question} references={q.vocabulary} context={{mode:"busy",contentId:q.id,label:`Busy: ${q.category}`,excerpt:q.question}} savedIds={savedIds} onSave={onSaveTerm} /></h2><VocabularyTermStrip references={q.vocabulary} context={{mode:"busy",contentId:q.id,label:`Busy: ${q.category}`,excerpt:q.question}} savedIds={savedIds} onSave={onSaveTerm} /><div className="options">{q.options.map((option, i) => { const state = selected === null ? "" : i === q.correct ? "correct" : i === selected ? "wrong" : "muted"; return <button key={option} className={state} onClick={() => choose(i)}><span>{String.fromCharCode(65 + i)}</span><b>{option}</b>{selected !== null && <small>{q.explanations[i]}</small>}</button>; })}</div>{selected !== null && <div className="feedback-footer"><p><Check /> {selected === q.correct ? "Correct — keep the transmission chain explicit." : "Saved to weekly review — this is where the learning compounds."}</p><button className="primary" onClick={next}>{index === 4 ? "See result" : "Next question"} <Arrow /></button></div>}</div>
   </SessionShell>;
 }
 
@@ -97,7 +105,7 @@ function LanguageToggle({ language, setLanguage }: { language: Language; setLang
   return <div className="language-toggle" aria-label="Output language"><button className={language === "en" ? "active" : ""} onClick={() => setLanguage("en")}>EN</button><button className={language === "ja" ? "active" : ""} onClick={() => setLanguage("ja")}>日本語</button></div>;
 }
 
-function CaseMode({ kind, language, setLanguage, onBack }: { kind: "normal" | "deep"; language: Language; setLanguage: (l: Language) => void; onBack: () => void }) {
+function CaseMode({ kind, language, setLanguage, onBack, savedIds, onSaveTerm }: { kind: "normal" | "deep"; language: Language; setLanguage: (l: Language) => void; onBack: () => void; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
   const data = kind === "normal" ? normalCase : deepCase;
   const [answers, setAnswers] = useState<Record<string, string>>({}); const [evaluation, setEvaluation] = useState<Evaluation | null>(null); const [loading, setLoading] = useState(false); const [error, setError] = useState(""); const [submitted, setSubmitted] = useState(false);
   const complete = data.fields.every((field) => (answers[field.key] || "").trim().length > 15);
@@ -107,7 +115,7 @@ function CaseMode({ kind, language, setLanguage, onBack }: { kind: "normal" | "d
     try { const response = await fetch("/api/evaluate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ language, scenario: data.scenario[language], answers }) }); const result = await response.json(); if (!response.ok) throw new Error(result.error || "Evaluation failed."); setEvaluation(result); } catch (err) { setError(err instanceof Error ? err.message : "Evaluation failed."); } finally { setLoading(false); }
   };
   return <SessionShell eyebrow={`${kind.toUpperCase()} MODE / ${kind === "normal" ? "FOCUSED CASE" : "FULL ANALYSIS"}`} title={data.title[language]} onBack={onBack} headerExtra={<LanguageToggle language={language} setLanguage={setLanguage} />}>
-    <div className="case-layout"><aside className="case-brief"><p className="category">{data.tag[language]}</p><h2>{language === "en" ? "The setup" : "シナリオ"}</h2><p>{data.scenario[language]}</p><div className="case-note"><span>{kind === "normal" ? "3" : "5"}</span><p>{language === "en" ? "questions only. Keep the causal chain concise and testable." : "問のみ。因果関係を簡潔かつ検証可能に。"}</p></div></aside>
+    <div className="case-layout"><aside className="case-brief"><p className="category">{data.tag[language]}</p><h2>{language === "en" ? "The setup" : "シナリオ"}</h2><p><VocabularyText text={data.scenario[language]} references={data.vocabulary.map((reference) => ({termId:reference.termId,text:reference.text[language]}))} context={{mode:kind,contentId:`${kind}-case-1`,label:`${kind === "normal" ? "Normal" : "Deep"}: ${data.title.en}`,excerpt:data.scenario.en}} savedIds={savedIds} onSave={onSaveTerm} /></p><div className="case-note"><span>{kind === "normal" ? "3" : "5"}</span><p>{language === "en" ? "questions only. Keep the causal chain concise and testable." : "問のみ。因果関係を簡潔かつ検証可能に。"}</p></div></aside>
       <section className="analysis-form">{data.fields.map((field, i) => <label key={field.key}><span className="step-no">0{i + 1}</span><span className="field-copy"><b>{field.label[language]}</b><small>{field.hint[language]}</small></span><textarea value={answers[field.key] || ""} onChange={(e) => setAnswers({ ...answers, [field.key]: e.target.value })} placeholder={language === "en" ? "Write your view…" : "見解を入力…"} rows={4} /></label>)}
         <div className="submit-row"><p>{complete ? <><Check /> Ready to submit</> : `${Object.values(answers).filter((a) => a.trim().length > 15).length} of ${data.fields.length} steps developed`}</p><button className="primary" disabled={!complete || loading} onClick={evaluate}>{loading ? "Evaluating…" : kind === "deep" ? <><Spark /> Evaluate with OpenAI</> : "Complete case"} {!loading && kind === "normal" && <Arrow />}</button></div>
         {submitted && <div className="completion-note"><Check /><div><h3>{language === "en" ? "Case complete" : "ケース完了"}</h3><p>{language === "en" ? "Your analysis is saved in this session. Re-read it once for hidden assumptions and unpriced second-order effects." : "分析が完了しました。暗黙の前提と織り込まれていない二次的影響を再確認してください。"}</p></div></div>}
@@ -128,4 +136,9 @@ function Review({ wrongAnswers, onClear, onPractice }: { wrongAnswers: WrongAnsw
 
 function SessionShell({ eyebrow, title, onBack, headerExtra, children }: { eyebrow: string; title: string; onBack: () => void; headerExtra?: React.ReactNode; children: React.ReactNode }) {
   return <section className="session"><div className="session-header"><button className="back" onClick={onBack}>← Dashboard</button><div><p className="kicker">{eyebrow}</p><h1>{title}</h1></div>{headerExtra || <span />}</div>{children}</section>;
+}
+
+function VocabularyTermStrip({ references, context, savedIds, onSave }: { references:VocabularyReference[]; context:SourceContext; savedIds:Set<string>; onSave:(termId:string,context:SourceContext)=>void }) {
+  const unique = [...new Set(references.map((reference) => reference.termId))]; const text = unique.map((id) => vocabularyById.get(id)?.term).filter(Boolean).join(" · "); const normalized = unique.map((termId) => ({termId,text:vocabularyById.get(termId)?.term}));
+  return <p className="vocab-term-strip"><span>KEY TERMS</span><VocabularyText text={text} references={normalized} context={context} savedIds={savedIds} onSave={onSave} /></p>;
 }
