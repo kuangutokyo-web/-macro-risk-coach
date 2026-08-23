@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Arrow, Check, Clock, Mark, Spark } from "./icons";
 import { busyQuestionBank, deepCaseBank, type DeepCase, type Language, type Mode, normalCaseBank, type NormalCase, quizQuestions, type QuizQuestion } from "@/lib/content";
 import { createDailyContent, type DailyContent } from "@/lib/daily-rotation";
+import { readNormalDraft, saveNormalDraft } from "@/lib/normal-drafts";
 import { vocabularyById } from "@/lib/vocabulary/catalog";
 import type { SourceContext, VocabularyReference } from "@/lib/vocabulary/types";
 import { useVocabulary } from "@/lib/vocabulary/use-vocabulary";
@@ -132,7 +133,21 @@ function BusyOption({ option, index, state, explanation, optionReferences, expla
 
 function CaseMode({ kind, data, dailyLabel, language, setLanguage, onBack, savedIds, onSaveTerm }: { kind: "normal" | "deep"; data:NormalCase | DeepCase; dailyLabel:string; language: Language; setLanguage: (l: Language) => void; onBack: () => void; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
   const [answers, setAnswers] = useState<Record<string, string>>({}); const [evaluation, setEvaluation] = useState<Evaluation | null>(null); const [loading, setLoading] = useState(false); const [error, setError] = useState(""); const [submitted, setSubmitted] = useState(false);
-  const complete = data.fields.every((field) => (answers[field.key] || "").trim().length > 15);
+  const [draftReady,setDraftReady] = useState(kind !== "normal");
+  const fieldKeys = useMemo(() => data.fields.map((field) => field.key),[data.fields]);
+  useEffect(() => {
+    if (kind !== "normal") return;
+    const restore = window.setTimeout(() => { setAnswers(readNormalDraft(window.localStorage,data.id,fieldKeys)); setDraftReady(true); },0);
+    return () => window.clearTimeout(restore);
+  },[kind,data.id,fieldKeys]);
+  const updateAnswer = (key:string,value:string) => {
+    const next = {...answers,[key]:value};
+    setAnswers(next);
+    if (kind === "normal" && draftReady) saveNormalDraft(window.localStorage,data.id,next);
+  };
+  const nonEmptyFields = data.fields.filter((field) => (answers[field.key] || "").trim().length > 0).length;
+  const developedFields = data.fields.filter((field) => (answers[field.key] || "").trim().length > 15).length;
+  const complete = kind === "normal" ? nonEmptyFields === data.fields.length : developedFields === data.fields.length;
   const evaluate = async () => {
     if (kind === "normal") { setSubmitted(true); return; }
     setLoading(true); setError("");
@@ -140,8 +155,8 @@ function CaseMode({ kind, data, dailyLabel, language, setLanguage, onBack, saved
   };
   return <SessionShell eyebrow={`${kind.toUpperCase()} MODE / ${kind === "normal" ? "FOCUSED CASE" : "FULL ANALYSIS"}`} title={data.title[language]} onBack={onBack} dailyLabel={dailyLabel} headerExtra={<LanguageToggle language={language} setLanguage={setLanguage} />}>
     <div className="case-layout"><aside className="case-brief"><p className="category">{data.tag[language]}</p><h2>{language === "en" ? "The setup" : "シナリオ"}</h2><p><VocabularyText text={data.scenario[language]} references={data.vocabulary.map((reference) => ({termId:reference.termId,text:reference.text[language]}))} context={{mode:kind,contentId:data.id,label:`${kind === "normal" ? "Normal" : "Deep"} case: ${data.title.en}`,surface:"case",excerpt:data.scenario.en}} savedIds={savedIds} onSave={onSaveTerm} /></p><div className="case-note"><span>{kind === "normal" ? "3" : "5"}</span><p>{language === "en" ? "questions only. Keep the causal chain concise and testable." : "問のみ。因果関係を簡潔かつ検証可能に。"}</p></div></aside>
-      <section className="analysis-form">{data.fields.map((field, i) => <label key={field.key}><span className="step-no">0{i + 1}</span><span className="field-copy"><b>{field.label[language]}</b><small>{field.hint[language]}</small></span><textarea value={answers[field.key] || ""} onChange={(e) => setAnswers({ ...answers, [field.key]: e.target.value })} placeholder={language === "en" ? "Write your view…" : "見解を入力…"} rows={4} /></label>)}
-        <div className="submit-row"><p>{complete ? <><Check /> Ready to submit</> : `${Object.values(answers).filter((a) => a.trim().length > 15).length} of ${data.fields.length} steps developed`}</p><button className="primary" disabled={!complete || loading} onClick={evaluate}>{loading ? "Evaluating…" : kind === "deep" ? <><Spark /> Evaluate with OpenAI</> : "Complete case"} {!loading && kind === "normal" && <Arrow />}</button></div>
+      <section className="analysis-form">{data.fields.map((field, i) => <label key={field.key}><span className="step-no">0{i + 1}</span><span className="field-copy"><b>{field.label[language]}</b><small>{field.hint[language]}</small></span><textarea value={answers[field.key] || ""} onChange={(e) => updateAnswer(field.key,e.target.value)} placeholder={language === "en" ? "Write your view…" : "見解を入力…"} rows={4} disabled={kind === "normal" && !draftReady} /></label>)}
+        <div className="submit-row"><p>{complete ? <><Check /> Ready to submit</> : kind === "normal" ? `Complete all ${data.fields.length} sections to continue.` : `${developedFields} of ${data.fields.length} steps developed`}</p><button className="primary" disabled={!complete || (kind === "deep" && loading)} onClick={evaluate}>{loading ? "Evaluating…" : kind === "deep" ? <><Spark /> Evaluate with OpenAI</> : "Complete case"} {!loading && kind === "normal" && <Arrow />}</button></div>
         {submitted && <><div className="completion-note"><Check /><div><h3>{language === "en" ? "Case complete" : "ケース完了"}</h3><p>{language === "en" ? "Your analysis is saved in this session. Re-read it once for hidden assumptions and unpriced second-order effects." : "分析が完了しました。暗黙の前提と織り込まれていない二次的影響を再確認してください。"}</p></div></div>{kind === "normal" && <ModelAnswer data={data as NormalCase} language={language} savedIds={savedIds} onSaveTerm={onSaveTerm} />}</>}
         {error && <div className="error-note"><b>Evaluation unavailable</b><p>{error}</p><small>Your analysis is still intact. Configure OPENAI_API_KEY in Vercel to enable AI feedback.</small></div>}
         {evaluation && <EvaluationPanel evaluation={evaluation} language={language} savedIds={savedIds} onSaveTerm={onSaveTerm} />}
