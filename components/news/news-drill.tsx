@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { buildNewsReviewPrompt } from "@/lib/news/prompt";
 import { extractReviewFields } from "@/lib/news/parser";
 import { emptyNewsAnswers, type NewsAnswers, type NewsDrillRecord } from "@/lib/news/types";
@@ -16,9 +16,9 @@ const sections: { key:keyof NewsAnswers; number:string; title:string; prompt:str
   { key:"whatNext", number:"04", title:"What Next", prompt:"What would you watch next?", guide:["Choose relevant data, policy, market and positioning signals","Look for confirmation and invalidation","Avoid a headline-only watchlist"] },
 ];
 
-type Props = { savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void; onBack:()=>void };
+type Props = { savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void; onBack:()=>void; reopenId?:string; onComplete:(record:NewsDrillRecord)=>void; onDeleteRecord:(id:string)=>void };
 
-export function NewsDrill({ savedIds, onSaveTerm, onBack }:Props) {
+export function NewsDrill({ savedIds, onSaveTerm, onBack, reopenId, onComplete, onDeleteRecord }:Props) {
   const news = useNewsDrills();
   const [record,setRecord] = useState<NewsDrillRecord|null>(null); const [started,setStarted] = useState(false); const [copyStatus,setCopyStatus] = useState(""); const [reviewDraft,setReviewDraft] = useState(""); const [editingReview,setEditingReview] = useState(true); const [historyOpen,setHistoryOpen] = useState(true);
   const [input,setInput] = useState({headline:"",source:"",url:"",newsText:""});
@@ -28,10 +28,15 @@ export function NewsDrill({ savedIds, onSaveTerm, onBack }:Props) {
   const updateAnswer = (key:keyof NewsAnswers,value:string) => updateRecord((current) => ({...current,answers:{...current.answers,[key]:value}}));
   const persist = (next:NewsDrillRecord) => { const saved = {...next,updatedAt:new Date().toISOString()}; setRecord(saved); news.save(saved); return saved; };
   const copyPrompt = async () => { if (!record) return; const prompt = buildNewsReviewPrompt(record); const saved = persist({...record,copiedReviewPrompt:prompt}); try { await navigator.clipboard.writeText(prompt); setCopyStatus("Copied — paste it into your preferred AI tool."); } catch { setCopyStatus("Prompt prepared. Select and copy it below."); } setRecord(saved); };
-  const saveReview = () => { if (!record || !reviewDraft.trim()) return; persist({...record,aiReview:reviewDraft.trim(),extractedReview:extractReviewFields(reviewDraft)}); setEditingReview(false); };
+  const saveReview = () => { if (!record || !reviewDraft.trim()) return; const saved = persist({...record,aiReview:reviewDraft.trim(),extractedReview:extractReviewFields(reviewDraft)}); onComplete(saved); setEditingReview(false); };
   const reopen = (item:NewsDrillRecord) => { setRecord(item); setInput({headline:item.headline,source:item.source,url:item.url,newsText:item.newsText}); setReviewDraft(item.aiReview); setEditingReview(!item.aiReview); setStarted(true); setCopyStatus(""); window.scrollTo({top:0,behavior:"smooth"}); };
   const newDrill = () => { setRecord(null); setStarted(false); setInput({headline:"",source:"",url:"",newsText:""}); setReviewDraft(""); setCopyStatus(""); };
   const deleteReview = () => { if (!record) return; persist({...record,aiReview:"",extractedReview:{vocabularySuggestions:[]}}); setReviewDraft(""); setEditingReview(true); };
+  useEffect(() => {
+    if (!reopenId || !news.hydrated || record?.id === reopenId) return;
+    const item = news.records.find((saved) => saved.id === reopenId); if (!item) return;
+    const restore = window.setTimeout(() => reopen(item),0); return () => window.clearTimeout(restore);
+  },[news.hydrated,news.records,record?.id,reopenId]);
 
   return <section className="news-page"><header className="news-header"><button className="back" onClick={onBack}>← Dashboard</button><div><p className="kicker">MANUAL CURRENT-AFFAIRS PRACTICE</p><h1>News Drill</h1><p>Move from headline to transmission, risk, and the next signal.</p></div><button className="new-drill" onClick={newDrill}>+ New drill</button></header>
     {!started || !record ? <NewsInput input={input} setInput={setInput} onStart={start} /> : <div className="news-workspace"><aside className="news-source"><p className="category">SOURCE MATERIAL</p><h2>{record.headline}</h2><p className="source-line">{record.source || "Source not provided"}{record.url && <> · <a href={record.url} target="_blank" rel="noreferrer">Open link ↗</a></>}</p><div className="news-text"><CatalogVocabularyText text={record.newsText} context={{mode:"news",contentId:`${record.id}:news`,label:`News text: ${record.headline}`,surface:"news-text",excerpt:record.newsText.slice(0,300)}} savedIds={savedIds} onSave={onSaveTerm} /></div><p className="source-hint">Underlined catalog terms can be added to your Vocabulary Bank.</p></aside>
@@ -39,7 +44,7 @@ export function NewsDrill({ savedIds, onSaveTerm, onBack }:Props) {
         <section className="copy-review"><div><p className="category">EXTERNAL REVIEW</p><h2>Ready for a senior challenge?</h2><p>Copies the complete news, your four answers, and the evaluation rubric. No API call is made.</p></div><button className="copy-ai" onClick={copyPrompt} disabled={!allAnswersComplete(record.answers)}>Copy for AI Review <Arrow /></button>{copyStatus && <p className="copy-status"><Check /> {copyStatus}</p>}{record.copiedReviewPrompt && <details><summary>Preview copied prompt</summary><pre>{record.copiedReviewPrompt}</pre></details>}</section>
         <section className="paste-review"><p className="category">PASTE AI REVIEW</p>{editingReview || !record.aiReview ? <><h2>Bring the feedback back.</h2><textarea className="review-textarea" rows={14} value={reviewDraft} onChange={(event) => setReviewDraft(event.target.value)} placeholder="Paste the complete external AI review here…" /><button className="primary" disabled={!reviewDraft.trim()} onClick={saveReview}>Save Review <Arrow /></button></> : <SavedReview record={record} savedIds={savedIds} onSaveTerm={onSaveTerm} onEdit={() => setEditingReview(true)} onReplace={() => { setReviewDraft(""); setEditingReview(true); }} onCopy={async () => { await navigator.clipboard.writeText(record.aiReview); setCopyStatus("Review copied."); }} onDelete={deleteReview} />}</section>
       </section></div>}
-    <NewsHistory records={news.records} hydrated={news.hydrated} open={historyOpen} setOpen={setHistoryOpen} onReopen={reopen} onDelete={(id) => { news.remove(id); if (record?.id === id) newDrill(); }} activeId={record?.id} />
+    <NewsHistory records={news.records} hydrated={news.hydrated} open={historyOpen} setOpen={setHistoryOpen} onReopen={reopen} onDelete={(id) => { news.remove(id); onDeleteRecord(id); if (record?.id === id) newDrill(); }} activeId={record?.id} />
   </section>;
 }
 

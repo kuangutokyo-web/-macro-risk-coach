@@ -15,6 +15,9 @@ import { VocabularyText } from "./vocabulary/term";
 import { CatalogVocabularyText } from "./vocabulary/catalog-text";
 import { NewsDrill } from "./news/news-drill";
 import { PnlMystery } from "./pnl-mystery/pnl-mystery";
+import { ProgressPage } from "./progress/progress-page";
+import { useProgress } from "@/lib/progress/use-progress";
+import type { BusyProgressResult, ProgressActivity } from "@/lib/progress/types";
 
 type WrongAnswer = { questionId: string; selected: number; savedAt: string };
 type Evaluation = { overallScore: number; summary: string; strengths: string[]; improvements: string[]; stepFeedback: { step: string; score: number; feedback: string }[] };
@@ -37,7 +40,9 @@ export function RiskCoach() {
   const [wrongAnswers, setWrongAnswers] = useState<WrongAnswer[]>([]);
   const [hydrated, setHydrated] = useState(false);
   const [dailyContent, setDailyContent] = useState<DailyContent | null>(null);
+  const [reopenActivity,setReopenActivity] = useState<ProgressActivity|null>(null);
   const vocabulary = useVocabulary();
+  const progress = useProgress();
 
   useEffect(() => {
     const hydration = window.setTimeout(() => {
@@ -57,7 +62,10 @@ export function RiskCoach() {
     const hydrationTimer = window.setTimeout(refreshDailyContent, 0);
     return () => { window.clearTimeout(hydrationTimer); window.clearTimeout(midnightTimer); };
   }, []);
-  const navigate = (next: Mode) => { setMode(next); window.scrollTo({ top: 0, behavior: "smooth" }); };
+  const navigate = (next: Mode) => { setReopenActivity(null); setMode(next); window.scrollTo({ top: 0, behavior: "smooth" }); };
+  const openProgressActivity = (activity:ProgressActivity) => { setReopenActivity(activity); setMode(activity.mode === "pnl-mystery" ? "mystery" : activity.mode as Mode); window.scrollTo({top:0,behavior:"smooth"}); };
+  const saveVocabularyTerm = (termId:string,context:SourceContext) => { vocabulary.save(termId,context); progress.vocabularySaved(termId,context); };
+  const reviewVocabularyTerm = (termId:string,result:Parameters<typeof vocabulary.recordReview>[1]) => { progress.vocabularyReviewed(termId); vocabulary.recordReview(termId,result); };
 
   const saveWrong = (entry: WrongAnswer) => {
     const next = [...wrongAnswers.filter((item) => item.questionId !== entry.questionId), entry];
@@ -75,18 +83,20 @@ export function RiskCoach() {
           <button className={mode === "review" ? "active" : ""} onClick={() => navigate("review")}>Weekly review <span className="count">{hydrated ? wrongAnswers.length : 0}</span></button>
           <button className={mode === "news" ? "active" : ""} onClick={() => navigate("news")}>News</button>
           <button className={mode === "mystery" ? "active" : ""} onClick={() => navigate("mystery")}>P&amp;L Mystery</button>
+          <button className={mode === "progress" ? "active" : ""} onClick={() => navigate("progress")}>Progress</button>
           <button className={mode === "vocabulary" ? "active" : ""} onClick={() => navigate("vocabulary")}>Vocabulary <span className="count vocab-count">{vocabulary.hydrated ? vocabulary.entries.length : 0}</span></button>
         </nav>
       </header>
 
       {mode === "home" && <Home onSelect={navigate} reviewCount={wrongAnswers.length} dailyLabel={dailyContent?.displayDate} />}
-      {mode === "busy" && dailyContent && <BusyMode key={dailyContent.dateKey} questions={dailyContent.busyQuestions} dailyLabel={dailyContent.displayDate} onBack={() => navigate("home")} onSaveWrong={saveWrong} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
-      {mode === "normal" && dailyContent && <CaseMode key={dailyContent.dateKey} kind="normal" data={dailyContent.normalCase} dailyLabel={dailyContent.displayDate} language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
-      {mode === "deep" && dailyContent && <CaseMode key={dailyContent.dateKey} kind="deep" data={dailyContent.deepCase} dailyLabel={dailyContent.displayDate} language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
-      {mode === "news" && <NewsDrill savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} onBack={() => navigate("home")} />}
-      {mode === "mystery" && dailyContent && <PnlMystery todayCase={dailyContent.mysteryCase} dateKey={dailyContent.dateKey} displayDate={dailyContent.displayDate} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} onBack={() => navigate("home")} />}
+      {mode === "busy" && dailyContent && <BusyMode key={dailyContent.dateKey} questions={dailyContent.busyQuestions} dailyLabel={dailyContent.displayDate} onBack={() => navigate("home")} onSaveWrong={saveWrong} onComplete={(results) => progress.complete({id:`busy:${dailyContent.dateKey}`,date:new Date().toISOString(),mode:"busy",contentId:dailyContent.dateKey,title:`Busy daily set · ${dailyContent.displayDate}`,status:"completed",busy:{questionIds:results.map((result) => result.questionId),results,score:results.filter((result) => result.correct).length,correctCount:results.filter((result) => result.correct).length,wrongQuestionIds:results.filter((result) => !result.correct).map((result) => result.questionId)}})} savedIds={vocabulary.savedIds} onSaveTerm={saveVocabularyTerm} />}
+      {mode === "normal" && dailyContent && <CaseMode key={`normal:${reopenActivity?.id || dailyContent.dateKey}`} kind="normal" data={reopenActivity?.mode === "normal" ? normalCaseBank.find((item) => item.id === reopenActivity.contentId) || dailyContent.normalCase : dailyContent.normalCase} dailyLabel={dailyContent.displayDate} language={language} setLanguage={setLanguage} onBack={() => navigate(reopenActivity ? "progress" : "home")} savedIds={vocabulary.savedIds} onSaveTerm={saveVocabularyTerm} historyActivity={reopenActivity?.mode === "normal" ? reopenActivity : null} onComplete={(data,answers) => progress.complete({id:`normal:${dailyContent.dateKey}:${data.id}`,date:new Date().toISOString(),mode:"normal",contentId:data.id,title:data.title.en,status:"completed",answers,referenceAnswerRevealed:true})} />}
+      {mode === "deep" && dailyContent && <CaseMode key={`deep:${reopenActivity?.id || dailyContent.dateKey}`} kind="deep" data={reopenActivity?.mode === "deep" ? deepCaseBank.find((item) => item.id === reopenActivity.contentId) || dailyContent.deepCase : dailyContent.deepCase} dailyLabel={dailyContent.displayDate} language={language} setLanguage={setLanguage} onBack={() => navigate(reopenActivity ? "progress" : "home")} savedIds={vocabulary.savedIds} onSaveTerm={saveVocabularyTerm} historyActivity={reopenActivity?.mode === "deep" ? reopenActivity : null} onComplete={(data,answers) => progress.complete({id:`deep:${dailyContent.dateKey}:${data.id}`,date:new Date().toISOString(),mode:"deep",contentId:data.id,title:data.title.en,status:"completed",answers,referenceAnswerRevealed:false})} />}
+      {mode === "news" && <NewsDrill savedIds={vocabulary.savedIds} onSaveTerm={saveVocabularyTerm} onBack={() => navigate(reopenActivity ? "progress" : "home")} reopenId={reopenActivity?.mode === "news" ? reopenActivity.sourceRecordId : undefined} onComplete={(record) => progress.complete({id:`news:${record.id}`,date:record.updatedAt,mode:"news",contentId:record.id,title:record.headline,status:"completed",answers:record.answers,sourceRecordId:record.id})} onDeleteRecord={(id) => progress.removeSource("news",id)} />}
+      {mode === "mystery" && dailyContent && <PnlMystery todayCase={dailyContent.mysteryCase} dateKey={dailyContent.dateKey} displayDate={dailyContent.displayDate} savedIds={vocabulary.savedIds} onSaveTerm={saveVocabularyTerm} onBack={() => navigate(reopenActivity ? "progress" : "home")} reopenId={reopenActivity?.mode === "pnl-mystery" ? reopenActivity.sourceRecordId : undefined} onComplete={(record,title) => progress.complete({id:`pnl-mystery:${record.id}`,date:record.completedAt!,mode:"pnl-mystery",contentId:record.caseId,title,status:"completed",answers:record.answers,referenceAnswerRevealed:record.explanationRevealed,sourceRecordId:record.id})} onDeleteRecord={(id) => progress.removeSource("pnl-mystery",id)} />}
+      {mode === "progress" && <ProgressPage activities={progress.store.activities} vocabularyEvents={progress.store.vocabularyEvents} hydrated={progress.hydrated} onReopen={openProgressActivity} onBack={() => navigate("home")} />}
       {mode === "review" && <Review wrongAnswers={wrongAnswers} onClear={clearWrong} onPractice={() => navigate("busy")} />}
-      {mode === "vocabulary" && <VocabularyBank entries={vocabulary.entries} onRemove={vocabulary.remove} onReview={vocabulary.recordReview} onUpdateContent={vocabulary.updateContent} onResetContent={vocabulary.resetContent} onBack={() => navigate("home")} />}
+      {mode === "vocabulary" && <VocabularyBank entries={vocabulary.entries} onRemove={vocabulary.remove} onReview={reviewVocabularyTerm} onUpdateContent={vocabulary.updateContent} onResetContent={vocabulary.resetContent} onBack={() => navigate("home")} />}
     </main></VocabularyContentProvider>
   );
 }
@@ -111,14 +121,15 @@ function Home({ onSelect, reviewCount, dailyLabel }: { onSelect: (mode: Mode) =>
   </>;
 }
 
-function BusyMode({ questions, dailyLabel, onBack, onSaveWrong, savedIds, onSaveTerm }: { questions:QuizQuestion[]; dailyLabel:string; onBack: () => void; onSaveWrong: (entry: WrongAnswer) => void; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
-  const [index, setIndex] = useState(0); const [selected, setSelected] = useState<number | null>(null); const [score, setScore] = useState(0); const [complete, setComplete] = useState(false);
+function BusyMode({ questions, dailyLabel, onBack, onSaveWrong, onComplete, savedIds, onSaveTerm }: { questions:QuizQuestion[]; dailyLabel:string; onBack: () => void; onSaveWrong: (entry: WrongAnswer) => void; onComplete:(results:BusyProgressResult[])=>void; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
+  const [index, setIndex] = useState(0); const [selected, setSelected] = useState<number | null>(null); const [score, setScore] = useState(0); const [complete, setComplete] = useState(false); const [results,setResults] = useState<BusyProgressResult[]>([]);
   const q = questions[index];
   const choose = (option: number) => {
     if (selected !== null) return; setSelected(option);
-    if (option === q.correct) setScore((s) => s + 1); else onSaveWrong({ questionId: q.id, selected: option, savedAt: new Date().toISOString() });
+    const correct = option === q.correct; setResults((current) => [...current,{questionId:q.id,correct,category:q.category}]);
+    if (correct) setScore((s) => s + 1); else onSaveWrong({ questionId: q.id, selected: option, savedAt: new Date().toISOString() });
   };
-  const next = () => { if (index === questions.length - 1) setComplete(true); else { setIndex((i) => i + 1); setSelected(null); } };
+  const next = () => { if (index === questions.length - 1) { setComplete(true); onComplete(results); } else { setIndex((i) => i + 1); setSelected(null); } };
   if (complete) return <SessionShell eyebrow="BUSY MODE / COMPLETE" title="Signal captured." onBack={onBack} dailyLabel={dailyLabel}><div className="result-panel"><span className="score-ring">{score}<small>/ {questions.length}</small></span><div><h2>{score >= 4 ? "Strong market sense." : "Useful misses."}</h2><p>{questions.length - score ? `${questions.length - score} question${questions.length - score === 1 ? " was" : "s were"} saved for weekly review.` : "A clean run. Come back tomorrow for another pass."}</p><button className="primary" onClick={onBack}>Return to dashboard <Arrow /></button></div></div></SessionShell>;
   return <SessionShell eyebrow={`BUSY MODE / QUESTION ${index + 1} OF ${questions.length}`} title="What moves next?" onBack={onBack} dailyLabel={dailyLabel}>
     <div className="progress"><span style={{ width: `${((index + (selected !== null ? 1 : 0)) / questions.length) * 100}%` }} /></div>
@@ -136,15 +147,16 @@ function BusyOption({ option, index, state, explanation, optionReferences, expla
   return <div className={`option-row ${state}`}><button type="button" className="option-hit" aria-label={`Select ${option}`} onClick={() => onChoose(index)} disabled={Boolean(explanation)} /><span className="option-letter">{String.fromCharCode(65+index)}</span><b><VocabularyText text={option} references={optionReferences} context={optionContext} savedIds={savedIds} onSave={onSaveTerm} /></b>{explanation && <small data-explanation-kind={correct ? "correct" : selected ? "selected-wrong" : "wrong"}><VocabularyText text={explanation} references={explanationReferences} context={explanationContext} savedIds={savedIds} onSave={onSaveTerm} /></small>}</div>;
 }
 
-function CaseMode({ kind, data, dailyLabel, language, setLanguage, onBack, savedIds, onSaveTerm }: { kind: "normal" | "deep"; data:NormalCase | DeepCase; dailyLabel:string; language: Language; setLanguage: (l: Language) => void; onBack: () => void; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
+function CaseMode({ kind, data, dailyLabel, language, setLanguage, onBack, savedIds, onSaveTerm, historyActivity, onComplete }: { kind: "normal" | "deep"; data:NormalCase | DeepCase; dailyLabel:string; language: Language; setLanguage: (l: Language) => void; onBack: () => void; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void; historyActivity:ProgressActivity|null; onComplete:(data:NormalCase|DeepCase,answers:Record<string,string>)=>void }) {
   const [answers, setAnswers] = useState<Record<string, string>>({}); const [evaluation, setEvaluation] = useState<Evaluation | null>(null); const [loading, setLoading] = useState(false); const [error, setError] = useState(""); const [submitted, setSubmitted] = useState(false);
   const [draftReady,setDraftReady] = useState(kind !== "normal");
   const fieldKeys = useMemo(() => data.fields.map((field) => field.key),[data.fields]);
   useEffect(() => {
+    if (historyActivity) { const restore = window.setTimeout(() => { setAnswers(historyActivity.answers || {}); setDraftReady(true); setSubmitted(true); },0); return () => window.clearTimeout(restore); }
     if (kind !== "normal") return;
     const restore = window.setTimeout(() => { setAnswers(readNormalDraft(window.localStorage,data.id,fieldKeys)); setDraftReady(true); },0);
     return () => window.clearTimeout(restore);
-  },[kind,data.id,fieldKeys]);
+  },[kind,data.id,fieldKeys,historyActivity]);
   const updateAnswer = (key:string,value:string) => {
     const next = {...answers,[key]:value};
     setAnswers(next);
@@ -154,23 +166,23 @@ function CaseMode({ kind, data, dailyLabel, language, setLanguage, onBack, saved
   const developedFields = data.fields.filter((field) => (answers[field.key] || "").trim().length > 15).length;
   const complete = kind === "normal" ? nonEmptyFields === data.fields.length : developedFields === data.fields.length;
   const evaluate = async () => {
-    if (kind === "normal") { setSubmitted(true); return; }
+    if (kind === "normal") { setSubmitted(true); onComplete(data,answers); return; }
     setLoading(true); setError("");
-    try { const response = await fetch("/api/evaluate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ language, scenario: data.scenario[language], answers }) }); const result = await response.json(); if (!response.ok) throw new Error(result.error || "Evaluation failed."); setEvaluation(result); } catch (err) { setError(err instanceof Error ? err.message : "Evaluation failed."); } finally { setLoading(false); }
+    try { const response = await fetch("/api/evaluate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ language, scenario: data.scenario[language], answers }) }); const result = await response.json(); if (!response.ok) throw new Error(result.error || "Evaluation failed."); setEvaluation(result); setSubmitted(true); onComplete(data,answers); } catch (err) { setError(err instanceof Error ? err.message : "Evaluation failed."); } finally { setLoading(false); }
   };
   return <SessionShell eyebrow={`${kind.toUpperCase()} MODE / ${kind === "normal" ? "FOCUSED CASE" : "FULL ANALYSIS"}`} title={data.title[language]} onBack={onBack} dailyLabel={dailyLabel} headerExtra={<LanguageToggle language={language} setLanguage={setLanguage} />}>
     <div className="case-layout"><aside className="case-brief"><p className="category">{data.tag[language]}</p><h2>{language === "en" ? "The setup" : "シナリオ"}</h2><p><VocabularyText text={data.scenario[language]} references={data.vocabulary.map((reference) => ({termId:reference.termId,text:reference.text[language]}))} context={{mode:kind,contentId:data.id,label:`${kind === "normal" ? "Normal" : "Deep"} case: ${data.title.en}`,surface:"case",excerpt:data.scenario.en}} savedIds={savedIds} onSave={onSaveTerm} /></p><div className="case-note"><span>{kind === "normal" ? "3" : "5"}</span><p>{language === "en" ? "questions only. Keep the causal chain concise and testable." : "問のみ。因果関係を簡潔かつ検証可能に。"}</p></div></aside>
       <section className="analysis-form">{data.fields.map((field, i) => <label key={field.key}><span className="step-no">0{i + 1}</span><span className="field-copy"><b>{field.label[language]}</b><small>{field.hint[language]}</small></span><textarea value={answers[field.key] || ""} onChange={(e) => updateAnswer(field.key,e.target.value)} placeholder={language === "en" ? "Write your view…" : "見解を入力…"} rows={4} disabled={kind === "normal" && !draftReady} /></label>)}
-        <div className="submit-row"><p>{complete ? <><Check /> Ready to submit</> : kind === "normal" ? `Complete all ${data.fields.length} sections to continue.` : `${developedFields} of ${data.fields.length} steps developed`}</p><button className="primary" disabled={!complete || (kind === "deep" && loading)} onClick={evaluate}>{loading ? "Evaluating…" : kind === "deep" ? <><Spark /> Evaluate with OpenAI</> : "Complete case"} {!loading && kind === "normal" && <Arrow />}</button></div>
+        <div className="submit-row"><p>{historyActivity ? <><Check /> Completed activity</> : complete ? <><Check /> Ready to submit</> : kind === "normal" ? `Complete all ${data.fields.length} sections to continue.` : `${developedFields} of ${data.fields.length} steps developed`}</p><button className="primary" disabled={Boolean(historyActivity) || !complete || (kind === "deep" && loading)} onClick={evaluate}>{historyActivity ? "Completed" : loading ? "Evaluating…" : kind === "deep" ? <><Spark /> Evaluate with OpenAI</> : "Complete case"} {!loading && kind === "normal" && <Arrow />}</button></div>
         {submitted && <><div className="completion-note"><Check /><div><h3>{language === "en" ? "Case complete" : "ケース完了"}</h3><p>{language === "en" ? "Your analysis is saved in this session. Re-read it once for hidden assumptions and unpriced second-order effects." : "分析が完了しました。暗黙の前提と織り込まれていない二次的影響を再確認してください。"}</p></div></div>{kind === "normal" && <ModelAnswer data={data as NormalCase} language={language} savedIds={savedIds} onSaveTerm={onSaveTerm} />}</>}
         {error && <div className="error-note"><b>Evaluation unavailable</b><p>{error}</p><small>Your analysis is still intact. Configure OPENAI_API_KEY in Vercel to enable AI feedback.</small></div>}
-        {evaluation && <EvaluationPanel evaluation={evaluation} language={language} savedIds={savedIds} onSaveTerm={onSaveTerm} />}
+        {evaluation && <EvaluationPanel evaluation={evaluation} language={language} contentId={data.id} savedIds={savedIds} onSaveTerm={onSaveTerm} />}
       </section></div>
   </SessionShell>;
 }
 
-function EvaluationPanel({ evaluation, language, savedIds, onSaveTerm }: { evaluation: Evaluation; language:Language; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
-  const render = (text:string,label:string) => <CatalogVocabularyText text={text} context={{mode:"deep",contentId:`deep-feedback-${label}`,label:`Deep AI feedback: ${label}`,surface:"ai-feedback",excerpt:text}} savedIds={savedIds} onSave={onSaveTerm} />;
+function EvaluationPanel({ evaluation, language, contentId, savedIds, onSaveTerm }: { evaluation: Evaluation; language:Language; contentId:string; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void }) {
+  const render = (text:string,label:string) => <CatalogVocabularyText text={text} context={{mode:"deep",contentId:`${contentId}:feedback:${label}`,label:`Deep AI feedback: ${label}`,surface:"ai-feedback",excerpt:text}} savedIds={savedIds} onSave={onSaveTerm} />;
   return <div className="evaluation"><div className="evaluation-head"><div><p className="category">OPENAI EVALUATION</p><h2>{evaluation.overallScore}<span>/100</span></h2></div><p>{render(evaluation.summary,"summary")}</p></div><div className="eval-columns"><div><h3>{language === "ja" ? "良い点" : "What works"}</h3>{evaluation.strengths.map((x,index) => <p key={x}><Check /> {render(x,`strength-${index+1}`)}</p>)}</div><div><h3>{language === "ja" ? "改善点" : "Push further"}</h3>{evaluation.improvements.map((x,index) => <p key={x}><Arrow /> {render(x,`improvement-${index+1}`)}</p>)}</div></div><div className="step-scores">{evaluation.stepFeedback.map((x,index) => <div key={x.step}><span>{x.step}</span><b>{x.score}/20</b><p>{render(x.feedback,`step-${index+1}`)}</p></div>)}</div></div>;
 }
 

@@ -27,9 +27,9 @@ function createRecord(mysteryCase:PnlMysteryCase,dateKey:string):MysteryHistoryR
   return {id:`${dateKey}:${mysteryCase.id}`,caseId:mysteryCase.id,date:dateKey,answers:emptyMysteryAnswers(),completedAt:null,explanationRevealed:false,updatedAt:now};
 }
 
-type Props = { todayCase:PnlMysteryCase; dateKey:string; displayDate:string; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void; onBack:()=>void };
+type Props = { todayCase:PnlMysteryCase; dateKey:string; displayDate:string; savedIds:Set<string>; onSaveTerm:(termId:string,context:SourceContext)=>void; onBack:()=>void; reopenId?:string; onComplete:(record:MysteryHistoryRecord,title:string)=>void; onDeleteRecord:(id:string)=>void };
 
-export function PnlMystery({todayCase,dateKey,displayDate,savedIds,onSaveTerm,onBack}:Props) {
+export function PnlMystery({todayCase,dateKey,displayDate,savedIds,onSaveTerm,onBack,reopenId,onComplete,onDeleteRecord}:Props) {
   const [record,setRecord] = useState<MysteryHistoryRecord>(() => createRecord(todayCase,dateKey));
   const [records,setRecords] = useState<MysteryHistoryRecord[]>([]);
   const [hydrated,setHydrated] = useState(false);
@@ -40,18 +40,18 @@ export function PnlMystery({todayCase,dateKey,displayDate,savedIds,onSaveTerm,on
   useEffect(() => {
     const restore = window.setTimeout(() => {
       const repository = new LocalStorageMysteryRepository(window.localStorage); const saved = repository.list();
-      setRecords(saved); setRecord(saved.find((item) => item.id === `${dateKey}:${todayCase.id}`) || createRecord(todayCase,dateKey)); setHydrated(true);
+      setRecords(saved); setRecord(saved.find((item) => item.id === reopenId) || saved.find((item) => item.id === `${dateKey}:${todayCase.id}`) || createRecord(todayCase,dateKey)); setHydrated(true);
     },0);
     return () => window.clearTimeout(restore);
-  },[dateKey,todayCase]);
+  },[dateKey,todayCase,reopenId]);
 
   const save = (next:MysteryHistoryRecord) => { const saved = new LocalStorageMysteryRepository(window.localStorage).save(next); setRecord(next); setRecords(saved); };
   const updateAnswer = (key:MysteryAnswerKey,value:string) => save({...record,answers:{...record.answers,[key]:value},updatedAt:new Date().toISOString()});
-  const completeMystery = () => { if (!complete) return; save({...record,completedAt:record.completedAt || new Date().toISOString(),updatedAt:new Date().toISOString()}); };
-  const reveal = () => save({...record,explanationRevealed:true,updatedAt:new Date().toISOString()});
+  const completeMystery = () => { if (!complete) return; const next = {...record,completedAt:record.completedAt || new Date().toISOString(),updatedAt:new Date().toISOString()}; save(next); onComplete(next,activeCase.title); };
+  const reveal = () => { const next = {...record,explanationRevealed:true,updatedAt:new Date().toISOString()}; save(next); onComplete(next,activeCase.title); };
   const reopen = (saved:MysteryHistoryRecord) => { setRecord(saved); window.scrollTo({top:0,behavior:"smooth"}); };
   const remove = (id:string) => {
-    const next = new LocalStorageMysteryRepository(window.localStorage).remove(id); setRecords(next);
+    const next = new LocalStorageMysteryRepository(window.localStorage).remove(id); setRecords(next); onDeleteRecord(id);
     if (record.id === id) setRecord(next.find((item) => item.id === `${dateKey}:${todayCase.id}`) || createRecord(todayCase,dateKey));
   };
   const context = (surface:SourceContext["surface"],excerpt:string):SourceContext => ({mode:"pnl-mystery",contentId:activeCase.id,label:`P&L Mystery: ${activeCase.title}`,surface,excerpt});

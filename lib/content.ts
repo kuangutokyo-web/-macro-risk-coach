@@ -3,7 +3,7 @@ import type { VocabularyReference } from "./vocabulary/types";
 import { importedBusyQuestionBank } from "./content/busy-bank";
 import { legacyBusyQuestionBank } from "./content/legacy-busy-bank";
 
-export type Mode = "home" | "busy" | "normal" | "deep" | "news" | "mystery" | "review" | "vocabulary";
+export type Mode = "home" | "busy" | "normal" | "deep" | "news" | "mystery" | "progress" | "review" | "vocabulary";
 
 export type QuizQuestion = {
   id: string;
