@@ -1,7 +1,8 @@
-import type { VocabularyTerm } from "./types";
-import { busyVocabularyCatalog } from "./busy-terms";
+import type { VocabularyCategory, VocabularyTerm } from "./types";
+import { busyVocabularyCatalog, busyVocabularyId } from "./busy-terms";
+import importedCatalog from "./market-risk-vocab-catalog-core.json";
 
-const coreVocabularyCatalog: VocabularyTerm[] = [
+const legacyVocabularyMetadata: VocabularyTerm[] = [
   { id:"real-yield", term:"Real yield", aliases:["real yields"], category:"Rates", definitionEn:"A bond yield adjusted for expected inflation.", definitionZh:"扣除预期通胀后的债券收益率。", definitionJa:"予想インフレ率を差し引いた債券利回り。", practicalExplanation:"It is the market’s inflation-adjusted cost of money and a key discount rate for assets.", exampleEn:"Higher real yields pressured long-duration equities.", exampleJa:"実質利回りの上昇が長期デュレーション株を圧迫した。" },
   { id:"inflation-expectations", term:"Inflation expectations", category:"Macro", definitionEn:"The rate of future inflation expected by markets or households.", definitionZh:"市场或家庭对未来通胀率的预期。", definitionJa:"市場や家計が予想する将来のインフレ率。", practicalExplanation:"Markets separate nominal yields into expected inflation and a real return.", exampleEn:"Inflation expectations rose after the oil shock.", exampleJa:"原油ショック後、インフレ期待が上昇した。" },
   { id:"long-duration", term:"Long-duration asset", aliases:["long-duration growth stocks"], category:"Risk Management", definitionEn:"An asset whose value depends heavily on cash flows far in the future.", definitionZh:"价值高度依赖遥远未来现金流的资产。", definitionJa:"遠い将来のキャッシュフローに価値が大きく依存する資産。", practicalExplanation:"When discount rates rise, distant cash flows lose more present value.", exampleEn:"Software stocks often behave like long-duration assets.", exampleJa:"ソフトウェア株は長期デュレーション資産のように動くことが多い。" },
@@ -33,6 +34,25 @@ const coreVocabularyCatalog: VocabularyTerm[] = [
   { id:"liquidity-risk", term:"Liquidity risk", aliases:["market depth","bid–ask spreads","liquidity","Poor liquidity"], category:"Risk Management", definitionEn:"The risk that a position cannot be traded quickly near its observed price.", definitionZh:"头寸无法在接近观察价格的水平迅速交易的风险。", definitionJa:"観測価格に近い水準でポジションを迅速に取引できないリスク。", practicalExplanation:"Thin markets increase transaction costs, market impact, and the chance that an exit worsens prices.", exampleEn:"Falling market depth increased liquidity risk.", exampleJa:"市場の厚み低下で流動性リスクが高まった。" },
 ];
 
-export const vocabularyCatalog: VocabularyTerm[] = [...coreVocabularyCatalog, ...busyVocabularyCatalog];
+const legacyById = new Map(legacyVocabularyMetadata.map((term) => [term.id, term]));
+
+function uniqueAliases(values: string[]): string[] | undefined {
+  const seen = new Set<string>();
+  const unique = values.filter((value) => { const normalized = value.trim().toLocaleLowerCase("en-US"); if (!normalized || seen.has(normalized)) return false; seen.add(normalized); return true; });
+  return unique.length ? unique : undefined;
+}
+
+export const canonicalVocabularyCatalog: VocabularyTerm[] = importedCatalog.terms.map((entry) => {
+  const id = busyVocabularyId(entry.term);
+  const legacy = legacyById.get(id);
+  const aliases = uniqueAliases([...(legacy?.aliases || []), ...(legacy && legacy.term.toLocaleLowerCase("en-US") !== entry.term.toLocaleLowerCase("en-US") ? [legacy.term] : [])]);
+  return { id, term:entry.term, aliases, category:entry.category as VocabularyCategory, definitionEn:entry.definitionEn, definitionZh:entry.definitionZh, definitionJa:entry.definitionJa, practicalExplanation:entry.practicalExplanation, whyItMatters:entry.whyItMatters, exampleEn:entry.exampleEn, exampleJa:entry.exampleJa };
+});
+
+const canonicalIds = new Set(canonicalVocabularyCatalog.map((term) => term.id));
+const missingDefinition = { definitionEn:"Definition not yet added", definitionZh:"定义尚未添加", definitionJa:"定義はまだ追加されていません", practicalExplanation:"Practical explanation not yet added", exampleEn:"Example not yet added", exampleJa:"例文はまだ追加されていません" } as const;
+const legacyPlaceholders = legacyVocabularyMetadata.filter((term) => !canonicalIds.has(term.id)).map((term) => ({ id:term.id, term:term.term, aliases:term.aliases, category:term.category, ...missingDefinition }));
+
+export const vocabularyCatalog: VocabularyTerm[] = [...canonicalVocabularyCatalog, ...legacyPlaceholders, ...busyVocabularyCatalog];
 
 export const vocabularyById = new Map(vocabularyCatalog.map((term) => [term.id, term]));

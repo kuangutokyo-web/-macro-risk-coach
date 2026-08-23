@@ -1,4 +1,4 @@
-export const vocabularyCategories = ["FX", "Rates", "Options", "Credit", "Macro", "Risk Management"] as const;
+export const vocabularyCategories = ["FX", "Rates", "Options", "Credit", "Macro", "P&L", "Risk Management"] as const;
 
 export type VocabularyCategory = (typeof vocabularyCategories)[number];
 export type ReviewStatus = "new" | "learning" | "mastered";
@@ -17,6 +17,7 @@ export type VocabularyTerm = {
   exampleEn: string;
   exampleJa: string;
   category: VocabularyCategory;
+  whyItMatters?: string;
 };
 
 export type VocabularyContentOverrides = Partial<Omit<VocabularyTerm, "id" | "aliases">>;

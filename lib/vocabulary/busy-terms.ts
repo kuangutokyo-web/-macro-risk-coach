@@ -1,4 +1,5 @@
 import rawBank from "../content/busy-question-bank.json";
+import canonicalCatalog from "./market-risk-vocab-catalog-core.json";
 import type { VocabularyCategory, VocabularyTerm } from "./types";
 
 const canonicalIds: Record<string, string> = {
@@ -11,6 +12,8 @@ const canonicalIds: Record<string, string> = {
   "real yields": "real-yield", "receive fixed": "receive-fixed", "short position": "short-position", "short jpy": "short-position",
   "skew": "skew", "supply shock": "supply-shock", "terms of trade": "terms-of-trade", "yield curve": "yield-curve",
 };
+
+const importedCanonicalTerms = new Set(canonicalCatalog.terms.map((entry) => entry.term.trim().toLocaleLowerCase("en-US")));
 
 function slug(term: string): string {
   return term.toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -37,7 +40,7 @@ for (const question of rawBank.questions) {
 
 /** The supplied bank contains tags but no glossary definitions. */
 export const busyVocabularyCatalog: VocabularyTerm[] = [...contexts.entries()]
-  .filter(([term]) => !canonicalIds[term.toLowerCase()])
+  .filter(([term]) => !canonicalIds[term.toLowerCase()] && !importedCanonicalTerms.has(term.trim().toLocaleLowerCase("en-US")))
   .map(([term, context]) => ({
     id: busyVocabularyId(term),
     term,

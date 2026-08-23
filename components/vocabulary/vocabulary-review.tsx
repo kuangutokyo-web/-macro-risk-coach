@@ -21,6 +21,6 @@ export function VocabularyReview({ entries, mode, onReview, onExit }: { entries:
   </section>;
 }
 
-function ReviewAnswer({ term }: { term: VocabularyTerm }) { return <div className="review-answer"><p>{term.definitionEn}</p><p>{term.practicalExplanation}</p><div><span>中文 — {term.definitionZh}</span><span>日本語 — {term.definitionJa}</span></div></div>; }
+function ReviewAnswer({ term }: { term: VocabularyTerm }) { return <div className="review-answer"><p>{term.definitionEn}</p><p>{term.practicalExplanation}</p>{term.whyItMatters && <p>{term.whyItMatters}</p>}<div><span>中文 — {term.definitionZh}</span><span>日本語 — {term.definitionJa}</span></div></div>; }
 function modeLabel(mode:ReviewMode) { return ({flashcard:"FLASHCARDS","multiple-choice":"MEANING QUIZ","en-recall":"EN → CN / JP","asian-recall":"CN / JP → EN"})[mode]; }
 function stableOrder(id:string,seed:string) { return [...`${id}${seed}`].reduce((sum,char) => sum+char.charCodeAt(0),0)%97; }
