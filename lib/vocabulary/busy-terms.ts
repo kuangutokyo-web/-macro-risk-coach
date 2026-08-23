@@ -35,20 +35,17 @@ for (const question of rawBank.questions) {
   }
 }
 
-/**
- * The supplied bank contains tags but no glossary. These conservative fallback
- * entries keep every supplied tag usable without changing the source content.
- */
+/** The supplied bank contains tags but no glossary definitions. */
 export const busyVocabularyCatalog: VocabularyTerm[] = [...contexts.entries()]
   .filter(([term]) => !canonicalIds[term.toLowerCase()])
   .map(([term, context]) => ({
     id: busyVocabularyId(term),
     term,
     category: context.category,
-    definitionEn: `A ${context.category.toLowerCase()} term or risk concept used in market analysis: ${term}.`,
-    definitionZh: `市场分析中使用的${context.category}术语或风险概念：${term}。`,
-    definitionJa: `市場分析で使われる${context.category}の用語またはリスク概念：${term}。`,
-    practicalExplanation: `In this question bank, it helps frame the market move, exposure, hedge, or P&L transmission under review.`,
-    exampleEn: `The risk manager checked ${term} before changing the position.`,
-    exampleJa: `リスク管理者はポジションを変更する前に${term}を確認した。`,
+    definitionEn: "Definition not yet added",
+    definitionZh: "定义尚未添加",
+    definitionJa: "定義はまだ追加されていません",
+    practicalExplanation: "Practical explanation not yet added",
+    exampleEn: "Example not yet added",
+    exampleJa: "例文はまだ追加されていません",
   }));
