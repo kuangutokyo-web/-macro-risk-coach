@@ -1,5 +1,6 @@
 import type { VocabularyCategory, VocabularyTerm } from "./types";
 import { busyVocabularyCatalog, busyVocabularyId } from "./busy-terms";
+import { mysteryVocabularyCatalog } from "./mystery-terms";
 import importedCatalog from "./market-risk-vocab-catalog-core.json";
 
 const legacyVocabularyMetadata: VocabularyTerm[] = [
@@ -53,6 +54,8 @@ const canonicalIds = new Set(canonicalVocabularyCatalog.map((term) => term.id));
 const missingDefinition = { definitionEn:"Definition not yet added", definitionZh:"定义尚未添加", definitionJa:"定義はまだ追加されていません", practicalExplanation:"Practical explanation not yet added", exampleEn:"Example not yet added", exampleJa:"例文はまだ追加されていません" } as const;
 const legacyPlaceholders = legacyVocabularyMetadata.filter((term) => !canonicalIds.has(term.id)).map((term) => ({ id:term.id, term:term.term, aliases:term.aliases, category:term.category, ...missingDefinition }));
 
-export const vocabularyCatalog: VocabularyTerm[] = [...canonicalVocabularyCatalog, ...legacyPlaceholders, ...busyVocabularyCatalog];
+const baseVocabularyCatalog:VocabularyTerm[] = [...canonicalVocabularyCatalog, ...legacyPlaceholders, ...busyVocabularyCatalog];
+const baseVocabularyIds = new Set(baseVocabularyCatalog.map((term) => term.id));
+export const vocabularyCatalog: VocabularyTerm[] = [...baseVocabularyCatalog, ...mysteryVocabularyCatalog.filter((term) => !baseVocabularyIds.has(term.id))];
 
 export const vocabularyById = new Map(vocabularyCatalog.map((term) => [term.id, term]));

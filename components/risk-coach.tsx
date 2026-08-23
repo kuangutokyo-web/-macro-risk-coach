@@ -5,6 +5,7 @@ import { Arrow, Check, Clock, Mark, Spark } from "./icons";
 import { busyQuestionBank, deepCaseBank, type DeepCase, type Language, type Mode, normalCaseBank, type NormalCase, quizQuestions, type QuizQuestion } from "@/lib/content";
 import { createDailyContent, type DailyContent } from "@/lib/daily-rotation";
 import { readNormalDraft, saveNormalDraft } from "@/lib/normal-drafts";
+import { pnlMysteryCases } from "@/lib/pnl-mystery/cases";
 import { vocabularyById } from "@/lib/vocabulary/catalog";
 import type { SourceContext, VocabularyReference } from "@/lib/vocabulary/types";
 import { useVocabulary } from "@/lib/vocabulary/use-vocabulary";
@@ -13,6 +14,7 @@ import { VocabularyContentProvider } from "./vocabulary/content-context";
 import { VocabularyText } from "./vocabulary/term";
 import { CatalogVocabularyText } from "./vocabulary/catalog-text";
 import { NewsDrill } from "./news/news-drill";
+import { PnlMystery } from "./pnl-mystery/pnl-mystery";
 
 type WrongAnswer = { questionId: string; selected: number; savedAt: string };
 type Evaluation = { overallScore: number; summary: string; strengths: string[]; improvements: string[]; stepFeedback: { step: string; score: number; feedback: string }[] };
@@ -21,6 +23,7 @@ const modes = [
   { id: "busy" as const, eyebrow: "BUSY MODE", time: "5–10 min", title: "Sharpen your market sense.", body: "Five fast questions. Instant explanations. Wrong answers return for review.", tone: "lime", action: "Start quick drill" },
   { id: "normal" as const, eyebrow: "NORMAL MODE", time: "20–30 min", title: "Read the risk that matters.", body: "A focused macro case. Isolate exposure, P&L drivers, and the next check.", tone: "blue", action: "Open today’s case" },
   { id: "deep" as const, eyebrow: "DEEP MODE", time: "45–60 min", title: "Build the full risk view.", body: "Work a five-step case from market move to action, then ask AI to challenge it.", tone: "coral", action: "Begin deep analysis" },
+  { id: "mystery" as const, eyebrow: "P&L MYSTERY", time: "20–30 min", title: "Explain the unexplained.", body: "Work backward from actual P&L to the exposure, hedge, Greek, basis, or valuation break.", tone: "mystery", action: "Open today’s mystery" },
   { id: "news" as const, eyebrow: "NEWS DRILL", time: "20–40 min", title: "Turn headlines into risk views.", body: "Paste one story, work the transmission chain, then take a complete prompt to your preferred AI.", tone: "news", action: "Analyze a story" },
 ];
 
@@ -47,7 +50,7 @@ export function RiskCoach() {
     let midnightTimer = 0;
     const refreshDailyContent = () => {
       const now = new Date();
-      setDailyContent(createDailyContent(now, { busy: busyQuestionBank, normal: normalCaseBank, deep: deepCaseBank }));
+      setDailyContent(createDailyContent(now, { busy: busyQuestionBank, normal: normalCaseBank, deep: deepCaseBank, mystery:pnlMysteryCases }));
       const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
       midnightTimer = window.setTimeout(refreshDailyContent, nextMidnight.getTime() - now.getTime() + 1_000);
     };
@@ -71,6 +74,7 @@ export function RiskCoach() {
           <button className={mode === "home" ? "active" : ""} onClick={() => navigate("home")}>Today</button>
           <button className={mode === "review" ? "active" : ""} onClick={() => navigate("review")}>Weekly review <span className="count">{hydrated ? wrongAnswers.length : 0}</span></button>
           <button className={mode === "news" ? "active" : ""} onClick={() => navigate("news")}>News</button>
+          <button className={mode === "mystery" ? "active" : ""} onClick={() => navigate("mystery")}>P&amp;L Mystery</button>
           <button className={mode === "vocabulary" ? "active" : ""} onClick={() => navigate("vocabulary")}>Vocabulary <span className="count vocab-count">{vocabulary.hydrated ? vocabulary.entries.length : 0}</span></button>
         </nav>
       </header>
@@ -80,6 +84,7 @@ export function RiskCoach() {
       {mode === "normal" && dailyContent && <CaseMode key={dailyContent.dateKey} kind="normal" data={dailyContent.normalCase} dailyLabel={dailyContent.displayDate} language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
       {mode === "deep" && dailyContent && <CaseMode key={dailyContent.dateKey} kind="deep" data={dailyContent.deepCase} dailyLabel={dailyContent.displayDate} language={language} setLanguage={setLanguage} onBack={() => navigate("home")} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} />}
       {mode === "news" && <NewsDrill savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} onBack={() => navigate("home")} />}
+      {mode === "mystery" && dailyContent && <PnlMystery todayCase={dailyContent.mysteryCase} dateKey={dailyContent.dateKey} displayDate={dailyContent.displayDate} savedIds={vocabulary.savedIds} onSaveTerm={vocabulary.save} onBack={() => navigate("home")} />}
       {mode === "review" && <Review wrongAnswers={wrongAnswers} onClear={clearWrong} onPractice={() => navigate("busy")} />}
       {mode === "vocabulary" && <VocabularyBank entries={vocabulary.entries} onRemove={vocabulary.remove} onReview={vocabulary.recordReview} onUpdateContent={vocabulary.updateContent} onResetContent={vocabulary.resetContent} onBack={() => navigate("home")} />}
     </main></VocabularyContentProvider>

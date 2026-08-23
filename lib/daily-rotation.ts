@@ -1,4 +1,5 @@
 import type { DeepCase, NormalCase, QuizQuestion } from "./content";
+import type { PnlMysteryCase } from "./pnl-mystery/types";
 
 const DAY_MS = 86_400_000;
 
@@ -8,6 +9,7 @@ export type DailyContent = {
   busyQuestions: QuizQuestion[];
   normalCase: NormalCase;
   deepCase: DeepCase;
+  mysteryCase: PnlMysteryCase;
 };
 
 export function localDateKey(date: Date): string {
@@ -58,9 +60,13 @@ export function selectDeepCase(bank: readonly DeepCase[], date: Date): DeepCase 
   return selectRotatingCase(bank, date, 2, "deep");
 }
 
+export function selectPnlMysteryCase(bank: readonly PnlMysteryCase[], date: Date): PnlMysteryCase {
+  return selectRotatingCase(bank, date, 1, "pnl-mystery");
+}
+
 export function createDailyContent(
   date: Date,
-  banks: { busy: readonly QuizQuestion[]; normal: readonly NormalCase[]; deep: readonly DeepCase[] },
+  banks: { busy: readonly QuizQuestion[]; normal: readonly NormalCase[]; deep: readonly DeepCase[]; mystery:readonly PnlMysteryCase[] },
 ): DailyContent {
   return {
     dateKey: localDateKey(date),
@@ -68,5 +74,6 @@ export function createDailyContent(
     busyQuestions: selectBusyQuestions(banks.busy, date),
     normalCase: selectNormalCase(banks.normal, date),
     deepCase: selectDeepCase(banks.deep, date),
+    mysteryCase: selectPnlMysteryCase(banks.mystery,date),
   };
 }

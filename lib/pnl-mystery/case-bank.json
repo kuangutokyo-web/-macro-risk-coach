@@ -1,0 +1,1038 @@
+{
+  "version": 1,
+  "title": "Macro Risk Coach P&L Mystery Case Bank",
+  "count": 30,
+  "distribution": {
+    "FX": 6,
+    "Rates": 6,
+    "Options": 6,
+    "Cross-Asset": 6,
+    "Risk Management": 6
+  },
+  "cases": [
+    {
+      "id": "mystery-001",
+      "category": "FX",
+      "difficulty": "intermediate",
+      "title": "Spot right, P&L wrong",
+      "marketSetup": "USDJPY rises 0.9%; 1M implied volatility falls 1.2 vol points.",
+      "portfolio": "Net long USDJPY delta and long short-dated vega.",
+      "clues": [
+        "Spot moved in favor",
+        "1M vol fell sharply",
+        "No major new trades"
+      ],
+      "actualPnL": "-$1.8m",
+      "referenceAnswer": {
+        "expectedPnL": "Positive from long USDJPY delta.",
+        "mystery": "Long-vega losses from the vol decline more than offset delta gains.",
+        "evidence": "Favorable spot, adverse vol, known long vega.",
+        "nextCheck": "Check delta/vega attribution by tenor and theta.",
+        "residual": "Theta or small gamma effects may remain."
+      },
+      "vocabulary": [
+        "USDJPY",
+        "delta",
+        "vega",
+        "implied volatility",
+        "P&L attribution"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-002",
+      "category": "FX",
+      "difficulty": "challenging",
+      "title": "Carry earns, funding currency rallies",
+      "marketSetup": "AUDJPY carry earns positive accrual, but JPY strengthens 2.2% in broad risk-off.",
+      "portfolio": "Leveraged long AUDJPY carry.",
+      "clues": [
+        "Positive carry",
+        "JPY rally",
+        "Equities down",
+        "Credit spreads wider"
+      ],
+      "actualPnL": "-$4.6m",
+      "referenceAnswer": {
+        "expectedPnL": "Small positive carry if looking only at accrual.",
+        "mystery": "FX loss on the short-JPY funding exposure overwhelms carry.",
+        "evidence": "Sharp JPY rally and risk-off deleveraging.",
+        "nextCheck": "Check spot delta, leverage, stops and forced unwind.",
+        "residual": "Slippage or hedge unwind costs."
+      },
+      "vocabulary": [
+        "carry trade",
+        "JPY rally",
+        "deleveraging",
+        "risk-off",
+        "slippage"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-003",
+      "category": "FX",
+      "difficulty": "challenging",
+      "title": "Flat close, options loss",
+      "marketSetup": "USDJPY closes flat after a large intraday range; 1M vol and JPY-call skew both rise.",
+      "portfolio": "Near delta-neutral, short gamma and short JPY-call skew.",
+      "clues": [
+        "Flat close",
+        "Large intraday range",
+        "Vol higher",
+        "Skew richer"
+      ],
+      "actualPnL": "-$2.9m",
+      "referenceAnswer": {
+        "expectedPnL": "Little close-to-close delta P&L.",
+        "mystery": "Short gamma loses from the path and short skew loses as downside protection richens.",
+        "evidence": "Large intraday move plus adverse skew.",
+        "nextCheck": "Check intraday hedge P&L, gamma and skew attribution.",
+        "residual": "Possible vega effect."
+      },
+      "vocabulary": [
+        "gamma",
+        "skew",
+        "delta-neutral",
+        "dynamic hedging",
+        "risk reversal"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-004",
+      "category": "FX",
+      "difficulty": "intermediate",
+      "title": "Forward moves without spot",
+      "marketSetup": "EURUSD spot is unchanged, but 6M forward points move materially.",
+      "portfolio": "Long EURUSD 6M forward.",
+      "clues": [
+        "Spot flat",
+        "Forward points move in favor",
+        "No options"
+      ],
+      "actualPnL": "+$1.2m",
+      "referenceAnswer": {
+        "expectedPnL": "Little P&L if considering spot only.",
+        "mystery": "Forward-point repricing generated the gain.",
+        "evidence": "Spot flat but forward curve changed.",
+        "nextCheck": "Check relative-rate and basis contribution.",
+        "residual": "Possible cross-currency basis effect."
+      },
+      "vocabulary": [
+        "FX forward",
+        "forward points",
+        "cross-currency basis",
+        "mark-to-market"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-005",
+      "category": "FX",
+      "difficulty": "challenging",
+      "title": "Intervention gap",
+      "marketSetup": "USDJPY falls 2.5% within minutes after suspected intervention.",
+      "portfolio": "Short USDJPY with static stop-loss hedges on client positions.",
+      "clues": [
+        "Short USDJPY should gain",
+        "Stops filled far from triggers",
+        "Liquidity thinned"
+      ],
+      "actualPnL": "+$0.8m",
+      "referenceAnswer": {
+        "expectedPnL": "Large positive directional P&L.",
+        "mystery": "Slippage and poor execution offset much of the directional gain.",
+        "evidence": "Small realized gain despite favorable move and poor fills.",
+        "nextCheck": "Compare theoretical delta P&L with execution prices.",
+        "residual": "Option gamma/vega may remain."
+      },
+      "vocabulary": [
+        "intervention risk",
+        "gap risk",
+        "stop-loss",
+        "slippage",
+        "liquidity"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-006",
+      "category": "FX",
+      "difficulty": "intermediate",
+      "title": "Japan-specific move",
+      "marketSetup": "USDJPY falls 1.4%; DXY is flat; Japan 2Y yields rise 18bp; US 2Y unchanged.",
+      "portfolio": "Long USDJPY spot.",
+      "clues": [
+        "Broad USD flat",
+        "Japan front-end higher",
+        "US front-end unchanged"
+      ],
+      "actualPnL": "-$2.1m",
+      "referenceAnswer": {
+        "expectedPnL": "Negative from long USDJPY.",
+        "mystery": "Japan-specific rate repricing narrowed the US-Japan differential and strengthened JPY.",
+        "evidence": "Local yields moved while DXY and US 2Y did not.",
+        "nextCheck": "Check BoJ repricing, local flows and intervention headlines.",
+        "residual": "Forward/hedge effects if present."
+      },
+      "vocabulary": [
+        "rate differential",
+        "front-end yields",
+        "broad USD",
+        "USDJPY"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-007",
+      "category": "Rates",
+      "difficulty": "intermediate",
+      "title": "DV01 says flat, curve says loss",
+      "marketSetup": "10Y yields fall 12bp; 2Y yields fall 2bp.",
+      "portfolio": "Near-zero total DV01; long 2Y duration and short 10Y duration.",
+      "clues": [
+        "Total DV01 near zero",
+        "10Y rallies much more"
+      ],
+      "actualPnL": "-$3.0m",
+      "referenceAnswer": {
+        "expectedPnL": "Little under a parallel-shift assumption.",
+        "mystery": "Bull flattening hurts the short 10Y leg much more than the long 2Y helps.",
+        "evidence": "Non-parallel move and opposing key-rate exposures.",
+        "nextCheck": "Check key-rate DV01 and 2s10s P&L.",
+        "residual": "Convexity or spread moves."
+      },
+      "vocabulary": [
+        "key-rate DV01",
+        "bull flattening",
+        "curve risk",
+        "DV01"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-008",
+      "category": "Rates",
+      "difficulty": "challenging",
+      "title": "Rate cut, long bond loses",
+      "marketSetup": "Central bank cuts; front end rallies, but 30Y yields rise 15bp on fiscal concerns.",
+      "portfolio": "Long 30Y government bonds.",
+      "clues": [
+        "Policy cut",
+        "30Y selloff",
+        "Fiscal headlines worsen"
+      ],
+      "actualPnL": "-$5.2m",
+      "referenceAnswer": {
+        "expectedPnL": "Naively, a cut suggests bond gains.",
+        "mystery": "Long-end term premium/fiscal risk dominates and pushes 30Y yields higher.",
+        "evidence": "30Y sells off despite front-end rally.",
+        "nextCheck": "Decompose real yield, breakeven and term-premium proxies.",
+        "residual": "Convexity."
+      },
+      "vocabulary": [
+        "term premium",
+        "fiscal risk",
+        "duration",
+        "steepening"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-009",
+      "category": "Rates",
+      "difficulty": "intermediate",
+      "title": "Parallel hedge, curve loss",
+      "marketSetup": "2Y yields rise 25bp; 10Y rise 5bp.",
+      "portfolio": "Near-zero parallel DV01; long 2Y, short 10Y.",
+      "clues": [
+        "Front end sells off much more",
+        "Parallel DV01 near zero"
+      ],
+      "actualPnL": "-$2.4m",
+      "referenceAnswer": {
+        "expectedPnL": "Little under a parallel shift.",
+        "mystery": "Bear flattening hurts the curve position.",
+        "evidence": "Non-parallel move and front-end concentration.",
+        "nextCheck": "Check 2Y/10Y key-rate DV01 and hedge ratios.",
+        "residual": "Swap-spread effects."
+      },
+      "vocabulary": [
+        "bear flattening",
+        "parallel DV01",
+        "curve exposure",
+        "key-rate DV01"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-010",
+      "category": "Rates",
+      "difficulty": "challenging",
+      "title": "Swap spread surprise",
+      "marketSetup": "5Y government yield is unchanged; 5Y swap rate rises 9bp.",
+      "portfolio": "Outright duration hedged; long 5Y swap spread.",
+      "clues": [
+        "Govt yield flat",
+        "Swap rate higher",
+        "Duration hedge works"
+      ],
+      "actualPnL": "+$1.6m",
+      "referenceAnswer": {
+        "expectedPnL": "Near-zero outright rates P&L.",
+        "mystery": "Swap-spread widening creates the gain.",
+        "evidence": "Relative swap-government move.",
+        "nextCheck": "Check swap-spread sensitivity and funding drivers.",
+        "residual": "Maturity mismatch."
+      },
+      "vocabulary": [
+        "swap spread",
+        "basis risk",
+        "duration hedge"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-011",
+      "category": "Rates",
+      "difficulty": "intermediate",
+      "title": "Stable DV01, bigger risk",
+      "marketSetup": "Total DV01 is unchanged day-on-day.",
+      "portfolio": "Risk shifts materially from 5Y into 30Y.",
+      "clues": [
+        "Total DV01 unchanged",
+        "30Y concentration rises",
+        "Long-end liquidity thinner"
+      ],
+      "actualPnL": "-$0.2m today",
+      "referenceAnswer": {
+        "expectedPnL": "Little immediate implication from total DV01 alone.",
+        "mystery": "Tail, convexity and liquidity risk increased despite stable aggregate DV01.",
+        "evidence": "Tenor migration and thinner liquidity.",
+        "nextCheck": "Check key-rate DV01, convexity, stress and exit capacity.",
+        "residual": "Current daily P&L may not show the new risk yet."
+      },
+      "vocabulary": [
+        "tenor concentration",
+        "convexity",
+        "liquidity risk",
+        "key-rate DV01"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-012",
+      "category": "Rates",
+      "difficulty": "challenging",
+      "title": "Breakeven versus real yield",
+      "marketSetup": "Nominal 10Y yield +14bp; real yield unchanged; breakeven +14bp.",
+      "portfolio": "Long nominal duration and short breakevens.",
+      "clues": [
+        "Real yield flat",
+        "Breakeven wider",
+        "Nominal yield higher"
+      ],
+      "actualPnL": "-$3.8m",
+      "referenceAnswer": {
+        "expectedPnL": "Long nominal duration should lose.",
+        "mystery": "Inflation compensation drives the rate selloff and the short-breakeven leg also loses.",
+        "evidence": "Breakevens explain the nominal move.",
+        "nextCheck": "Separate breakeven DV01 from nominal duration.",
+        "residual": "Curve-shape effects."
+      },
+      "vocabulary": [
+        "breakeven inflation",
+        "real yield",
+        "nominal yield",
+        "DV01"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-013",
+      "category": "Options",
+      "difficulty": "intermediate",
+      "title": "Long vol still loses",
+      "marketSetup": "Implied vol rises 1 point; spot barely moves.",
+      "portfolio": "Long vega, long expensive short-dated options with heavy theta.",
+      "clues": [
+        "Vega positive",
+        "Theta strongly negative",
+        "Realized vol low"
+      ],
+      "actualPnL": "-$0.7m",
+      "referenceAnswer": {
+        "expectedPnL": "Positive from higher implied vol.",
+        "mystery": "Theta decay exceeds the vega gain.",
+        "evidence": "Heavy theta and little realized movement.",
+        "nextCheck": "Check vega versus theta by expiry.",
+        "residual": "Skew effects."
+      },
+      "vocabulary": [
+        "vega",
+        "theta",
+        "realized volatility",
+        "implied volatility"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-014",
+      "category": "Options",
+      "difficulty": "challenging",
+      "title": "Flat close, intraday pain",
+      "marketSetup": "Underlying closes unchanged after a 4% intraday round trip.",
+      "portfolio": "Short gamma and dynamically delta-hedged.",
+      "clues": [
+        "Large path",
+        "Flat close",
+        "Frequent hedging"
+      ],
+      "actualPnL": "-$3.4m",
+      "referenceAnswer": {
+        "expectedPnL": "Near-zero close-to-close delta P&L.",
+        "mystery": "Short-gamma hedging realizes losses by buying high and selling low.",
+        "evidence": "Large intraday path and dynamic hedging.",
+        "nextCheck": "Review hedge trades and gamma/theta attribution.",
+        "residual": "Transaction costs and slippage."
+      },
+      "vocabulary": [
+        "short gamma",
+        "dynamic hedging",
+        "path dependency",
+        "slippage"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-015",
+      "category": "Options",
+      "difficulty": "challenging",
+      "title": "ATM up, skew hurts more",
+      "marketSetup": "ATM vol +0.8; downside skew richens sharply.",
+      "portfolio": "Long ATM vega, short downside skew.",
+      "clues": [
+        "ATM vol higher",
+        "Skew much richer",
+        "Net ATM vega positive"
+      ],
+      "actualPnL": "-$1.5m",
+      "referenceAnswer": {
+        "expectedPnL": "Positive from long ATM vega.",
+        "mystery": "Short-skew losses exceed ATM-vega gains.",
+        "evidence": "Adverse skew move and known short-skew exposure.",
+        "nextCheck": "Check strike-by-strike vol attribution.",
+        "residual": "Gamma if spot moved."
+      },
+      "vocabulary": [
+        "ATM vega",
+        "downside skew",
+        "vol surface",
+        "risk reversal"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-016",
+      "category": "Options",
+      "difficulty": "intermediate",
+      "title": "Event premium disappears",
+      "marketSetup": "Central-bank meeting passes without surprise; spot is quiet; 1W vol collapses.",
+      "portfolio": "Long 1W straddles.",
+      "clues": [
+        "Event over",
+        "Spot quiet",
+        "1W vol sharply lower"
+      ],
+      "actualPnL": "-$2.2m",
+      "referenceAnswer": {
+        "expectedPnL": "Little directional P&L.",
+        "mystery": "Vol crush and theta remove event premium.",
+        "evidence": "Long short-dated vol and no realized move.",
+        "nextCheck": "Check 1W vega and theta.",
+        "residual": "Skew if it moved."
+      },
+      "vocabulary": [
+        "vol crush",
+        "straddle",
+        "theta",
+        "vega"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-017",
+      "category": "Options",
+      "difficulty": "challenging",
+      "title": "Net vega hides term structure",
+      "marketSetup": "1M vol +2 points; 3M vol -1 point.",
+      "portfolio": "Small net vega: long 1M, short 3M.",
+      "clues": [
+        "Net vega near zero",
+        "Opposite vol moves by tenor"
+      ],
+      "actualPnL": "+$2.7m",
+      "referenceAnswer": {
+        "expectedPnL": "Little if looking only at net vega.",
+        "mystery": "Both tenor legs move in favor.",
+        "evidence": "Long 1M benefits from higher vol; short 3M benefits from lower vol.",
+        "nextCheck": "Check vega by expiry.",
+        "residual": "Skew by tenor."
+      },
+      "vocabulary": [
+        "vega by tenor",
+        "vol term structure",
+        "net vega"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-018",
+      "category": "Options",
+      "difficulty": "intermediate",
+      "title": "Delta-neutral is not risk-free",
+      "marketSetup": "Spot jumps 3% and implied vol rises.",
+      "portfolio": "Delta-neutral at open, short gamma and short vega.",
+      "clues": [
+        "Initial delta neutral",
+        "Large spot move",
+        "Vol higher"
+      ],
+      "actualPnL": "-$5.0m",
+      "referenceAnswer": {
+        "expectedPnL": "Near-zero initial delta P&L.",
+        "mystery": "Gamma changes delta as spot moves and short vega loses on higher vol.",
+        "evidence": "Large spot and vol moves against both Greeks.",
+        "nextCheck": "Check delta path, gamma and vega P&L.",
+        "residual": "Skew and execution costs."
+      },
+      "vocabulary": [
+        "delta-neutral",
+        "gamma",
+        "vega",
+        "convexity"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-019",
+      "category": "Cross-Asset",
+      "difficulty": "intermediate",
+      "title": "Growth scare, mixed book",
+      "marketSetup": "Weak payrolls: yields down, equities down, credit wider, JPY stronger.",
+      "portfolio": "Long cyclicals, long HY credit, short USDJPY, long duration.",
+      "clues": [
+        "Two losing legs",
+        "Two gaining legs"
+      ],
+      "actualPnL": "-$0.6m",
+      "referenceAnswer": {
+        "expectedPnL": "Mixed P&L.",
+        "mystery": "Small net loss reflects partial offset across exposures.",
+        "evidence": "Equity/credit losses versus FX/duration gains.",
+        "nextCheck": "Quantify contribution by asset class and concentration.",
+        "residual": "Basis or hedge differences."
+      },
+      "vocabulary": [
+        "growth scare",
+        "credit spreads",
+        "duration",
+        "risk-off"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-020",
+      "category": "Cross-Asset",
+      "difficulty": "challenging",
+      "title": "Inflation shock breaks diversification",
+      "marketSetup": "CPI surprises higher; equities -2.5%; 10Y yields +18bp.",
+      "portfolio": "Long equities and long government bonds as diversification hedge.",
+      "clues": [
+        "Equities down",
+        "Bonds down",
+        "Inflation surprise"
+      ],
+      "actualPnL": "-$7.1m",
+      "referenceAnswer": {
+        "expectedPnL": "In a growth scare, bonds might offset equity losses.",
+        "mystery": "Inflation shock makes stock-bond correlation positive, so both legs lose.",
+        "evidence": "Higher yields and lower equities after CPI.",
+        "nextCheck": "Check real yields, breakevens and correlation regime.",
+        "residual": "Sector or duration concentration."
+      },
+      "vocabulary": [
+        "inflation shock",
+        "stock-bond correlation",
+        "diversification",
+        "real yield"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-021",
+      "category": "Cross-Asset",
+      "difficulty": "intermediate",
+      "title": "Oil shock transmission",
+      "marketSetup": "Oil +12%; breakevens widen; equities weaken.",
+      "portfolio": "Long airlines, long duration, long energy equities.",
+      "clues": [
+        "Airlines down",
+        "Energy up",
+        "Nominal yields higher"
+      ],
+      "actualPnL": "-$2.3m",
+      "referenceAnswer": {
+        "expectedPnL": "Mixed sector and rates P&L.",
+        "mystery": "Airline and duration losses outweigh energy gains.",
+        "evidence": "Higher oil and yields hurt two large legs.",
+        "nextCheck": "Check sector P&L and breakeven versus real-yield driver.",
+        "residual": "FX if global."
+      },
+      "vocabulary": [
+        "oil shock",
+        "breakeven inflation",
+        "duration",
+        "sector risk"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-022",
+      "category": "Cross-Asset",
+      "difficulty": "challenging",
+      "title": "USD strength, EM stress",
+      "marketSetup": "USD broad strength; EM FX down; local yields up; credit wider.",
+      "portfolio": "Long EM local bonds, FX-hedged at inception.",
+      "clues": [
+        "FX hedge exists",
+        "Local yields higher",
+        "Credit wider",
+        "Hedge tenor differs"
+      ],
+      "actualPnL": "-$4.4m",
+      "referenceAnswer": {
+        "expectedPnL": "FX hedge should reduce direct currency loss.",
+        "mystery": "Local-rate and credit/basis losses dominate; tenor mismatch leaves residual risk.",
+        "evidence": "Adverse rates/credit plus hedge mismatch.",
+        "nextCheck": "Check local DV01, spread sensitivity, hedge maturity and basis.",
+        "residual": "Rollover/liquidity."
+      },
+      "vocabulary": [
+        "EM FX",
+        "basis risk",
+        "tenor mismatch",
+        "DV01",
+        "credit spreads"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-023",
+      "category": "Cross-Asset",
+      "difficulty": "challenging",
+      "title": "Safe-haven hedge fails",
+      "marketSetup": "Global equities -4%, credit wider, but JPY barely strengthens.",
+      "portfolio": "Long JPY as hedge against global risk-off.",
+      "clues": [
+        "Risk-off elsewhere",
+        "JPY response weak"
+      ],
+      "actualPnL": "-$3.6m",
+      "referenceAnswer": {
+        "expectedPnL": "JPY gains should offset equity/credit losses.",
+        "mystery": "The safe-haven relationship is weak in this regime.",
+        "evidence": "Risk-off is present but JPY does not respond.",
+        "nextCheck": "Check rate differentials, Japan flows and hedge beta.",
+        "residual": "Timing or sizing mismatch."
+      },
+      "vocabulary": [
+        "safe haven",
+        "regime shift",
+        "hedge beta",
+        "risk-off"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-024",
+      "category": "Cross-Asset",
+      "difficulty": "intermediate",
+      "title": "Equity rally, credit widening",
+      "marketSetup": "Equities +1.5%; credit spreads +12bp.",
+      "portfolio": "Long equities and long corporate credit.",
+      "clues": [
+        "Equity gains",
+        "Credit losses",
+        "Signals conflict"
+      ],
+      "actualPnL": "+$0.4m",
+      "referenceAnswer": {
+        "expectedPnL": "Mixed.",
+        "mystery": "Small gain reflects offsetting cross-asset exposures, not a clean risk-on move.",
+        "evidence": "Equity and credit send opposite signals.",
+        "nextCheck": "Check sector composition and credit beta.",
+        "residual": "Rates or FX on credit book."
+      },
+      "vocabulary": [
+        "cross-asset divergence",
+        "credit spreads",
+        "risk-on"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-025",
+      "category": "Risk Management",
+      "difficulty": "intermediate",
+      "title": "Risk unchanged, P&L jumps",
+      "marketSetup": "Markets quiet; no major trades.",
+      "portfolio": "Sensitivities stable, but EOD P&L jumps after valuation batch.",
+      "clues": [
+        "Quiet markets",
+        "No trading",
+        "Risk stable",
+        "P&L jumps after batch"
+      ],
+      "actualPnL": "-$2.0m",
+      "referenceAnswer": {
+        "expectedPnL": "Little market-driven P&L.",
+        "mystery": "Revaluation, reserves, model inputs or market-data updates are more likely.",
+        "evidence": "Timing of jump and stable risk.",
+        "nextCheck": "Check valuation logs, reserves, model version and data snapshots.",
+        "residual": "Unexplained until reconciled."
+      },
+      "vocabulary": [
+        "revaluation",
+        "reserves",
+        "model risk",
+        "market data",
+        "reconciliation"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-026",
+      "category": "Risk Management",
+      "difficulty": "challenging",
+      "title": "Reported risk falls after model change",
+      "marketSetup": "No market or position change.",
+      "portfolio": "Reported VaR falls 20% after methodology release.",
+      "clues": [
+        "Positions unchanged",
+        "Markets quiet",
+        "Model version changed"
+      ],
+      "actualPnL": "+$0.1m",
+      "referenceAnswer": {
+        "expectedPnL": "No major economic change.",
+        "mystery": "Lower reported risk is measurement-driven, not necessarily economic risk reduction.",
+        "evidence": "Model change is the only major event.",
+        "nextCheck": "Compare old/new methodology, backtests and stress.",
+        "residual": "Economic risk may be unchanged."
+      },
+      "vocabulary": [
+        "VaR",
+        "model risk",
+        "methodology",
+        "measurement risk"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-027",
+      "category": "Risk Management",
+      "difficulty": "challenging",
+      "title": "Net risk small, stress loss large",
+      "marketSetup": "Normal-day moves modest.",
+      "portfolio": "Near-zero net delta but large offsetting gross positions across tenors.",
+      "clues": [
+        "Net delta small",
+        "Gross large",
+        "Tenor mismatch",
+        "Long-dated liquidity poor"
+      ],
+      "actualPnL": "-$0.3m today; stress loss doubles",
+      "referenceAnswer": {
+        "expectedPnL": "Small normal-day delta P&L.",
+        "mystery": "Stress rises because offsets are imperfect across tenor, basis and liquidity.",
+        "evidence": "Gross size, mismatch and liquidity deterioration.",
+        "nextCheck": "Check gross buckets, basis stress and exit capacity.",
+        "residual": "Daily P&L understates stress risk."
+      },
+      "vocabulary": [
+        "gross exposure",
+        "net exposure",
+        "basis risk",
+        "liquidity risk",
+        "stress loss"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-028",
+      "category": "Risk Management",
+      "difficulty": "intermediate",
+      "title": "Hedge gains, portfolio still loses",
+      "marketSetup": "Underlying sells off; hedge gains as intended.",
+      "portfolio": "Partial hedge sized using historical beta.",
+      "clues": [
+        "Hedge positive",
+        "Underlying loss larger",
+        "Beta recently increased"
+      ],
+      "actualPnL": "-$1.9m",
+      "referenceAnswer": {
+        "expectedPnL": "Loss should be reduced by hedge.",
+        "mystery": "Hedge works directionally but is undersized because current beta is higher.",
+        "evidence": "Hedge gains but not enough; beta changed.",
+        "nextCheck": "Re-estimate hedge ratio and current beta.",
+        "residual": "Basis or timing mismatch."
+      },
+      "vocabulary": [
+        "hedge ratio",
+        "beta",
+        "basis risk",
+        "partial hedge"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-029",
+      "category": "Risk Management",
+      "difficulty": "challenging",
+      "title": "Stale data hides morning risk",
+      "marketSetup": "Market gaps overnight after a central-bank surprise.",
+      "portfolio": "Morning report still uses yesterday's close.",
+      "clues": [
+        "Large overnight move",
+        "Stale timestamp",
+        "Live loss much larger"
+      ],
+      "actualPnL": "-$4.8m live; report shows -$1.1m",
+      "referenceAnswer": {
+        "expectedPnL": "Report suggests a smaller loss.",
+        "mystery": "Stale-data/timing risk understates current P&L.",
+        "evidence": "Timestamp mismatch and overnight gap.",
+        "nextCheck": "Refresh market data and rerun valuation.",
+        "residual": "Any remaining difference needs trade/model reconciliation."
+      },
+      "vocabulary": [
+        "stale data",
+        "timing risk",
+        "gap risk",
+        "market data"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    },
+    {
+      "id": "mystery-030",
+      "category": "Risk Management",
+      "difficulty": "challenging",
+      "title": "The unexplained residual",
+      "marketSetup": "USDJPY +1%; implied vol falls.",
+      "portfolio": "Long delta and short vega.",
+      "clues": [
+        "Delta contribution +$2.8m",
+        "Vega contribution +$0.7m",
+        "No major new trades"
+      ],
+      "actualPnL": "+$2.4m",
+      "referenceAnswer": {
+        "expectedPnL": "About +$3.5m from known delta and vega.",
+        "mystery": "Roughly -$1.1m remains unexplained.",
+        "evidence": "Known explain exceeds actual P&L by $1.1m.",
+        "nextCheck": "Reconcile theta, skew, carry, fees, reserves, model changes and timing.",
+        "residual": "Approximately -$1.1m."
+      },
+      "vocabulary": [
+        "unexplained P&L",
+        "P&L explain",
+        "reconciliation",
+        "residual"
+      ],
+      "questions": {
+        "expectedPnL": "Based on the stated positions and market moves, what would you initially expect the P&L direction to be?",
+        "mystery": "Actual P&L differs from that expectation. What is the most likely explanation?",
+        "evidence": "Which clue(s) support your explanation?",
+        "nextCheck": "What would you verify next to confirm or reject your hypothesis?",
+        "residual": "What part of the P&L remains unexplained?"
+      }
+    }
+  ]
+}
